@@ -7,6 +7,14 @@ abstract class Failure extends Equatable {
   List<Object> get props => [];
 }
 
+class OtherFailure extends Failure {
+  final String message;
+
+  OtherFailure({required this.message});
+  @override
+  List<Object> get props => [message];
+}
+
 class NetworkFailure extends Failure {
   final ResponseException responseException;
   NetworkFailure({

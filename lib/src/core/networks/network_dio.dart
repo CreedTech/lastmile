@@ -41,22 +41,35 @@ class NetworkContainerImpl implements NetworkContainer {
       ),
     );
 
-    if (methodType == MethodType.get) {
-      final response = await dio.get(
-        rootUrl + path,
-        options: Options(
-          contentType: "application/json",
-        ),
-      );
+    try {
+      Response response;
+      if (methodType == MethodType.get) {
+        response = await dio.get(
+          rootUrl + path,
+          options: Options(
+            contentType: "application/json",
+          ),
+        );
+      } else {
+        response = await dio.post(
+          rootUrl + path,
+          options: Options(
+            contentType: "application/json",
+          ),
+          data: data,
+        );
+      }
+
+      print('Request Payload:');
+      print(data);
+
+      print('Response:');
+      print(response);
+
       return response;
+    } catch (e) {
+      print('Error: $e');
+      throw e; // rethrow the error after logging
     }
-    final response = await dio.post(
-      rootUrl + path,
-      options: Options(
-        contentType: "application/json",
-      ),
-      data: data,
-    );
-    return response;
   }
 }

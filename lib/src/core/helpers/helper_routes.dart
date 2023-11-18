@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/presentation/auth/login/view/login_view.dart';
 import 'package:lastmile/src/presentation/home/view/get_started_view.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_one.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_three.dart';
@@ -36,6 +37,11 @@ class RouterGenerator {
         return MaterialPageRoute(
           builder: (context) => const GetStartedView(),
           settings: const RouteSettings(name: getStarted),
+        );
+      case login:
+        return MaterialPageRoute(
+          builder: (context) => const LoginView(),
+          settings: const RouteSettings(name: login),
         );
       case home:
         return MaterialPageRoute(

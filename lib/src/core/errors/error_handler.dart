@@ -73,6 +73,8 @@ class ResponseException {
   }
 
   static ResponseException getDioException(dynamic error) {
+    print('error here');
+    print(error);
     if (error is Exception) {
       try {
         ResponseException responseException;
@@ -107,6 +109,8 @@ class ResponseException {
               break;
             case DioErrorType.response:
               final data = ErrorModel.fromJson(error.response?.data);
+              print('data');
+              print(data);
               if (error.response?.statusCode != 200) {}
               responseException = ResponseException.error(
                 type: EResponseException.DEFAULTERROR,

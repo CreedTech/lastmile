@@ -43,7 +43,7 @@ class _GetStartedViewState extends State<GetStartedView> {
                                     elevation: 0,
                                   ),
                                   onPressed: () {
-                                    // Guide.toReplacment(name: getStarted);
+                                    Guide.to(name: login);
                                   },
                                   child: const Text(
                                     'Login',

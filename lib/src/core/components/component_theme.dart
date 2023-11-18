@@ -13,29 +13,41 @@ const Color textGray = Color(0xFF595959);
 const Color darkThemeText = Color.fromARGB(255, 135, 134, 134);
 
 final ligthTheme = ThemeData(
-  visualDensity: VisualDensity.adaptivePlatformDensity,
-  primaryColor: colorPrimary,
-  // primarySwatch: primaryCustomSwatch,
-  brightness: Brightness.light,
-  fontFamily: GoogleFonts.roboto().fontFamily,
-  bottomSheetTheme:
-      BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)),
-  scaffoldBackgroundColor: Colors.white,
-  textTheme:  const TextTheme(
-    bodyLarge: TextStyle(),
-    bodyMedium: TextStyle(),
-  ).apply(
-    bodyColor: colorsBlack,
-    displayColor: colorsBlack,
-  ),
-  textSelectionTheme: const TextSelectionThemeData(cursorColor: colorPrimary), colorScheme: const ColorScheme.light()
-      .copyWith(primary: colorPrimary, onPrimary: colorPrimary)
-      .copyWith(
-        primary: colorPrimary,
-        secondary: colorPrimary,
-        brightness: Brightness.light,
-      ).copyWith(background: Colors.white),
-);
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    primaryColor: colorPrimary,
+    // primarySwatch: primaryCustomSwatch,
+    brightness: Brightness.light,
+    fontFamily: GoogleFonts.roboto().fontFamily,
+    bottomSheetTheme:
+        BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)),
+    scaffoldBackgroundColor: Colors.white,
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(),
+      bodyMedium: TextStyle(),
+    ).apply(
+      bodyColor: colorsBlack,
+      displayColor: colorsBlack,
+    ),
+    textSelectionTheme: const TextSelectionThemeData(cursorColor: colorPrimary),
+    colorScheme: const ColorScheme.light()
+        .copyWith(primary: colorPrimary, onPrimary: colorPrimary)
+        .copyWith(
+          primary: colorPrimary,
+          secondary: colorPrimary,
+          brightness: Brightness.light,
+        )
+        .copyWith(background: Colors.white),
+    inputDecorationTheme: const InputDecorationTheme(
+      // hintStyle: Theme.of(context).textTheme.greySubtitle1,
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: colorsBlack,
+        ),
+      ),
+      enabledBorder:
+          OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+    ),
+    );
 
 final darkTheme = ThemeData(
   visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -55,10 +67,12 @@ final darkTheme = ThemeData(
   bottomSheetTheme:
       BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)),
   scaffoldBackgroundColor: colorsBlack,
-  textSelectionTheme: const TextSelectionThemeData(cursorColor: colorPrimary), colorScheme: const ColorScheme.dark()
+  textSelectionTheme: const TextSelectionThemeData(cursorColor: colorPrimary),
+  colorScheme: const ColorScheme.dark()
       .copyWith(primary: colorPrimary, onPrimary: colorPrimary)
       .copyWith(
         secondary: colorPrimary,
         brightness: Brightness.dark,
-      ).copyWith(background: colorsBlack),
+      )
+      .copyWith(background: colorsBlack),
 );

@@ -1,7 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/data/datasource/auth/authentication_local_data_source.dart';
+import 'package:lastmile/src/data/datasource/auth/authentication_remote_data_source.dart';
+import 'package:lastmile/src/data/repository/auth_repository_impl.dart';
+import 'package:lastmile/src/domain/abstraction/auth_repository.dart';
+import 'package:lastmile/src/domain/usecases/login_user.dart';
+import 'package:lastmile/src/presentation/auth/login/bloc/injection_login.dart';
+import 'package:lastmile/src/presentation/history/bloc/injection_history_bloc.dart';
 import 'package:lastmile/src/presentation/home/bloc/injection_home_bloc.dart';
+import 'package:lastmile/src/presentation/loading/bloc/injecttion_loading_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -9,19 +17,21 @@ Future<void> init() async {
   //! Bloc
 
   HomeBlocInjection.init(sl: sl);
-  // ExploreBlocInjection.init(sl: sl);
+  HistoryBlocInjection.init(sl: sl);
+  LoginBlocInjection.init(sl: sl);
+  LoadingBlocInjection.init(sl: sl);
   // BookmarkBlocInjection.init(sl: sl);
 
   //! Domain
 
   /// Repositories
-  // sl.registerLazySingleton<NewsRepository>(
-  //   () => NewsRepositoryImpl(
-  //     sl(),
-  //     sl(),
-  //     sl(),
-  //   ),
-  // );
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(
+      sl(),
+      sl(),
+      // sl(),
+    ),
+  );
   // sl.registerLazySingleton<BookmarkRepository>(
   //   () => BookmarkRepositoryImpl(
   //     sl(),
@@ -29,7 +39,7 @@ Future<void> init() async {
   // );
 
   /// Usecases
-  // sl.registerLazySingleton(() => GetTrendingCase(sl()));
+  sl.registerLazySingleton(() => LoginUser(sl()));
   // sl.registerLazySingleton(() => GetHotCase(sl()));
   // sl.registerLazySingleton(() => GetRecommendationCase(sl()));
   // sl.registerLazySingleton(() => GetHeadlinesCase(sl()));
@@ -42,16 +52,16 @@ Future<void> init() async {
   //! Data
 
   /// Datasources
-  // sl.registerLazySingleton<NewsRemoteDataSource>(
-  //   () => NewsRemoteDataSourceImpl(
-  //     http: sl(),
-  //   ),
-  // );
-  // sl.registerLazySingleton<NewsLocalDataSource>(
-  //   () => NewsLocalDataSourceImpl(
-  //     storage: sl(),
-  //   ),
-  // );
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(
+      http: sl(),
+    ),
+  );
+  sl.registerLazySingleton<AuthenticationLocalDataSource>(
+    () => AuthenticationLocalDataSourceImpl(
+      // storage: sl(),
+    ),
+  );
   // sl.registerLazySingleton<BookmarkLocalDataSource>(
   //   () => BookmarkLocalDataSourceImpl(
   //     sl(),
