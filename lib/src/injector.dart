@@ -10,6 +10,8 @@ import 'package:lastmile/src/presentation/auth/login/bloc/injection_login.dart';
 import 'package:lastmile/src/presentation/history/bloc/injection_history_bloc.dart';
 import 'package:lastmile/src/presentation/home/bloc/injection_home_bloc.dart';
 import 'package:lastmile/src/presentation/loading/bloc/injecttion_loading_bloc.dart';
+import 'package:lastmile/src/presentation/order/bloc/injection_order_bloc.dart';
+import 'package:lastmile/src/presentation/profile/bloc/injection_profile.dart';
 
 final sl = GetIt.instance;
 
@@ -18,6 +20,8 @@ Future<void> init() async {
 
   HomeBlocInjection.init(sl: sl);
   HistoryBlocInjection.init(sl: sl);
+  OrderBlocInjection.init(sl: sl);
+  ProfileBlocInjection.init(sl: sl);
   LoginBlocInjection.init(sl: sl);
   LoadingBlocInjection.init(sl: sl);
   // BookmarkBlocInjection.init(sl: sl);
@@ -59,8 +63,8 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<AuthenticationLocalDataSource>(
     () => AuthenticationLocalDataSourceImpl(
-      // storage: sl(),
-    ),
+        // storage: sl(),
+        ),
   );
   // sl.registerLazySingleton<BookmarkLocalDataSource>(
   //   () => BookmarkLocalDataSourceImpl(

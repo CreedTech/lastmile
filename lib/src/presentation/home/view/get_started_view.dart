@@ -33,7 +33,7 @@ class _GetStartedViewState extends State<GetStartedView> {
                           child: Container(
                             // width: MediaQuery.of(context).size.width * 2,
                             alignment: Alignment.center,
-                            height: 110.h,
+                            // height: 110.h,
                             child: Column(
                               children: [
                                 ElevatedButton(
@@ -64,7 +64,7 @@ class _GetStartedViewState extends State<GetStartedView> {
                                   child: const Text(
                                     'Create Account',
                                     textAlign: TextAlign.center,
-                                  ).normalSized(16).colors(colorsBlack),
+                                  ).normalSized(16.sp).colors(colorsBlack),
                                 ),
                               ],
                             ),
