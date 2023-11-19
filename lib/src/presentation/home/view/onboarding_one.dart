@@ -23,7 +23,7 @@ class _OnboardingViewOneState extends State<OnboardingViewOne> {
                   right: 10.w,
                   child: GestureDetector(
                     onTap: () {
-                      Guide.to(name: onboardingTwo);
+                      Navigator.of(context).pushNamed(onboardingTwo);
                     },
                     child: const Text(
                       'Next',
@@ -124,7 +124,7 @@ class _OnboardingViewOneState extends State<OnboardingViewOne> {
                                 elevation: 0,
                               ),
                               onPressed: () {
-                                Guide.to(name: onboardingTwo);
+                                Navigator.of(context).pushNamed(onboardingTwo);
                               },
                               child: const Text(
                                 'Get Started',

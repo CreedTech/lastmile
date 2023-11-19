@@ -35,7 +35,7 @@ class _OnboardingViewThreeState extends State<OnboardingViewThree> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Guide.to(name: getStarted);
+                        Navigator.of(context).pushNamed(getStarted);
                       },
                       child: const Text(
                         'Get Started',

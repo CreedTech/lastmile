@@ -1,6 +1,6 @@
 const root = "/";
 const onboardingOne = "/onboardingOne";
-const onboardingTwo = "/onboardingTwo";
+const onboardingTwo = "onboardingTwo";
 const onboardingThree = "/onboardingThree";
 const getStarted = "/getStarted";
 

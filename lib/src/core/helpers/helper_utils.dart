@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-
-import '../../injector.dart';
-import '../core.dart';
+import 'package:lastmile/src/core/core.dart';
 
 class NavigatorHelper {
-  GlobalKey<NavigatorState> kNavKey = GlobalKey<NavigatorState>();
-  GlobalKey<ScaffoldMessengerState> kscaffoldMessengerKey =
-      GlobalKey<ScaffoldMessengerState>();
+  final GlobalKey<NavigatorState> kNavKey;
+  final GlobalKey<ScaffoldMessengerState> kscaffoldMessengerKey;
+
+  NavigatorHelper()
+      : kNavKey = GlobalKey<NavigatorState>(),
+        kscaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   void pop() {
     return kNavKey.currentState!.pop();
@@ -36,25 +37,25 @@ class NavigatorHelper {
 
 class Guide {
   static void back() {
-    return sl<NavigatorHelper>().pop();
+    return NavigatorHelper().pop();
   }
 
   static Future<dynamic> to({required String name, Object? arguments}) {
-    return sl<NavigatorHelper>().toName(name: name, arguments: arguments);
+    return NavigatorHelper().toName(name: name, arguments: arguments);
   }
 
   static Future<dynamic> toReplacment(
       {required String name, Object? arguments}) {
-    return sl<NavigatorHelper>()
+    return NavigatorHelper()
         .toNameReplacement(name: name, arguments: arguments);
   }
 
   static Future<dynamic> toRemove({required String name, Object? arguments}) {
-    return sl<NavigatorHelper>().toNameRemove(name: name, arguments: arguments);
+    return NavigatorHelper().toNameRemove(name: name, arguments: arguments);
   }
 
   static void showSnack(SnackBar snack) {
-    return sl<NavigatorHelper>().snackBar(snack);
+    return NavigatorHelper().snackBar(snack);
   }
 
   static String failureToMessage(Failure failure) {

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lastmile/src/presentation/history/bloc/history/history_bloc.dart';
+// import 'package:lastmile/src/presentation/history/bloc/history/history_bloc.dart';
 import 'package:lastmile/src/presentation/history/view/history_view.dart';
-import 'package:lastmile/src/presentation/home/bloc/home/home_bloc.dart';
-import 'package:lastmile/src/presentation/order/bloc/order/order_bloc.dart';
+// import 'package:lastmile/src/presentation/home/bloc/home/home_bloc.dart';
+// import 'package:lastmile/src/presentation/order/bloc/order/order_bloc.dart';
 import 'package:lastmile/src/presentation/order/view/order_view.dart';
-import 'package:lastmile/src/presentation/profile/bloc/profile/profile_bloc.dart';
+// import 'package:lastmile/src/presentation/profile/bloc/profile/profile_bloc.dart';
 import 'package:lastmile/src/presentation/profile/view/profile_view.dart';
 
 import '../../../core/components/component_theme.dart';
-import '../../../injector.dart';
+// import '../../../injector.dart';
 import '../../home/view/home_view.dart';
 
 class NavigationViews extends StatefulWidget {
@@ -85,7 +85,7 @@ class _NavigationViewsState extends State<NavigationViews> {
           child: _buildPage(_selectedIndex),
         ),
         bottomNavigationBar: SizedBox(
-          height: 80.h,
+          // height: 80.h,
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             selectedIconTheme: IconThemeData(color: colorPrimary),
@@ -220,31 +220,16 @@ class _NavigationViewsState extends State<NavigationViews> {
   Widget _buildPage(int index) {
     switch (index) {
       case 0:
-        return BlocProvider(
-          create: (_) => sl<HomeBloc>(),
-          child: const HomeView(),
-        );
+        return const HomeView();
       case 1:
-        return BlocProvider(
-          create: (_) => sl<OrderBloc>(),
-          child: const OrderView(),
-        );
+        return const OrderView();
       case 2:
-        return BlocProvider(
-          create: (_) => sl<HistoryBloc>(),
-          child: const HistoryView(),
-        );
+        return const HistoryView();
       
       case 3:
-        return BlocProvider(
-          create: (_) => sl<ProfileBloc>(),
-          child: const ProfileView(),
-        );
+        return const ProfileView();
       default:
-        return BlocProvider(
-          create: (_) => sl<HomeBloc>(),
-          child: const HomeView(),
-        );
+        return const HomeView();
     }
   }
 }

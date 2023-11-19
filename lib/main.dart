@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lastmile/src/core/core.dart';
-import 'package:lastmile/src/presentation/auth/login/bloc/login/login_cubit.dart';
-import 'package:lastmile/src/presentation/loading/bloc/loading/loading_cubit.dart';
-import 'package:lastmile/src/presentation/loading/loading_screen.dart';
-import 'src/injector.dart';
-import 'src/presentation/home/bloc/theme/theme_mode_bloc.dart';
+import 'package:lastmile/src/data/api/api_client.dart';
+// import 'package:lastmile/src/presentation/auth/login/bloc/login/login_cubit.dart';
+// import 'package:lastmile/src/presentation/loading/bloc/loading/loading_cubit.dart';
+// import 'package:lastmile/src/presentation/loading/loading_screen.dart';
+// import 'src/injector.dart';
+// import 'src/presentation/home/bloc/theme/theme_mode_bloc.dart';
 
+final apiClientProvider = Provider<ApiClient>((ref) {
+  return ApiClient();
+});
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // FlutterSecureStorage storage = const FlutterSecureStorage();
   //
   // await storage.deleteAll();
-  await init();
+  // await init();
 
-  runApp(const MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -25,20 +30,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late LoginCubit _loginBloc;
-  late LoadingCubit _loadingCubit;
+  // late LoginCubit _loginBloc;
+  // late LoadingCubit _loadingCubit;
 
   @override
   void initState() {
     super.initState();
-    _loginBloc = sl<LoginCubit>();
-    _loadingCubit = sl<LoadingCubit>();
+    // _loginBloc = sl<LoginCubit>();
+    // _loadingCubit = sl<LoadingCubit>();
   }
 
   @override
   void dispose() {
-    _loginBloc.close();
-    _loadingCubit.close();
+    // _loginBloc.close();
+    // _loadingCubit.close();
     super.dispose();
   }
 
@@ -46,48 +51,26 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     setUpScreenUtils(context);
     setStatusBar();
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<LoginCubit>.value(value: _loginBloc),
-        BlocProvider<LoadingCubit>.value(value: _loadingCubit),
-        BlocProvider<ThemeModeBloc>(
-          create: (_) => sl<ThemeModeBloc>()..add(const ReadThemeModeEvent()),
-        ),
-      ],
-      child: BlocBuilder<ThemeModeBloc, ThemeModeState>(
-        builder: (_, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'TAA CONNECT',
-            theme: ligthTheme,
-            darkTheme: darkTheme,
-            themeMode: state.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-            
-            builder: (context, child) {
-              return LoadingScreen(
-                screen: child!,
-              );
-            },
-            // builder: (c, w) {
-            //   setUpScreenUtils(c);
-            //   return MediaQuery(
-            //     data: MediaQuery.of(c).copyWith(textScaleFactor: 1.0),
-            //     child: ScrollConfiguration(
-            //       behavior: MyBehavior(),
-            //       child: LoadingScreen(
-            //         screen: w!,
-            //       ),
-            //     ),
-            //   );
-            // },
-            navigatorKey: sl<NavigatorHelper>().kNavKey,
-            scaffoldMessengerKey: sl<NavigatorHelper>().kscaffoldMessengerKey,
-            initialRoute: root,
-            onGenerateRoute: sl<RouterGenerator>().generate,
-          );
-        },
-      ),
-      // ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'TAA CONNECT',
+      theme: ligthTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.light,
+      builder: (c, w) {
+        setUpScreenUtils(c);
+        return MediaQuery(
+          data: MediaQuery.of(c).copyWith(textScaleFactor: 1.0),
+          child: ScrollConfiguration(
+            behavior: MyBehavior(),
+            child: w!,
+          ),
+        );
+      },
+      navigatorKey: NavigatorHelper().kNavKey,
+      scaffoldMessengerKey: NavigatorHelper().kscaffoldMessengerKey,
+      initialRoute: root,
+      onGenerateRoute: RouterGenerator().generate,
     );
   }
 }

@@ -43,14 +43,16 @@ class _GetStartedViewState extends State<GetStartedView> {
                                     elevation: 0,
                                   ),
                                   onPressed: () {
-                                    Guide.to(name: login);
+                                    Navigator.of(context).pushNamed(login);
                                   },
                                   child: const Text(
                                     'Login',
                                     textAlign: TextAlign.center,
                                   ).normalSized(16).colors(colorWhite),
                                 ),
-                                SizedBox(height: 10.h,),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     minimumSize: Size(400.w, 50.h),

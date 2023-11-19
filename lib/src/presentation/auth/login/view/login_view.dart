@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/core/core.dart';
-import 'package:lastmile/src/presentation/auth/login/bloc/login/login_cubit.dart';
+// import 'package:lastmile/src/presentation/auth/login/bloc/login/login_cubit.dart';
 import 'package:lastmile/src/presentation/widgets/custom_text_field.dart';
 
 class LoginView extends StatefulWidget {
@@ -185,8 +185,9 @@ class _LoginViewState extends State<LoginView> {
                           // ),
                           GestureDetector(
                             onTap: () {
-                              Guide.toRemove(
-                                name: home,
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                home,
+                                (route) => false,
                               );
                               // if (loginFormKey.currentState!.validate()) {
                               //   print('=============================================');
