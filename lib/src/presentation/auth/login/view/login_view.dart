@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/data/datasource/auth/controller/auth_controller.dart';
 // import 'package:lastmile/src/presentation/auth/login/bloc/login/login_cubit.dart';
 import 'package:lastmile/src/presentation/widgets/custom_text_field.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  ConsumerState<LoginView> createState() => _LoginViewConsumerState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewConsumerState extends ConsumerState<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final loginFormKey = GlobalKey<FormState>();
@@ -50,6 +52,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authControllerProvider.notifier);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -145,59 +148,39 @@ class _LoginViewState extends State<LoginView> {
                                     ),
                                   ],
                                 ),
-                                Container(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
-                                        color: colorPrimary,
-                                        fontSize: 12.sp,
-                                        leadingDistribution:
-                                            TextLeadingDistribution.even,
-                                        fontWeight: FontWeight.w600,
-                                        decoration: TextDecoration.underline),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(forgotPass);
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      'Forgot Password?',
+                                      style: TextStyle(
+                                          color: colorPrimary,
+                                          fontSize: 12.sp,
+                                          leadingDistribution:
+                                              TextLeadingDistribution.even,
+                                          fontWeight: FontWeight.w600,
+                                          decoration: TextDecoration.underline),
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          // BlocConsumer<LoginCubit, LoginState>(
-                          //   buildWhen: (previous, current) =>
-                          //       current is LoginError,
-                          //   builder: (context, state) {
-                          //     if (state is LoginError) {
-                          //       return Text(
-                          //         state.message,
-                          //         style: GoogleFonts.nunito(
-                          //             fontSize: 12.sp,
-                          //             fontWeight: FontWeight.w600),
-                          //       );
-                          //     }
-                          //     return const SizedBox.shrink();
-                          //   },
-                          //   listenWhen: (previous, current) =>
-                          //       current is LoginSuccess,
-                          //   listener: (context, state) {
-                          //     Guide.toRemove(
-                          //       name: home,
-                          //     );
-                          //   },
-                          // ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                home,
-                                (route) => false,
-                              );
-                              // if (loginFormKey.currentState!.validate()) {
-                              //   print('=============================================');
-                              //   print(_emailController.text);
-                              //   print('=============================================');
-                              //   BlocProvider.of<LoginCubit>(context)
-                              //       .initiateLogin(
-                              //           _emailController.text.trim(),
-                              //           _passwordController.text.trim());
-                              // }
+                              // Navigator.of(context).pushNamedAndRemoveUntil(
+                              //   home,
+                              //   (route) => false,
+                              // );
+                              if (loginFormKey.currentState!.validate()) {
+                                authState.signIn(
+                                    context,
+                                    _emailController.text.trim(),
+                                    _passwordController.text.trim());
+                              }
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width,

@@ -7,6 +7,7 @@ const Color colorPrimary = Color(0xFFDB3636);
 const Color colorWhite = Color(0xFFFFFFFF);
 const Color colorGray = Color(0xFFEFEFEF);
 const Color colorTextGray = Color(0xFF585858);
+const Color errorTextColor = Color(0xFFFF0000);
 const Color buttonGray = Color(0xFFDEDEDE);
 const Color borderGray = Color(0xFFE1E1E1);
 const Color textGray = Color(0xFF595959);

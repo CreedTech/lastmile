@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/data/api/api_client.dart';
 // import 'package:lastmile/src/presentation/auth/login/bloc/login/login_cubit.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
   // late LoginCubit _loginBloc;
   // late LoadingCubit _loadingCubit;
 
@@ -51,26 +53,32 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     setUpScreenUtils(context);
     setStatusBar();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'TAA CONNECT',
-      theme: ligthTheme,
-      darkTheme: darkTheme,
-      themeMode: ThemeMode.light,
-      builder: (c, w) {
-        setUpScreenUtils(c);
-        return MediaQuery(
-          data: MediaQuery.of(c).copyWith(textScaleFactor: 1.0),
-          child: ScrollConfiguration(
-            behavior: MyBehavior(),
-            child: w!,
-          ),
-        );
-      },
-      navigatorKey: NavigatorHelper().kNavKey,
-      scaffoldMessengerKey: NavigatorHelper().kscaffoldMessengerKey,
-      initialRoute: root,
-      onGenerateRoute: RouterGenerator().generate,
+    return ScreenUtilInit(
+      designSize: const Size(390, 844),
+      minTextAdapt: true,
+      splitScreenMode: false,
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'TAA CONNECT',
+        theme: ligthTheme,
+        darkTheme: darkTheme,
+        themeMode: ThemeMode.light,
+        // builder: (c, w) {
+        //   setUpScreenUtils(c);
+        //   return MediaQuery(
+        //     data: MediaQuery.of(c).copyWith(textScaleFactor: 1.0),
+        //     child: ScrollConfiguration(
+        //       behavior: MyBehavior(),
+        //       child: w!,
+        //     ),
+        //   );
+        // },
+        navigatorKey: _navigatorKey,
+        // scaffoldMessengerKey: NavigatorHelper().kscaffoldMessengerKey,
+        initialRoute: root,
+        onGenerateRoute: RouterGenerator().generate,
+        onUnknownRoute: RouterGenerator.onUnknownRoute,
+      ),
     );
   }
 }

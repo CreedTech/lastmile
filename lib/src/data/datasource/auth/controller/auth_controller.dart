@@ -76,8 +76,8 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
           context,
           MaterialPageRoute(
             builder: (context) => SuccessfulView(
-              // email: email,
-            ),
+                // email: email,
+                ),
           ),
         );
         return;
@@ -494,9 +494,7 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ResetPasswordView(
-                    // email: email
-                    )));
+                builder: (context) => ResetPasswordView(email: email)));
         return;
       } else if (response.success == false &&
           response.message.contains("Invalid OTP")) {

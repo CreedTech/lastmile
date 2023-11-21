@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/presentation/auth/login/view/forgot_password_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/login_view.dart';
+import 'package:lastmile/src/presentation/auth/login/view/otp_view.dart';
+import 'package:lastmile/src/presentation/auth/login/view/reset_password_view.dart';
+import 'package:lastmile/src/presentation/history/view/history_view.dart';
 import 'package:lastmile/src/presentation/home/view/get_started_view.dart';
+import 'package:lastmile/src/presentation/home/view/home_view.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_one.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_three.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_two.dart';
 import 'package:lastmile/src/presentation/home/view/splash_view.dart';
-import 'package:lastmile/src/presentation/navigation/view/navigation_view.dart';
+import 'package:lastmile/src/presentation/order/view/order_view.dart';
+import 'package:lastmile/src/presentation/profile/view/profile_view.dart';
+import 'package:lastmile/src/presentation/widgets/custom_success_screen.dart';
 
 class RouterGenerator {
-  Route<dynamic>? generate(RouteSettings settings) {
+  Route<dynamic> generate(RouteSettings settings) {
     final arguments = settings.arguments;
     switch (settings.name) {
       case root:
@@ -43,82 +49,65 @@ class RouterGenerator {
           builder: (context) => const LoginView(),
           settings: const RouteSettings(name: login),
         );
+      case forgotPass:
+        return MaterialPageRoute(
+          builder: (context) => const ForgotPasswordView(),
+          settings: const RouteSettings(name: forgotPass),
+        );
+      case otp_verify:
+        return MaterialPageRoute(
+          builder: (context) => OtpView(
+            email: arguments as String,
+          ),
+          settings: const RouteSettings(name: otp_verify),
+        );
+      case reset_password:
+        return MaterialPageRoute(
+          builder: (context) => ResetPasswordView(
+            email: arguments as String,
+          ),
+          settings: const RouteSettings(name: reset_password),
+        );
       case home:
         return MaterialPageRoute(
-          builder: (context) => const NavigationViews(),
+          builder: (context) => const HomeView(),
           settings: const RouteSettings(name: home),
         );
       case history:
         return MaterialPageRoute(
-          builder: (context) => const NavigationViews(),
+          builder: (context) => const HistoryView(),
           settings: const RouteSettings(name: history),
         );
-      // case searchNews:
-      //   return CustomPageRouteBuilder(
-      //     BlocProvider(
-      //       create: (context) => sl<ExploreNewsBloc>()
-      //         ..add(
-      //           const ExploreSearchNews(query: "tech", page: 1),
-      //         ),
-      //       child: const SearchNewsView(),
-      //     ),
-      //     ComponentPageTransitionAnimation.slideRight,
-      //     const RouteSettings(name: searchNews),
-      //   );
-
-      // case detail:
-      //   if (arguments is NewsArticleEntities) {
-      //     return CustomPageRouteBuilder(
-      //       BlocProvider(
-      //         create: (_) => sl<BookmarkNewsBloc>(),
-      //         child: DetailNewsView(response: [arguments]),
-      //       ),
-      //       ComponentPageTransitionAnimation.scale,
-      //       const RouteSettings(name: detail),
-      //     );
-      //   }
-      //   break;
-
-      // case categoryNews:
-      //   if (arguments is CategoryNewsViewArgument) {
-      //     if (arguments.isKeyword) {
-      //       return CustomPageRouteBuilder(
-      //         BlocProvider(
-      //           create: (context) => sl<CategoryNewsBloc>()
-      //             ..add(
-      //               CategoryNewsGetByHeadlines(
-      //                 category: arguments.category,
-      //                 limit: 20,
-      //                 page: 1,
-      //                 query: arguments.query,
-      //               ),
-      //             ),
-      //           child: CategoryNewsView(category: arguments),
-      //         ),
-      //         ComponentPageTransitionAnimation.slideRight,
-      //         const RouteSettings(name: categoryNews),
-      //       );
-      //     }
-      //     return CustomPageRouteBuilder(
-      //       BlocProvider(
-      //         create: (context) => sl<CategoryNewsBloc>()
-      //           ..add(
-      //             CategoryNewsGetByHeadlines(
-      //               category: arguments.category,
-      //               limit: 20,
-      //               page: 1,
-      //               query: arguments.query,
-      //             ),
-      //           ),
-      //         child: CategoryNewsView(category: arguments),
-      //       ),
-      //       ComponentPageTransitionAnimation.slideRight,
-      //       const RouteSettings(name: categoryNews),
-      //     );
-      //   }
-      //   break;
+      case order:
+        return MaterialPageRoute(
+          builder: (context) => const OrderView(),
+          settings: const RouteSettings(name: order),
+        );
+      case profile:
+        return MaterialPageRoute(
+          builder: (context) => const ProfileView(),
+          settings: const RouteSettings(name: profile),
+        );
+      case success:
+        return MaterialPageRoute(
+          builder: (context) => CustomSuccessScreen(
+            info: arguments as String,
+          ),
+          settings: const RouteSettings(name: success),
+        );
+      default:
+        return onUnknownRoute(const RouteSettings(name: '/Feature'));
     }
-    return null;
+  }
+
+  static Route onUnknownRoute(RouteSettings settings) {
+    return MaterialPageRoute(
+      builder: (context) => Scaffold(
+        body: Center(
+          child: Text('Feature Comming soon..'),
+        ),
+      ),
+    );
   }
 }
 
