@@ -34,106 +34,102 @@ class _OnboardingViewOneState extends State<OnboardingViewOne> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height: 70.h,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Image.asset(
+                      'assets/images/onboardingOne.png',
+                      height: 300.h,
+                    ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    const Text(
+                      'Fast and seamless delivery',
+                      textAlign: TextAlign.center,
+                    ).semiBoldSized(20).colors(colorsBlack),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    const Text(
+                      'We delivery your parcels to every corner, no location is beyond your reach',
+                      textAlign: TextAlign.center,
+                    ).normalSized(16).colors(colorsBlack),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/images/logo.png',
-                          height: 70.h,
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Image.asset(
-                          'assets/images/onboardingOne.png',
-                          height: 300.h,
-                        ),
-                        SizedBox(
-                          height: 40.h,
-                        ),
-                        const Text(
-                          'Fast and seamless delivery',
-                          textAlign: TextAlign.center,
-                        ).semiBoldSized(20).colors(colorsBlack),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        const Text(
-                          'We delivery your parcels to every corner, no location is beyond your reach',
-                          textAlign: TextAlign.center,
-                        ).normalSized(16).colors(colorsBlack),
-                        SizedBox(
-                          height: 24.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                width: 30.w,
-                                height: 5.h,
-                                decoration: BoxDecoration(
-                                  color: colorPrimary,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                width: 5.w,
-                                height: 5.h,
-                                decoration: BoxDecoration(
-                                  color: colorPrimary,
-                                  borderRadius: BorderRadius.circular(30.h),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                width: 5.w,
-                                height: 5.h,
-                                decoration: BoxDecoration(
-                                  color: colorPrimary,
-                                  borderRadius: BorderRadius.circular(30.h),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 70.h,
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
+                        GestureDetector(
+                          onTap: () {},
                           child: Container(
-                            width: MediaQuery.of(context).size.width * 2,
-                            alignment: Alignment.center,
-                            height: 110.h,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: Size(400.w, 50.h),
-                                backgroundColor: colorsBlack,
-                                elevation: 0,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pushNamed(onboardingTwo);
-                              },
-                              child: const Text(
-                                'Get Started',
-                                textAlign: TextAlign.center,
-                              ).normalSized(16).colors(colorWhite),
+                            width: 30.w,
+                            height: 5.h,
+                            decoration: BoxDecoration(
+                              color: colorPrimary,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 5.w,
+                            height: 5.h,
+                            decoration: BoxDecoration(
+                              color: colorPrimary,
+                              borderRadius: BorderRadius.circular(30.h),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 5.w,
+                            height: 5.h,
+                            decoration: BoxDecoration(
+                              color: colorPrimary,
+                              borderRadius: BorderRadius.circular(30.h),
                             ),
                           ),
                         )
                       ],
+                    ),
+                    SizedBox(
+                      height: 70.h,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 2,
+                        alignment: Alignment.center,
+                        height: 110.h,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(400.w, 50.h),
+                            backgroundColor: colorsBlack,
+                            elevation: 0,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(onboardingTwo);
+                          },
+                          child: const Text(
+                            'Get Started',
+                            textAlign: TextAlign.center,
+                          ).normalSized(16).colors(colorWhite),
+                        ),
+                      ),
                     ),
                   ],
                 ),

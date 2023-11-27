@@ -61,106 +61,80 @@ class _OnboardingViewThreeState extends State<OnboardingViewThree> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height: 70.h,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Image.asset(
+                      'assets/images/onboardingThree.png',
+                      height: 300.h,
+                    ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    const Text(
+                      'On demand and runtime location',
+                      textAlign: TextAlign.center,
+                    ).semiBoldSized(20).colors(colorsBlack),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    const Text(
+                      'We pick up from your desired location at your preferred date and time',
+                      textAlign: TextAlign.center,
+                    ).normalSized(16).colors(colorsBlack),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/images/logo.png',
-                          height: 70.h,
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Image.asset(
-                          'assets/images/onboardingThree.png',
-                          height: 300.h,
-                        ),
-                        SizedBox(
-                          height: 40.h,
-                        ),
-                        const Text(
-                          'On demand and runtime location',
-                          textAlign: TextAlign.center,
-                        ).semiBoldSized(20).colors(colorsBlack),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        const Text(
-                          'We pick up from your desired location at your preferred date and time',
-                          textAlign: TextAlign.center,
-                        ).normalSized(16).colors(colorsBlack),
-                        SizedBox(
-                          height: 24.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                width: 5.w,
-                                height: 5.h,
-                                decoration: BoxDecoration(
-                                  color: colorPrimary,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 5.w,
+                            height: 5.h,
+                            decoration: BoxDecoration(
+                              color: colorPrimary,
+                              borderRadius: BorderRadius.circular(30),
                             ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                width: 5.w,
-                                height: 5.h,
-                                decoration: BoxDecoration(
-                                  color: colorPrimary,
-                                  borderRadius: BorderRadius.circular(30.h),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                width: 30.w,
-                                height: 5.h,
-                                decoration: BoxDecoration(
-                                  color: colorPrimary,
-                                  borderRadius: BorderRadius.circular(30.h),
-                                ),
-                              ),
-                            )
-                          ],
+                          ),
                         ),
                         SizedBox(
-                          height: 120.h,
+                          width: 5.w,
                         ),
-                        // Align(
-                        //   alignment: Alignment.bottomCenter,
-                        //   child: Container(
-                        //     width: MediaQuery.of(context).size.width * 2,
-                        //     alignment: Alignment.center,
-                        //     height: 110.h,
-                        //     child: ElevatedButton(
-                        //       style: ElevatedButton.styleFrom(
-                        //         minimumSize: Size(400.w, 50.h),
-                        //         backgroundColor: colorsBlack,
-                        //         elevation: 0,
-                        //       ),
-                        //       onPressed: () {
-                        //         Guide.toReplacment(name: getStarted);
-                        //       },
-                        //       child: const Text(
-                        //         'Get Started',
-                        //         textAlign: TextAlign.center,
-                        //       ).normalSized(16).colors(colorWhite),
-                        //     ),
-                        //   ),
-                        // )
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 5.w,
+                            height: 5.h,
+                            decoration: BoxDecoration(
+                              color: colorPrimary,
+                              borderRadius: BorderRadius.circular(30.h),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 30.w,
+                            height: 5.h,
+                            decoration: BoxDecoration(
+                              color: colorPrimary,
+                              borderRadius: BorderRadius.circular(30.h),
+                            ),
+                          ),
+                        )
                       ],
+                    ),
+                    SizedBox(
+                      height: 120.h,
                     ),
                   ],
                 ),

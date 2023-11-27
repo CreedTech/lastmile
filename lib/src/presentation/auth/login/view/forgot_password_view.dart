@@ -21,9 +21,14 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         centerTitle: true,
         backgroundColor: colorWhite,
         elevation: 0,
-        leading: Icon(
-          Icons.close,
-          color: colorsBlack,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(
+            Icons.close,
+            color: colorsBlack,
+          ),
         ),
         title: Text(
           'Forget Password',

@@ -27,9 +27,14 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
         centerTitle: true,
         backgroundColor: colorWhite,
         elevation: 0,
-        leading: Icon(
-          Icons.close,
-          color: colorsBlack,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(
+            Icons.close,
+            color: colorsBlack,
+          ),
         ),
         title: Text(
           'Reset Password',
@@ -138,14 +143,18 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                                       //   // );
                                       //   // resetPasswordDialog(context);
                                       // }
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              CustomSuccessScreen(
-                                                  info: 'Password has been changed successfully'),
-                                        ),
-                                      );
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                CustomSuccessScreen(
+                                              title: 'Successful',
+                                              info:
+                                                  'Password has been changed successfully',
+                                              route: login,
+                                            ),
+                                          ),
+                                          (route) => false);
                                       // Navigator.of(context).pushNamed(otp_verify);
                                     },
                                     child: const Text(

@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/presentation/auth/login/view/finish_registration_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/forgot_password_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/login_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/otp_view.dart';
+import 'package:lastmile/src/presentation/auth/login/view/phone_number_otp_view.dart';
+import 'package:lastmile/src/presentation/auth/login/view/register_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/reset_password_view.dart';
 import 'package:lastmile/src/presentation/history/view/history_view.dart';
 import 'package:lastmile/src/presentation/home/view/get_started_view.dart';
-import 'package:lastmile/src/presentation/home/view/home_view.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_one.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_three.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_two.dart';
+import 'package:lastmile/src/presentation/home/view/onboarding_view.dart';
 import 'package:lastmile/src/presentation/home/view/splash_view.dart';
+import 'package:lastmile/src/presentation/navigation/view/navigation_view.dart';
 import 'package:lastmile/src/presentation/order/view/order_view.dart';
 import 'package:lastmile/src/presentation/profile/view/profile_view.dart';
 import 'package:lastmile/src/presentation/widgets/custom_success_screen.dart';
@@ -23,6 +27,11 @@ class RouterGenerator {
         return MaterialPageRoute(
           builder: (context) => const SplashView(),
           settings: const RouteSettings(name: root),
+        );
+      case onboarding:
+        return MaterialPageRoute(
+          builder: (context) => const OnboardingScreen(),
+          settings: const RouteSettings(name: onboarding),
         );
       case onboardingOne:
         return MaterialPageRoute(
@@ -43,6 +52,25 @@ class RouterGenerator {
         return MaterialPageRoute(
           builder: (context) => const GetStartedView(),
           settings: const RouteSettings(name: getStarted),
+        );
+      case register:
+        return MaterialPageRoute(
+          builder: (context) => const RegisterView(),
+          settings: const RouteSettings(name: register),
+        );
+      case phone_number_otp:
+        return MaterialPageRoute(
+          builder: (context) => PhoneNumberOtpView(
+            phone_number: arguments as String,
+          ),
+          settings: const RouteSettings(name: phone_number_otp),
+        );
+      case finish:
+        return MaterialPageRoute(
+          builder: (context) => FinishRegistrationView(
+            phone_number: arguments as String,
+          ),
+          settings: const RouteSettings(name: finish),
         );
       case login:
         return MaterialPageRoute(
@@ -70,7 +98,7 @@ class RouterGenerator {
         );
       case home:
         return MaterialPageRoute(
-          builder: (context) => const HomeView(),
+          builder: (context) => const NavigationViews(),
           settings: const RouteSettings(name: home),
         );
       case history:
@@ -91,7 +119,9 @@ class RouterGenerator {
       case success:
         return MaterialPageRoute(
           builder: (context) => CustomSuccessScreen(
-            info: arguments as String,
+            title: arguments as String,
+            info: arguments,
+            route: arguments,
           ),
           settings: const RouteSettings(name: success),
         );

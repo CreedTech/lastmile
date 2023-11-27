@@ -3,8 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lastmile/src/core/core.dart';
 
 class CustomSuccessScreen extends StatelessWidget {
-  const CustomSuccessScreen({super.key, required this.info});
+  const CustomSuccessScreen(
+      {super.key,
+      required this.info,
+      required this.route,
+      required this.title});
+  final String title;
   final String info;
+  final String route;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +41,8 @@ class CustomSuccessScreen extends StatelessWidget {
                     SizedBox(
                       height: 40.h,
                     ),
-                    const Text(
-                      'Successful',
+                    Text(
+                      title,
                       textAlign: TextAlign.center,
                     ).boldSized(31.sp).colors(colorsBlack),
                     SizedBox(
@@ -62,7 +68,8 @@ class CustomSuccessScreen extends StatelessWidget {
                             elevation: 0,
                           ),
                           onPressed: () {
-                            Navigator.of(context).pushNamed(onboardingTwo);
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                route, (route) => false);
                           },
                           child: const Text(
                             'Get Started',

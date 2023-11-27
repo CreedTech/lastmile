@@ -4,21 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lastmile/src/data/datasource/auth/controller/auth_controller.dart';
-import 'package:lastmile/src/presentation/auth/login/view/reset_password_view.dart';
+import 'package:lastmile/src/core/core.dart';
+// import 'package:lastmile/src/data/datasource/auth/controller/auth_controller.dart';
+import 'package:lastmile/src/presentation/auth/login/view/finish_registration_view.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../../../core/core.dart';
-
-class OtpView extends ConsumerStatefulWidget {
-  const OtpView({super.key, required this.email});
-  final String email;
+class PhoneNumberOtpView extends ConsumerStatefulWidget {
+  const PhoneNumberOtpView({super.key, required this.phone_number});
+  final String phone_number;
 
   @override
-  ConsumerState<OtpView> createState() => _OtpViewConsumerState();
+  ConsumerState<PhoneNumberOtpView> createState() =>
+      _PhoneNumberOtpViewConsumerState();
 }
 
-class _OtpViewConsumerState extends ConsumerState<OtpView> {
+class _PhoneNumberOtpViewConsumerState
+    extends ConsumerState<PhoneNumberOtpView> {
   int _minutes = 3; // Initialize minutes to 3
   int _seconds = 0; // Initialize seconds to 0
   Timer? _timer;
@@ -73,7 +74,7 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.read(authControllerProvider.notifier);
+    // final authState = ref.read(authControllerProvider.notifier);
     String formattedTime = '$_minutes:${_seconds.toString().padLeft(2, '0')}';
     return Scaffold(
       backgroundColor: colorWhite,
@@ -119,7 +120,7 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('example@gmail.com')
+                          child: Text(widget.phone_number)
                               .normalSized(16.sp)
                               .colors(colorsBlack),
                         ),
@@ -224,8 +225,8 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
                                       isClicked = true;
                                     });
                                     resetCountdown();
-                                    authState.resendPasswordOtp(
-                                        context, widget.email);
+                                    // authState.resendPasswordOtp(
+                                    //     context, widget.phone_number);
                                   },
                                   child: Text(
                                     ' Resend Code',
@@ -269,8 +270,8 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                ResetPasswordView(email: 'widget.email')));
+                            builder: (context) => FinishRegistrationView(
+                                phone_number: widget.phone_number)));
                   },
                   child: const Text(
                     'Continue',
