@@ -558,7 +558,7 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
           context,
           MaterialPageRoute(
             builder: (context) => ForgotPasswordOtpVerification(
-                // email: email
+                email: email
                 ),
           ),
         );

@@ -6,9 +6,11 @@ import 'package:lastmile/src/core/core.dart';
 
 class CustomTextField extends StatelessWidget {
   final String? labelText;
-  final String hintText;
+  final String? hintText;
+  final String legend;
   final TextEditingController controller;
   final Widget? icon;
+  final Widget? prefixIcon;
   final bool obscureText;
   final int maxLines;
   final TextInputType keyboardType;
@@ -21,15 +23,17 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
     this.labelText = "",
-    required this.hintText,
+     this.hintText,
     required this.controller,
     this.icon,
+    this.prefixIcon,
     this.obscureText = false,
     this.maxLines = 1,
     this.keyboardType = TextInputType.name,
     this.validator,
     this.errorText,
     this.onChanged,
+    required this.legend,
     // this.successMessage,
     this.willContainPrefix = false,
     this.inputFormatters,
@@ -60,16 +64,19 @@ class CustomTextField extends StatelessWidget {
             fontSize: 14.sp,
             color: colorsBlack,
           ),
+
           decoration: InputDecoration(
+            labelText: legend,
+            labelStyle: GoogleFonts.nunito(color: colorsBlack),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.sp),
               borderSide: const BorderSide(color: Color(0xffA4A5A6)),
-              
             ),
             // enabledBorder: Color(value),
+            prefixIcon: prefixIcon,
             hintText: hintText,
-            errorStyle:
-                GoogleFonts.nunito(fontSize: 12.sp, fontWeight: FontWeight.w600),
+            errorStyle: GoogleFonts.nunito(
+                fontSize: 12.sp, fontWeight: FontWeight.w600),
             hintStyle: GoogleFonts.nunito(color: textGray),
             errorText: errorText,
             suffixIcon: icon,

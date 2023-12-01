@@ -26,16 +26,16 @@ class _NavigationViewsState extends State<NavigationViews> {
 
   IconData _homeIcon = Icons.home_outlined;
 
-  IconData _historyIcon = Icons.history_outlined;
+  IconData _historyIcon = Icons.local_shipping_outlined;
   IconData _orderIcon = Icons.add;
-  IconData _profileIcon = Icons.account_circle_outlined;
+  IconData _profileIcon = Icons.person_outline;
 
   IconData _defaultHomeIcon = Icons.home_outlined;
 
-  IconData _defaultHistoryIcon = Icons.history_outlined;
+  IconData _defaultHistoryIcon = Icons.local_shipping_outlined;
 
   IconData _defaultOrderIcon = Icons.add;
-  IconData _defaultProfileIcon = Icons.account_circle_outlined;
+  IconData _defaultProfileIcon = Icons.person_outline;
   void _onItemTapped(int index) {
     setState(() {
       if (index == 0) {
@@ -91,13 +91,14 @@ class _NavigationViewsState extends State<NavigationViews> {
             selectedIconTheme: IconThemeData(color: colorPrimary),
             selectedLabelStyle: GoogleFonts.nunito(
                 color: colorPrimary, fontWeight: FontWeight.w700),
-            backgroundColor: colorsBlack,
+            backgroundColor: colorWhite,
             showUnselectedLabels: true,
             unselectedIconTheme: IconThemeData(
-              color: colorWhite,
+              color: textGray,
             ),
-            unselectedItemColor: colorWhite,
-            unselectedLabelStyle: GoogleFonts.nunito(color: colorWhite),
+            unselectedItemColor: textGray,
+
+            unselectedLabelStyle: GoogleFonts.nunito(color: textGray),
             selectedItemColor: colorPrimary,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -110,7 +111,7 @@ class _NavigationViewsState extends State<NavigationViews> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(_historyIcon),
-                label: 'History',
+                label: 'My Order',
               ),
               BottomNavigationBarItem(
                 icon: Icon(_profileIcon),

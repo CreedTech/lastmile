@@ -58,7 +58,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomTextField(
-                            hintText: 'Password',
+                            legend: 'Password',
                             // labelText: 'Password',
                             controller: newPasswordController,
                             obscureText: obscureText,
@@ -88,7 +88,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                             ),
                           ),
                           CustomTextField(
-                            hintText: 'Confirm Password',
+                            legend: 'Confirm Password',
                             controller: confirmPasswordController,
                             obscureText: obscureText,
                             validator: (value) {
@@ -152,6 +152,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                                               info:
                                                   'Password has been changed successfully',
                                               route: login,
+                                              buttonTitle: 'Login',
                                             ),
                                           ),
                                           (route) => false);

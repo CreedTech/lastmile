@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/data/datasource/auth/controller/auth_controller.dart';
-import 'package:lastmile/src/presentation/auth/login/view/reset_password_view.dart';
+import 'package:lastmile/src/presentation/widgets/custom_success_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../core/core.dart';
@@ -86,7 +86,7 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
             Navigator.of(context).pop();
           },
           child: Icon(
-            Icons.close,
+            Icons.arrow_back,
             color: colorsBlack,
           ),
         ),
@@ -98,30 +98,38 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
         child: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 15.w),
               child: Column(
                 children: [
                   Align(
                     alignment: Alignment.center,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Enter verification code')
-                              .boldSized(20.sp)
-                              .colors(colorsBlack),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('We have sent a reset code to your email')
-                              .normalSized(14.sp)
-                              .colors(colorsBlack),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('example@gmail.com')
-                              .normalSized(16.sp)
-                              .colors(colorsBlack),
+                        Wrap(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          // spacing: 8.0,
+                          // runSpacing: 8.0,
+                          children: [
+                            Text(
+                              'We sent a code to your email ',
+                              style: TextStyle(
+                                color: Colors.grey.shade700,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {},
+                              child: Text(
+                                widget.email,
+                                style: TextStyle(
+                                  color: colorPrimary,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -137,7 +145,7 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             vertical: 8.0,
-                            horizontal: 30,
+                            horizontal: 14,
                           ),
                           child: PinCodeTextField(
                             appContext: context,
@@ -158,19 +166,23 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
                             pinTheme: PinTheme(
                                 shape: PinCodeFieldShape.box,
                                 borderRadius: BorderRadius.circular(5),
-                                fieldHeight: 50,
-                                fieldWidth: 50,
-                                activeFillColor: colorGray,
-                                activeColor: colorGray,
+                                fieldHeight: 56,
+                                fieldWidth: 80,
+                                activeFillColor: colorsBlack,
+                                activeColor: colorsBlack,
                                 inactiveColor: colorGray,
                                 selectedFillColor: colorGray,
                                 selectedColor: colorGray,
                                 disabledColor: colorGray,
+                                selectedBorderWidth: 1,
+                                borderWidth: 2,
+                                inactiveBorderWidth: 2,
+                                activeBorderWidth: 2,
                                 inactiveFillColor: colorGray),
                             cursorColor: Colors.black,
-                            animationDuration:
-                                const Duration(milliseconds: 300),
-                            enableActiveFill: true,
+                            // animationDuration:
+                            //     const Duration(milliseconds: 300),
+                            enableActiveFill: false,
                             errorAnimationController: errorController,
                             controller: otpController,
                             keyboardType: TextInputType.number,
@@ -203,80 +215,90 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
                         ),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 20.h,
                       ),
                       Align(
-                        alignment: Alignment.center,
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Didn\'t receive any code?',
-                                ).mediumSized(16.sp).colors(colorsBlack),
-                                // const SizedBox(
-                                //   width: 10,
-                                // ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isClicked = true;
-                                    });
-                                    resetCountdown();
-                                    authState.resendPasswordOtp(
-                                        context, widget.email);
-                                  },
-                                  child: Text(
-                                    ' Resend Code',
-                                    style: GoogleFonts.nunito(letterSpacing: 0),
-                                  ).semiBoldSized(16.sp).colors(colorPrimary),
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 0.w),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(400.w, 50.h),
+                              backgroundColor: colorPrimary,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  88,
                                 ),
-                              ],
+                              ),
                             ),
-                            if (isClicked == true)
-                              Text(
-                                formattedTime,
-                                style: GoogleFonts.nunito(letterSpacing: 0),
-                              ).semiBoldSized(16.sp).colors(colorPrimary),
-                          ],
+                            onPressed: () {
+                              // if (otprestpwdFormKey.currentState!.validate()) {
+                              //   authState.verifyForgotPasswordOtp(
+                              //     context,
+                              //     widget.email,
+                              //     otpController.text.trim(),
+                              //   );
+                              //   otpController.clear();
+                              // }
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CustomSuccessScreen(
+                                      title: 'Successful',
+                                      info:
+                                          'More than just a simple package delivery application now has more benefits',
+                                      route: login,
+                                      buttonTitle: 'Get Started',
+                                    ),
+                                  ),
+                                  (route) => false);
+                            },
+                            child: const Text(
+                              'Verify Email',
+                              textAlign: TextAlign.center,
+                            ).normalSized(16).colors(colorWhite),
+                          ),
                         ),
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Didn\'t receive the mail?',
+                              ).mediumSized(16.sp).colors(colorsBlack),
+                              // const SizedBox(
+                              //   width: 10,
+                              // ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isClicked = true;
+                                  });
+                                  resetCountdown();
+                                  authState.resendPasswordOtp(
+                                      context, widget.email);
+                                },
+                                child: Text(
+                                  ' Click here',
+                                  style: GoogleFonts.nunito(letterSpacing: 0),
+                                ).normalSized(16.sp).colors(colorPrimary),
+                              ),
+                            ],
+                          ),
+                          if (isClicked == true)
+                            Text(
+                              formattedTime,
+                              style: GoogleFonts.nunito(letterSpacing: 0),
+                            ).semiBoldSized(16.sp).colors(colorPrimary),
+                        ],
                       ),
                     ],
                   ),
                 ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 60.h, horizontal: 20.w),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(400.w, 50.h),
-                    backgroundColor: colorsBlack,
-                    elevation: 0,
-                  ),
-                  onPressed: () {
-                    // if (otprestpwdFormKey.currentState!.validate()) {
-                    //   authState.verifyForgotPasswordOtp(
-                    //     context,
-                    //     widget.email,
-                    //     otpController.text.trim(),
-                    //   );
-                    //   otpController.clear();
-                    // }
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ResetPasswordView(email: 'widget.email')));
-                  },
-                  child: const Text(
-                    'Continue',
-                    textAlign: TextAlign.center,
-                  ).normalSized(16).colors(colorWhite),
-                ),
               ),
             ),
           ],

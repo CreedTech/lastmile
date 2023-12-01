@@ -69,7 +69,7 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                       child: Column(
                         children: [
                           CustomTextField(
-                            hintText: 'First Name',
+                            legend: 'First Name',
                             controller: _firstNameController,
                             keyboardType: TextInputType.text,
                             validator: (value) {
@@ -83,7 +83,7 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                             },
                           ),
                           CustomTextField(
-                            hintText: 'Last Name',
+                            legend: 'Last Name',
                             controller: _lastNameController,
                             keyboardType: TextInputType.text,
                             validator: (value) {
@@ -97,7 +97,7 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                             },
                           ),
                           CustomTextField(
-                            hintText: 'Email address',
+                            legend: 'Email address',
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
@@ -112,7 +112,7 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                           ),
                           // SizedBox(height: 10.h),
                           CustomTextField(
-                            hintText: 'Password',
+                            legend: 'Password',
                             // labelText: 'Password',
                             controller: _passwordController,
                             obscureText: obscureText,
@@ -187,6 +187,7 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                                         info:
                                             'More than just a simple package delivery application now has more benefits',
                                         route: login,
+                                        buttonTitle: 'Login',
                                       ),
                                     ),
                                     (route) => false);

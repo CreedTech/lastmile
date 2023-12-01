@@ -1,8 +1,7 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lastmile/src/core/core.dart';
-import 'package:lastmile/src/presentation/auth/login/view/phone_number_otp_view.dart';
+import 'package:lastmile/src/presentation/auth/login/view/otp_view.dart';
 import 'package:lastmile/src/presentation/widgets/custom_text_field.dart';
 // import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -14,15 +13,20 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final phoneFormKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final signUpFormKey = GlobalKey<FormState>();
+  // bool enableSignIn = false;
+  bool obscureText = true;
+  // bool isChecked = false;
   // GlobalKey<FormState> _formKey = GlobalKey();
 
   // FocusNode focusNode = FocusNode();
 
   @override
   void dispose() {
-    _phoneNumberController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -33,194 +37,181 @@ class _RegisterViewState extends State<RegisterView> {
         centerTitle: true,
         backgroundColor: colorWhite,
         elevation: 0,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: colorsBlack,
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: EdgeInsets.only(top: 30.h),
+          child: Image.asset(
+            'assets/images/logo.png',
+            height: 72.h,
           ),
         ),
-        title: Text(
-          'Create Account',
-        ).boldSized(16.sp).colors(colorsBlack),
       ),
-      body: SingleChildScrollView(
-        child: Stack(children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/logo.png',
-                  height: 150.h,
-                ),
-                Form(
-                  key: phoneFormKey,
-                  child: Column(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned(
+              // bottom: 0.h,
+              child: Center(
+                child: Container(
+                  width: double.maxFinite,
+                  margin: EdgeInsets.symmetric(vertical: 20.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+                  alignment: Alignment.bottomCenter,
+                  child: Wrap(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // spacing: 8.0,
+                    // runSpacing: 8.0,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Color(0xffA4A5A6), width: 1),
-                          borderRadius: BorderRadius.circular(5.sp),
+                      Text(
+                        'By continuing, you accept our ',
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
                         ),
-                        child: CountryCodePicker(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 0,
-                            vertical: 0,
-                          ),
-                          boxDecoration: BoxDecoration(
-                            // border: Border.all(color: Colors.blue, width: 2.0),
-                            shape: BoxShape.rectangle,
-                          ),
-                          // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                          initialSelection: 'NG',
-                          showFlagMain: true,
-                          alignLeft: true,
-                          favorite: const ['+234', 'NG'],
-                          // countryFilter: const ['IT', 'FR'],
-                          showFlagDialog: true,
-                          showDropDownButton: true,
-                          comparator: (a, b) => b.name!.compareTo(a.name!),
-                          flagDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                      ),
-                      CustomTextField(
-                        hintText: 'Phone Number',
-                        controller: _phoneNumberController,
-                        keyboardType: TextInputType.phone,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Input a valid phone number';
-                          }
-                          if (value.length < 11) {
-                            return 'Digits must be more than 11';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Text('We will send a verification code to your number to confirm its you')
-                          .normalSized(12.sp)
-                          .colors(colorsBlack),
-                      SizedBox(
-                        height: 35.h,
                       ),
                       GestureDetector(
-                        onTap: () {
-                          // Navigator.of(context).pushNamedAndRemoveUntil(
-                          //     phone_number_otp, (route) => false,
-                          //     arguments: {_phoneNumberController.text.trim()});
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PhoneNumberOtpView(
-                                      phone_number:
-                                          _phoneNumberController.text.trim())));
-                          // if (phoneFormKey.currentState!.validate()) {
-                          // authState.signIn(
-                          //     context,
-                          //     _emailController.text.trim(),
-                          // _passwordController.text.trim());
-                          // }
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.symmetric(vertical: 15.h),
-                          alignment: Alignment.center,
-                          decoration: const BoxDecoration(
-                            color: Color.fromRGBO(33, 35, 39, 1),
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                        onTap: () {},
+                        child: Text(
+                          'Terms & Conditions ',
+                          style: TextStyle(
+                            color: colorPrimary,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
                           ),
-                          child: Text(
-                            'Continue',
-                            style:
-                                TextStyle(fontSize: 14.sp, color: Colors.white),
+                        ),
+                      ),
+                      Text('and ',
+                          style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                          )),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          'Privacy Policy ',
+                          style: TextStyle(
+                            color: colorPrimary,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: const Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Divider(
-                            thickness: 1,
-                          ),
-                        ),
-                      ),
-                      Text('or'),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Divider(
-                            thickness: 1,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      home,
-                      (route) => false,
-                    );
-                    // if (phoneFormKey.currentState!.validate()) {
-                    // authState.signIn(
-                    //     context,
-                    //     _emailController.text.trim(),
-                    // _passwordController.text.trim());
-                    // }
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.symmetric(vertical: 12.h),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: colorWhite,
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      border: Border.all(color: Color(0xffA4A5A6), width: 1),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                children: [
+                  Form(
+                    key: signUpFormKey,
+                    child: Column(
                       children: [
-                        Icon(Icons.mail_outline),
-                        SizedBox(
-                          width: 10.w,
+                        CustomTextField(
+                          prefixIcon: Icon(
+                            Icons.mail_outline,
+                            color: colorsBlack,
+                          ),
+                          // labelText: 'Email Address',
+                          hintText: '',
+                          controller: _emailController,
+                          legend: 'Email',
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Input a valid email address';
+                            }
+                            if (!value.contains('@')) {
+                              return 'Include @ symbol in your email';
+                            }
+                            return null;
+                          },
                         ),
-                        Text(
-                          'Continue with email',
-                          style: TextStyle(fontSize: 14.sp, color: colorsBlack),
+                        // SizedBox(height: 10.h),
+                        CustomTextField(
+                          prefixIcon: Icon(
+                            Icons.lock_outline,
+                            color: colorsBlack,
+                          ),
+                          legend: 'Password',
+                          // labelText: 'Password',
+                          controller: _passwordController,
+                          obscureText: obscureText,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Input a valid password';
+                            }
+                            if (value.length < 8) {
+                              return "Min. 8 characters";
+                            }
+
+                            return null;
+                          },
+                          icon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                obscureText = !obscureText;
+                              });
+                            },
+                            child: Icon(
+                              obscureText
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              color: textGray,
+                              size: 18.sp,
+                            ),
+                          ),
+                        ),
+
+                        Padding(
+                          padding: EdgeInsets.only(top: 105.h),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => OtpView(
+                                    email: 'example@example.com',
+                                  ),
+                                ),
+                              );
+                              // if (loginFormKey.currentState!.validate()) {
+                              //   authState.signIn(
+                              //       context,
+                              //       _emailController.text.trim(),
+                              //       _passwordController.text.trim());
+                              // }
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.symmetric(vertical: 15.h),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: colorPrimary,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(88.sp)),
+                              ),
+                              child: Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                    fontSize: 14.sp, color: Colors.white),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }

@@ -11,6 +11,7 @@ const register = "/register";
 const phone_number_otp = "/phone_number_otp";
 const finish = "/finish";
 const forgotPass = "/forgotPass";
+const forgotPass_otp_verify = "/forgotPass_otp_verify";
 const otp_verify = "/otp_verify";
 const reset_password = "/reset_password";
 
@@ -25,6 +26,9 @@ const order = '/order';
 
 // Profile Path
 const profile = '/profile';
+
+// Search Path
+const search = '/search';
 
 // Custom
 const success = '/success';

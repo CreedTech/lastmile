@@ -7,10 +7,12 @@ class CustomSuccessScreen extends StatelessWidget {
       {super.key,
       required this.info,
       required this.route,
-      required this.title});
+      required this.title,
+      required this.buttonTitle});
   final String title;
   final String info;
   final String route;
+  final String buttonTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +37,8 @@ class CustomSuccessScreen extends StatelessWidget {
                       height: 50.h,
                     ),
                     Image.asset(
-                      'assets/images/success.png',
-                      height: 150.h,
+                      'assets/icons/success.png',
+                      height: 300.h,
                     ),
                     SizedBox(
                       height: 40.h,
@@ -53,7 +55,7 @@ class CustomSuccessScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ).normalSized(14.sp).colors(colorsBlack),
                     SizedBox(
-                      height: 100.h,
+                      height: 50.h,
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
@@ -64,15 +66,20 @@ class CustomSuccessScreen extends StatelessWidget {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(400.w, 50.h),
-                            backgroundColor: colorsBlack,
+                            backgroundColor: colorPrimary,
                             elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                88,
+                              ),
+                            ),
                           ),
                           onPressed: () {
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 route, (route) => false);
                           },
-                          child: const Text(
-                            'Get Started',
+                          child: Text(
+                            buttonTitle,
                             textAlign: TextAlign.center,
                           ).normalSized(16).colors(colorWhite),
                         ),

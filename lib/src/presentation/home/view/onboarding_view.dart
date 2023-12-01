@@ -36,7 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         borderRadius: BorderRadius.all(
           Radius.circular(50),
         ),
-        color: Color(0xFF000000),
+        color: colorPrimary,
       ),
       margin: const EdgeInsets.only(right: 5),
       height: 10,

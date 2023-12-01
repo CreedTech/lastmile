@@ -15,60 +15,87 @@ class _GetStartedViewState extends State<GetStartedView> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 30.w),
           child: Stack(
             children: [
               Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
                       'assets/images/logo.png',
-                      height: 500.h,
+                      height: 70.h,
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        // width: MediaQuery.of(context).size.width * 2,
-                        alignment: Alignment.center,
-                        // height: 110.h,
-                        child: Column(
-                          children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: Size(400.w, 50.h),
-                                backgroundColor: colorsBlack,
-                                elevation: 0,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pushNamed(login);
-                              },
-                              child: const Text(
-                                'Login',
-                                textAlign: TextAlign.center,
-                              ).normalSized(16).colors(colorWhite),
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: Size(400.w, 50.h),
-                                backgroundColor: colorWhite,
-                                side: const BorderSide(color: colorsBlack),
-                                elevation: 0,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pushNamed(register);
-                              },
-                              child: const Text(
-                                'Create Account',
-                                textAlign: TextAlign.center,
-                              ).normalSized(16.sp).colors(colorsBlack),
-                            ),
-                          ],
-                        ),
+                    Image.asset(
+                      'assets/images/onboardingOne.png',
+                      height: 170.h,
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: colorGray,
+                        borderRadius: BorderRadius.all(Radius.circular(10.sp)),
+                        // boxShadow: Box
                       ),
+                      width: 56.w,
+                      height: 5.h,
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Column(
+                      children: [
+                        Text('Welcome').mediumSized(25.sp).colors(colorsBlack),
+                        Text('Continue with one of the following options')
+                            .normalSized(16.sp)
+                            .colors(textGray),
+                        SizedBox(
+                          height: 48.h,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(400.w, 50.h),
+                            backgroundColor: colorPrimary,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  88), // Adjust the radius as needed
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(login);
+                          },
+                          child: const Text(
+                            'Sign in',
+                            textAlign: TextAlign.center,
+                          ).normalSized(16).colors(colorWhite),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(400.w, 50.h),
+                            backgroundColor: colorsBlack,
+                            side: const BorderSide(color: colorsBlack),
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  88), // Adjust the radius as needed
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(register);
+                          },
+                          child: const Text(
+                            'Create An Account',
+                            textAlign: TextAlign.center,
+                          ).normalSized(16.sp).colors(colorWhite),
+                        ),
+                      ],
                     ),
                   ],
                 ),

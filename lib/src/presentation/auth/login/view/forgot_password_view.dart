@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lastmile/src/core/core.dart';
-import 'package:lastmile/src/presentation/auth/login/view/otp_view.dart';
+import 'package:lastmile/src/presentation/auth/login/view/forgot_password_otp_verify_view.dart';
 import 'package:lastmile/src/presentation/widgets/custom_text_field.dart';
 
 class ForgotPasswordView extends StatefulWidget {
@@ -54,8 +54,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       children: [
                         Text('Enter your email address to reset password'),
                         CustomTextField(
+                          prefixIcon: Icon(
+                            Icons.mail_outline,
+                            color: colorsBlack,
+                          ),
                           // labelText: 'Email Address',
-                          hintText: 'Email address',
+                          legend: 'Email address',
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
@@ -80,15 +84,23 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     minimumSize: Size(400.w, 50.h),
-                                    backgroundColor: colorsBlack,
+                                    backgroundColor: colorPrimary,
                                     elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        88,
+                                      ),
+                                    ),
                                   ),
                                   onPressed: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => OtpView(
-                                                email: 'widget.email')));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ForgotPasswordOtpVerification(
+                                                email: 'widget.email'),
+                                      ),
+                                    );
                                     // Navigator.of(context).pushNamed(otp_verify);
                                   },
                                   child: const Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/presentation/auth/login/view/finish_registration_view.dart';
+import 'package:lastmile/src/presentation/auth/login/view/forgot_password_otp_verify_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/forgot_password_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/login_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/otp_view.dart';
@@ -17,6 +18,7 @@ import 'package:lastmile/src/presentation/home/view/splash_view.dart';
 import 'package:lastmile/src/presentation/navigation/view/navigation_view.dart';
 import 'package:lastmile/src/presentation/order/view/order_view.dart';
 import 'package:lastmile/src/presentation/profile/view/profile_view.dart';
+import 'package:lastmile/src/presentation/search/view/search_view.dart';
 import 'package:lastmile/src/presentation/widgets/custom_success_screen.dart';
 
 class RouterGenerator {
@@ -82,6 +84,13 @@ class RouterGenerator {
           builder: (context) => const ForgotPasswordView(),
           settings: const RouteSettings(name: forgotPass),
         );
+      case forgotPass_otp_verify:
+        return MaterialPageRoute(
+          builder: (context) => ForgotPasswordOtpVerification(
+            email: arguments as String,
+          ),
+          settings: const RouteSettings(name: forgotPass_otp_verify),
+        );
       case otp_verify:
         return MaterialPageRoute(
           builder: (context) => OtpView(
@@ -116,12 +125,18 @@ class RouterGenerator {
           builder: (context) => const ProfileView(),
           settings: const RouteSettings(name: profile),
         );
+      case search:
+        return MaterialPageRoute(
+          builder: (context) => const SearchView(),
+          settings: const RouteSettings(name: search),
+        );
       case success:
         return MaterialPageRoute(
           builder: (context) => CustomSuccessScreen(
             title: arguments as String,
             info: arguments,
             route: arguments,
+            buttonTitle: arguments,
           ),
           settings: const RouteSettings(name: success),
         );

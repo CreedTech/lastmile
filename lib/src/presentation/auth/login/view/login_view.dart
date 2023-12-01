@@ -32,122 +32,129 @@ class _LoginViewConsumerState extends ConsumerState<LoginView> {
   Widget build(BuildContext context) {
     // final authState = ref.watch(authControllerProvider.notifier);
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: colorWhite,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: EdgeInsets.only(top: 30.h),
+          child: Image.asset(
+            'assets/images/logo.png',
+            height: 72.h,
+          ),
+        ),
+      ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Stack(
-            // alignment: ,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/logo.png',
-                      height: 300.h,
-                    ),
-                    Form(
-                      key: loginFormKey,
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            // labelText: 'Email Address',
-                            hintText: 'Email address',
-                            controller: _emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Input a valid email address';
-                              }
-                              if (!value.contains('@')) {
-                                return 'Include @ symbol in your email';
-                              }
-                              return null;
-                            },
+        child: Stack(
+          children: [
+            Positioned(
+              // bottom: 0.h,
+              child: Center(
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 20.h),
+                  padding: EdgeInsets.all(15.h),
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                       Text(
+                        'Don\'t have an account? ',style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      // const SizedBox(
+                      //   width: 10,
+                      // ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(register);
+                        },
+                        child: Text(
+                          'Create account',
+                          style: TextStyle(
+                              color: colorPrimary,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Form(
+                    key: loginFormKey,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          prefixIcon: Icon(
+                            Icons.mail_outline,
+                            color: colorsBlack,
                           ),
-                          // SizedBox(height: 10.h),
-                          CustomTextField(
-                            hintText: 'Password',
-                            // labelText: 'Password',
-                            controller: _passwordController,
-                            obscureText: obscureText,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Input a valid password';
-                              }
-                              if (value.length < 8) {
-                                return "Min. 8 characters";
-                              }
+                          // labelText: 'Email Address',
+                          hintText: '',
+                          controller: _emailController,
+                          legend: 'Email',
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Input a valid email address';
+                            }
+                            if (!value.contains('@')) {
+                              return 'Include @ symbol in your email';
+                            }
+                            return null;
+                          },
+                        ),
+                        // SizedBox(height: 10.h),
+                        CustomTextField(
 
-                              return null;
+                          prefixIcon: Icon(
+                            Icons.lock_outline,
+                            color: colorsBlack,
+                          ),
+                          legend: 'Password',
+                          // labelText: 'Password',
+                          controller: _passwordController,
+                          obscureText: obscureText,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Input a valid password';
+                            }
+                            if (value.length < 8) {
+                              return "Min. 8 characters";
+                            }
+
+                            return null;
+                          },
+                          icon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                obscureText = !obscureText;
+                              });
                             },
-                            icon: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  obscureText = !obscureText;
-                                });
-                              },
-                              child: Icon(
-                                obscureText
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility_outlined,
-                                color: textGray,
-                                size: 18.sp,
-                              ),
+                            child: Icon(
+                              obscureText
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              color: textGray,
+                              size: 18.sp,
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 25.h),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              // crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: Checkbox(
-                                        visualDensity: VisualDensity
-                                            .adaptivePlatformDensity,
-                                        value: isChecked,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            isChecked = value!;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: const Text('Remember me')
-                                          .normalSized(12.sp),
-                                    ),
-                                  ],
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed(forgotPass);
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      'Forgot Password?',
-                                      style: TextStyle(
-                                          color: colorPrimary,
-                                          fontSize: 12.sp,
-                                          leadingDistribution:
-                                              TextLeadingDistribution.even,
-                                          fontWeight: FontWeight.w600,
-                                          decoration: TextDecoration.underline),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          GestureDetector(
+                        ),
+
+                        Padding(
+                          padding: EdgeInsets.only(top: 105.h),
+                          child: GestureDetector(
                             onTap: () {
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                 home,
@@ -164,103 +171,53 @@ class _LoginViewConsumerState extends ConsumerState<LoginView> {
                               width: MediaQuery.of(context).size.width,
                               padding: EdgeInsets.symmetric(vertical: 15.h),
                               alignment: Alignment.center,
-                              decoration: const BoxDecoration(
-                                color: Color.fromRGBO(33, 35, 39, 1),
+                              decoration: BoxDecoration(
+                                color: colorPrimary,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(5)),
+                                    BorderRadius.all(Radius.circular(88.sp)),
                               ),
                               child: Text(
-                                'Login',
+                                'Sign in',
                                 style: TextStyle(
                                     fontSize: 14.sp, color: Colors.white),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: const Row(
-                        children: <Widget>[
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Divider(
-                                thickness: 1,
-                              ),
-                            ),
-                          ),
-                          Text('or'),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Divider(
-                                thickness: 1,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 20.h),
-                        padding: EdgeInsets.all(15.h),
-                        alignment: Alignment.bottomCenter,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Text(
-                              'Don\'t have an account yet?',
-                            ).lightSized(13.sp).colors(Colors.grey.shade700),
-                            // const SizedBox(
-                            //   width: 10,
-                            // ),
-                            Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                  color: colorPrimary,
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 40,
-                left: 0,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          padding:
-                              EdgeInsets.only(left: 0, top: 10.h, bottom: 10.h),
-                          child: const Icon(Icons.close, color: Colors.black),
                         ),
                       ],
                     ),
                   ),
-                ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [],
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(forgotPass);
+                          },
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              'Forgot Password?',
+                              style: TextStyle(
+                                color: colorsBlack,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
