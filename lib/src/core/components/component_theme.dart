@@ -5,13 +5,16 @@ const Color colorsBlack = Color(0xFF212327);
 const Color colorsBlackGray = Color.fromARGB(255, 27, 27, 27);
 const Color colorPrimary = Color(0xFFD40E0E);
 const Color colorWhite = Color(0xFFFFFFFF);
-const Color colorGray = Color(0xFFEFEFEF);
+const Color colorLightGray = Color(0xFFEFEFEF);
+const Color colorGray = Color(0xFF808080);
 const Color colorTextGray = Color(0xFF585858);
 const Color errorTextColor = Color(0xFFFF0000);
 const Color buttonGray = Color(0xFFDEDEDE);
 const Color borderGray = Color(0xFFE1E1E1);
 const Color textGray = Color(0xFF595959);
 const Color darkThemeText = Color.fromARGB(255, 135, 134, 134);
+const Color colorInTransit = Color(0xffFFF9E7);
+const Color colorInTransitText = Color(0xffFCC60C);
 
 final ligthTheme = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,

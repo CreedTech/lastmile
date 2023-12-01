@@ -18,6 +18,10 @@ const reset_password = "/reset_password";
 /// Home Path
 const home = "/home";
 
+/// Details Path
+const details = "/details";
+const package_details = "/package_details";
+
 // History Path
 const history = '/history';
 

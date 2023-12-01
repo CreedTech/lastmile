@@ -45,48 +45,45 @@ class _SearchViewState extends State<SearchView> {
   }
 
   Widget createSuggestionList() {
-    return Material(
-      color: colorWhite,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-            child: Text(
-              'Recent',
-              textAlign: TextAlign.start,
-            ).boldSized(16.sp),
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () => setState(() {
-                onSubmitted = true;
-              }),
-              child: Column(
-                children: [
-                  ListTile(
-                    // minLeadingWidth: 1,
-                    horizontalTitleGap: 1,
-                    dense: true,
-                    // contentPadding: EdgeInsets.zero,
-                    leading: Icon(Icons.access_time),
-                    title: Text(
-                      "${_products[index].title}",
-                      textAlign: TextAlign.left,
-                    ).normalSized(16.sp).colors(colorsBlack),
-                    trailing: Icon(CupertinoIcons.arrow_up_right),
-                  ),
-                ],
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+          child: Text(
+            'Recent',
+            textAlign: TextAlign.start,
+          ).boldSized(16.sp),
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () => setState(() {
+              onSubmitted = true;
+            }),
+            child: Column(
+              children: [
+                ListTile(
+                  // minLeadingWidth: 1,
+                  horizontalTitleGap: 1,
+                  dense: true,
+                  // contentPadding: EdgeInsets.zero,
+                  leading: Icon(Icons.access_time),
+                  title: Text(
+                    "${_products[index].title}",
+                    textAlign: TextAlign.left,
+                  ).normalSized(16.sp).colors(colorsBlack),
+                  trailing: Icon(CupertinoIcons.arrow_up_right),
+                ),
+              ],
             ),
-            itemCount: _products.length,
           ),
-        ],
-      ),
+          itemCount: _products.length,
+        ),
+      ],
     );
   }
 
@@ -98,128 +95,124 @@ class _SearchViewState extends State<SearchView> {
       itemBuilder: (context, index) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  _products[index].thumbnail,
-                  width: 60,
-                  height: 60,
-                  fit: BoxFit.cover,
+          Container(
+            height: 100,
+            margin: const EdgeInsets.only(top: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Color(0xFFFCFCFC),
+              // border: Border.all(
+              //   color: const Color(0xFFE1E1E1),
+              // ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFFFCFCFC).withOpacity(0.5),
+                  spreadRadius: 0,
+                  blurRadius: 1,
                 ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 10,
               ),
-              const SizedBox(
-                width: 15,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${_products[index].title}",
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w600),
-                    ),
-                    Text(
-                      "${_products[index].category}",
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Macbook Pro 2022',
+                        style: TextStyle(
+                          color: colorsBlack,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Center(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: CupertinoTheme.of(context).barBackgroundColor,
+                      Text(
+                        'R763489247523',
+                        style: TextStyle(
+                          color: colorGray,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/icons/paid.png',
+                              width: 20.w,
+                              alignment: Alignment.center,
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Text(
+                              'Paid',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    "Download",
-                    // style: general
-                    //     .getLinkStyle(context)
-                    //     .copyWith(fontWeight: FontWeight.w700),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        'In Transit',
+                        style: TextStyle(
+                          color: colorGray,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/icons/box.png',
+                            width: 14.w,
+                            alignment: Alignment.center,
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Text(
+                            '3.24 kg',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 14.sp, fontWeight: FontWeight.w400),
+                          )
+                        ],
+                      ),
+                      Text(
+                        'June 20, 2023',
+                        style: TextStyle(
+                          color: colorsBlack,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Center(
-                  child: Text(
-                    "${_products[index].brand}",
-                    style: const TextStyle(
-                      color: CupertinoColors.systemGrey,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 75,
-                child: Text(
-                  "${_products[index].category}",
-                  style: const TextStyle(
-                    color: CupertinoColors.systemGrey,
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    _products[index].images![0],
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    _products[index].images![0],
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    _products[index].images![0],
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              )
-            ],
-          )
         ],
       ),
       separatorBuilder: (c, i) => Divider(
@@ -232,258 +225,76 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      //inside CupertinoPageScaffold
-      child: SuperCupertinoNavigationBar(
-        largeTitle: const Text(""),
-        appBarType:
-            AppBarType.NormalNavbarWithPinnedSearch, // Set desired AppBarType
+    return Material(
+      child: CupertinoPageScaffold(
+        //inside CupertinoPageScaffold
+        child: SuperCupertinoNavigationBar(
+          largeTitle: const Text(""),
+          appBarType:
+              AppBarType.NormalNavbarWithPinnedSearch, // Set desired AppBarType
 
-        searchFieldDecoration: SearchFieldDecoration(
-          cursorColor: colorPrimary,
-          // padding: const EdgeInsets.all( 30),
-          decoration: BoxDecoration(
-            color: colorGray,
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          placeholderText: "Enter your package tracking number",
+          searchFieldDecoration: SearchFieldDecoration(
+            cursorColor: colorPrimary,
+            // padding: const EdgeInsets.all( 30),
+            decoration: BoxDecoration(
+              color: colorLightGray,
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            placeholderText: "Enter your package tracking number",
 
-          // hideSearchBarOnInit: false,
-          searchFieldBehaviour:
-              SearchFieldBehaviour.ShowResultScreenAfterFieldInput,
-          cancelButtonStyle: TextStyle(color: colorsBlack),
-          onChanged: (text) {
-            search(text).then((value) {
-              _products = value;
+            // hideSearchBarOnInit: false,
+            searchFieldBehaviour:
+                SearchFieldBehaviour.ShowResultScreenAfterFieldInput,
+            cancelButtonStyle: TextStyle(color: colorsBlack),
+            onChanged: (text) {
+              search(text).then((value) {
+                _products = value;
+                onSubmitted = false;
+                setState(() {});
+              });
+            },
+            onSubmitted: (text) {
+              search(text).then((value) {
+                _products = value;
+                onSubmitted = true;
+                setState(() {});
+              });
+            },
+            onSuffixTap: () => setState(() {
+              _products = [];
               onSubmitted = false;
-              setState(() {});
-            });
-          },
-          onSubmitted: (text) {
-            search(text).then((value) {
-              _products = value;
-              onSubmitted = true;
-              setState(() {});
-            });
-          },
-          onSuffixTap: () => setState(() {
-            _products = [];
-            onSubmitted = false;
-          }),
-          onCancelTap: () => setState(() {
-            _products = [];
-            onSubmitted = false;
-          }),
-          searchResultChildren: [
-            onSubmitted ? createSearchList() : createSuggestionList()
-          ],
-        ), // There are 3 SearchFieldBehaviour
+            }),
+            onCancelTap: () => setState(() {
+              _products = [];
+              onSubmitted = false;
+            }),
+            searchResultChildren: [
+              onSubmitted ? createSearchList() : createSuggestionList()
+            ],
+          ), // There are 3 SearchFieldBehaviour
 
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
-              child: Text(
-                "Explore",
-                // style: general.getSubtitle(context),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: GridView.count(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              childAspectRatio: 4,
-              padding:
-                  const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
-              crossAxisCount: 2,
-              children: <Widget>[
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.search,
-                      size: 17,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Just Another Game",
-                      // style: general.getLinkStyle(context),
-                    ),
-                  ],
-                ),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.search,
-                      size: 17,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Nur ein weiteres Spiel",
-                      // style: general.getLinkStyle(context),
-                    ),
-                  ],
-                ),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.search,
-                      size: 17,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "또 다른 게임",
-                      // style: general.getLinkStyle(context),
-                    ),
-                  ],
-                ),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.search,
-                      size: 17,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Just Alius Ludus",
-                      // style: general.getLinkStyle(context),
-                    ),
-                  ],
-                ),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.search,
-                      size: 17,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Juste un autre jeu",
-                      // style: general.getLinkStyle(context),
-                    ),
-                  ],
-                ),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.search,
-                      size: 17,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Solo un altro gioco",
-                      // style: general.getLinkStyle(context),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 15.0,
-                right: 15.0,
-                bottom: 15.0,
-              ),
-              child: Text(
-                "Suggested",
-                // style: general.getSubtitle(context),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: ListView.separated(
-              shrinkWrap: true,
-              separatorBuilder: (context, index) => Divider(
-                color: Colors.grey.withOpacity(0.8),
-                indent: 85,
-              ),
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-              itemBuilder: (c, index) => Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+          slivers: [
+            SliverFillRemaining(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 70,
-                    height: 70,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset("assets/app_icon_${index % 8}.png"),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Apple App",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 3,
-                        ),
-                        Opacity(
-                          opacity: 0.75,
-                          child: Text(
-                            "Start a custom timer and turn on your focus until it's done",
-                            style: TextStyle(fontSize: 15),
-                            maxLines: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
                   Center(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: CupertinoTheme.of(context).barBackgroundColor,
-                      ),
-                      child: Text(
-                        "Download",
-                        // style: general
-                        //     .getLinkStyle(context)
-                        //     .copyWith(fontWeight: FontWeight.w700),
-                      ),
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/search_empty.png',
+                          height: 200.h,
+                        ),
+                        Text('Search for your package'),
+                      ],
                     ),
                   ),
                 ],
               ),
-              itemCount: 50,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

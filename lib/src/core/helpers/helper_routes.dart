@@ -8,6 +8,8 @@ import 'package:lastmile/src/presentation/auth/login/view/otp_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/phone_number_otp_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/register_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/reset_password_view.dart';
+import 'package:lastmile/src/presentation/details/view/details_view.dart';
+import 'package:lastmile/src/presentation/details/view/package_details_view.dart';
 import 'package:lastmile/src/presentation/history/view/history_view.dart';
 import 'package:lastmile/src/presentation/home/view/get_started_view.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_one.dart';
@@ -129,6 +131,16 @@ class RouterGenerator {
         return MaterialPageRoute(
           builder: (context) => const SearchView(),
           settings: const RouteSettings(name: search),
+        );
+      case details:
+        return MaterialPageRoute(
+          builder: (context) => const DetailsView(),
+          settings: const RouteSettings(name: details),
+        );
+      case package_details:
+        return MaterialPageRoute(
+          builder: (context) => const PackageDetailsView(),
+          settings: const RouteSettings(name: package_details),
         );
       case success:
         return MaterialPageRoute(

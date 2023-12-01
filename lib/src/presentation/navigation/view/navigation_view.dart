@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,15 +27,15 @@ class _NavigationViewsState extends State<NavigationViews> {
 
   IconData _homeIcon = Icons.home_outlined;
 
-  IconData _historyIcon = Icons.local_shipping_outlined;
-  IconData _orderIcon = Icons.add;
+  String _historyIcon = ('assets/icons/truck.png');
+  String _orderIcon = ('assets/icons/order.png');
   IconData _profileIcon = Icons.person_outline;
 
   IconData _defaultHomeIcon = Icons.home_outlined;
 
-  IconData _defaultHistoryIcon = Icons.local_shipping_outlined;
+  String _defaultHistoryIcon = ('assets/icons/truck.png');
 
-  IconData _defaultOrderIcon = Icons.add;
+  String _defaultOrderIcon = ('assets/icons/order.png');
   IconData _defaultProfileIcon = Icons.person_outline;
   void _onItemTapped(int index) {
     setState(() {
@@ -44,14 +45,14 @@ class _NavigationViewsState extends State<NavigationViews> {
         _orderIcon = _defaultOrderIcon;
         _profileIcon = _defaultProfileIcon;
       } else if (index == 1) {
-        _historyIcon = Icons.history_outlined;
-        _orderIcon = _defaultOrderIcon;
-        _profileIcon = _defaultProfileIcon;
-        _homeIcon = _defaultHomeIcon;
-      } else if (index == 2) {
         _orderIcon = _defaultOrderIcon;
         _profileIcon = _defaultProfileIcon;
         _historyIcon = _defaultHistoryIcon;
+        _homeIcon = _defaultHomeIcon;
+      } else if (index == 2) {
+        _historyIcon = _defaultHistoryIcon;
+        _orderIcon = _defaultOrderIcon;
+        _profileIcon = _defaultProfileIcon;
         _homeIcon = _defaultHomeIcon;
       } else if (index == 3) {
         _profileIcon = _defaultProfileIcon;
@@ -87,7 +88,7 @@ class _NavigationViewsState extends State<NavigationViews> {
         bottomNavigationBar: SizedBox(
           // height: 80.h,
           child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
+            type: BottomNavigationBarType.shifting,
             selectedIconTheme: IconThemeData(color: colorPrimary),
             selectedLabelStyle: GoogleFonts.nunito(
                 color: colorPrimary, fontWeight: FontWeight.w700),
@@ -97,7 +98,6 @@ class _NavigationViewsState extends State<NavigationViews> {
               color: textGray,
             ),
             unselectedItemColor: textGray,
-
             unselectedLabelStyle: GoogleFonts.nunito(color: textGray),
             selectedItemColor: colorPrimary,
             items: <BottomNavigationBarItem>[
@@ -106,11 +106,19 @@ class _NavigationViewsState extends State<NavigationViews> {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(_orderIcon),
+                icon: Image.asset(
+                  _orderIcon,
+                  width: 16.w,
+                  color: _selectedIndex == 1 ? colorPrimary : colorGray,
+                ),
                 label: 'Order',
               ),
               BottomNavigationBarItem(
-                icon: Icon(_historyIcon),
+                icon: Image.asset(
+                  _historyIcon,
+                  width: 16.w,
+                  color: _selectedIndex == 2 ? colorPrimary : colorGray,
+                ),
                 label: 'My Order',
               ),
               BottomNavigationBarItem(
@@ -226,7 +234,7 @@ class _NavigationViewsState extends State<NavigationViews> {
         return const OrderView();
       case 2:
         return const HistoryView();
-      
+
       case 3:
         return const ProfileView();
       default:

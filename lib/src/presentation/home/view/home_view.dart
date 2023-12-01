@@ -116,9 +116,9 @@ class _HomeViewState extends State<HomeView> {
                     padding: EdgeInsets.symmetric(horizontal: 15.w),
                     child: Column(
                       children: [
-                        Text('Current Location')
+                        Text('Select Terminal')
                             .normalSized(14.sp)
-                            .colors(textGray),
+                            .colors(colorGray),
                         GestureDetector(
                           onTap: () {},
                           child: Row(
@@ -216,6 +216,7 @@ class _HomeViewState extends State<HomeView> {
                           height: 40.h,
                         ),
                         SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
                           child: Column(children: [
                             Row(
                               children: [
@@ -256,65 +257,176 @@ class _HomeViewState extends State<HomeView> {
                                     ],
                                   )
                                 : Container(
-                                    height: 450.h,
+                                    height: 470.h,
                                     child: ListView.builder(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 0,
-                                        ),
-                                        itemCount: deliveries.length,
-                                        itemBuilder: (context, index) {
-                                          return Card(
-                                            margin: EdgeInsets.symmetric(
-                                              horizontal: 0,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 0,
+                                      ),
+                                      itemCount: deliveries.length,
+                                      itemBuilder: (context, index) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                                context, details);
+                                          },
+                                          child: Container(
+                                            height: 100,
+                                            margin:
+                                                const EdgeInsets.only(top: 8),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: Color(0xFFFCFCFC),
+                                              // border: Border.all(
+                                              //   color: const Color(0xFFE1E1E1),
+                                              // ),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Color(0xFFFCFCFC)
+                                                      .withOpacity(0.5),
+                                                  spreadRadius: 0,
+                                                  blurRadius: 1,
+                                                ),
+                                              ],
                                             ),
-                                            elevation: 0.0,
-                                            child: ListTile(
-                                              leading: CircleAvatar(
-                                                // radius:40,
-                                                backgroundColor: colorGray,
-                                                child: Image.asset(
-                                                  'assets/icons/truck.png',
-                                                  width: 16.w,
-                                                ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                                vertical: 10,
                                               ),
-                                              title: Text(
-                                                // ' Purchase : ${transaction.provider}',
-                                                'R763489247523',
-                                              )
-                                                  .normalSized(14.sp)
-                                                  .colors(colorsBlack),
-                                              trailing: CircleAvatar(
-                                                radius: 12.w,
-                                                backgroundColor: colorGray,
-                                                child: Image.asset(
-                                                  'assets/icons/info.png',
-                                                  width: 12.w,
-                                                ),
-                                              ),
-                                              subtitle: Row(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  Text(
-                                                    // 'Recipient : ${deliveries.type}',
-                                                    'In Transit , ',
-                                                  )
-                                                      .normalSized(12.sp)
-                                                      .colors(textGray),
-                                                  // SizedBox(
-                                                  //   width: 10.w,
-                                                  // ),
-                                                  Text(
-                                                    'June 20',
-                                                  )
-                                                      .normalSized(12.sp)
-                                                      .colors(textGray),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        'Macbook Pro 2022',
+                                                        style: TextStyle(
+                                                          color: colorsBlack,
+                                                          fontSize: 16.sp,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'R763489247523',
+                                                        style: TextStyle(
+                                                          color: colorGray,
+                                                          fontSize: 12.sp,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                      Align(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Image.asset(
+                                                              'assets/icons/paid.png',
+                                                              width: 20.w,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 5.w,
+                                                            ),
+                                                            Text(
+                                                              'Paid',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                fontSize: 14.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        'In Transit',
+                                                        style: TextStyle(
+                                                          color: colorGray,
+                                                          fontSize: 12.sp,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/icons/box.png',
+                                                            width: 14.w,
+                                                            alignment: Alignment
+                                                                .center,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5.w,
+                                                          ),
+                                                          Text(
+                                                            '3.24 kg',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontSize: 14.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Text(
+                                                        'June 20, 2023',
+                                                        style: TextStyle(
+                                                          color: colorsBlack,
+                                                          fontSize: 14.sp,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ],
                                               ),
-                                              onTap: () {
-                                                // toggleTextVisibility();
-                                              },
                                             ),
-                                          );
-                                        }),
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                           ]),
                         ),

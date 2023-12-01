@@ -13,57 +13,27 @@ class _OrderViewState extends State<OrderView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // titleSpacing: 20,
-        elevation: 0,
-        title: Column(
+      body: SafeArea(
+        child: Stack(
           children: [
-            Text('Send Package').boldSized(16.sp).colors(colorsBlack),
-            Text('Step 1 of 3').normalSized(10.sp).colors(colorsBlack),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 40.h),
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Text('Send Package'),
+                      Text('Step 1 of 3'),
+                    ],
+                  ),
+                  Column(
+                    children: [],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
-        backgroundColor: colorWhite,
-        actions: [
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Guide.isDark(context) ? colorsBlack : colorWhite,
-              elevation: 0,
-            ),
-            child: Icon(Icons.notifications_none_outlined,
-                weight: 24.h,
-                color: Guide.isDark(context) ? darkThemeText : colorsBlack)
-            //  SvgPicture.asset(
-            //   "assets/icons/notification.svg",
-            //   height: 24.h,
-            //   width: 24.w,
-            //   color: Guide.isDark(context) ? darkThemeText : colorsBlack,
-            // )
-            ,
-          ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          Text('Yo'),
-          Stepper(
-            type: StepperType.vertical,
-            steps: [
-              const Step(
-                title: Text('Account'),
-                content: Center(
-                  child: Text('Account'),
-                ),
-              ),
-              const Step(
-                title: Text('Address'),
-                content: Center(
-                  child: Text('Address'),
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
