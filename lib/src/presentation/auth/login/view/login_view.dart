@@ -187,6 +187,7 @@ class _LoginViewConsumerState extends ConsumerState<LoginView> {
                       ],
                     ),
                   ),
+                 
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 16.h),
                     child: Row(

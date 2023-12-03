@@ -21,6 +21,8 @@ const home = "/home";
 /// Details Path
 const details = "/details";
 const package_details = "/package_details";
+const pickup_terminal = "/pickup_terminal";
+const delivery_address = "/delivery_address";
 
 // History Path
 const history = '/history';

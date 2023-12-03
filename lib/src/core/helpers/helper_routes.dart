@@ -8,8 +8,10 @@ import 'package:lastmile/src/presentation/auth/login/view/otp_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/phone_number_otp_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/register_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/reset_password_view.dart';
+import 'package:lastmile/src/presentation/details/delivery_address_view.dart';
 import 'package:lastmile/src/presentation/details/view/details_view.dart';
 import 'package:lastmile/src/presentation/details/view/package_details_view.dart';
+import 'package:lastmile/src/presentation/details/view/pickup_terminal_view.dart';
 import 'package:lastmile/src/presentation/history/view/history_view.dart';
 import 'package:lastmile/src/presentation/home/view/get_started_view.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_one.dart';
@@ -119,7 +121,10 @@ class RouterGenerator {
         );
       case order:
         return MaterialPageRoute(
-          builder: (context) => const OrderView(),
+          builder: (context) => OrderView(
+            pickup_address: arguments as String,
+            delivery_address: arguments,
+          ),
           settings: const RouteSettings(name: order),
         );
       case profile:
@@ -141,6 +146,16 @@ class RouterGenerator {
         return MaterialPageRoute(
           builder: (context) => const PackageDetailsView(),
           settings: const RouteSettings(name: package_details),
+        );
+      case pickup_terminal:
+        return MaterialPageRoute(
+          builder: (context) => const PickupTerminalView(),
+          settings: const RouteSettings(name: pickup_terminal),
+        );
+      case delivery_address:
+        return MaterialPageRoute(
+          builder: (context) => const DeliveryAddressView(),
+          settings: const RouteSettings(name: delivery_address),
         );
       case success:
         return MaterialPageRoute(

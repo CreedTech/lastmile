@@ -67,7 +67,7 @@ class CustomTextField extends StatelessWidget {
 
           decoration: InputDecoration(
             labelText: legend,
-            labelStyle: GoogleFonts.nunito(color: colorsBlack),
+            labelStyle: GoogleFonts.nunito(color: colorGray),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.sp),
               borderSide: const BorderSide(color: Color(0xffA4A5A6)),
