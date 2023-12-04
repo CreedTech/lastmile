@@ -31,7 +31,10 @@ class _PickupTerminalViewState extends State<PickupTerminalView> {
           'Pickup Terminals',
         ),
         titleTextStyle: TextStyle(
-            color: colorsBlack, fontSize: 20.sp, fontWeight: FontWeight.w500),
+          color: colorsBlack,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -87,7 +90,11 @@ class _PickupTerminalViewState extends State<PickupTerminalView> {
                   },
                   child: Padding(
                     padding: EdgeInsets.only(
-                        top: 16.0, bottom: 80.h, right: 20.w, left: 20.w),
+                      top: 16.0,
+                      bottom: 80.h,
+                      right: 20.w,
+                      left: 20.w,
+                    ),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.symmetric(vertical: 15.h),

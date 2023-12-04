@@ -86,22 +86,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Text(
                           contents[i].title,
                           textAlign: TextAlign.center,
-                          // style: TextStyle(
-                          //   fontFamily: "Nunito",
-                          //   fontWeight: FontWeight.w600,
-                          //   fontSize: (width <= 550) ? 30 : 35,
-                          // ),
-                        ).boldSized(22.sp).colors(colorsBlack),
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20.sp,
+                          ),
+                        ),
                         const SizedBox(height: 15),
                         Text(
                           contents[i].desc,
-                          // style: TextStyle(
-                          //   fontFamily: "Nunito",
-                          //   fontWeight: FontWeight.w300,
-                          //   fontSize: (width <= 550) ? 16 : 16,
-                          // ),
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontWeight: FontWeight.w400,
+                            fontSize: (width <= 550) ? 16.sp : 16.sp,
+                          ),
                           textAlign: TextAlign.center,
-                        ).normalSized(16.sp).colors(colorsBlack),
+                        ),
                       ],
                     ),
                   );
@@ -124,7 +124,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   _currentPage + 1 == contents.length
                       ? Padding(
-                          padding: const EdgeInsets.all(30),
+                          padding:  EdgeInsets.all(30.sp),
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).pushNamed(getStarted);
@@ -145,7 +145,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       horizontal: width / 2, vertical: 25),
                               textStyle: TextStyle(
                                   color: colorWhite,
-                                  fontSize: (width <= 550) ? 13 : 17),
+                                  fontSize: (width <= 550) ? 13.sp : 13.sp),
                             ),
                           ),
                         )

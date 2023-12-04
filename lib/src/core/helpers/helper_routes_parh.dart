@@ -29,6 +29,8 @@ const history = '/history';
 
 // Order Path
 const order = '/order';
+const order_two = '/order_two';
+const order_three = '/order_three';
 
 // Profile Path
 const profile = '/profile';

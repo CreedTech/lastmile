@@ -8,7 +8,7 @@ import 'package:lastmile/src/presentation/auth/login/view/otp_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/phone_number_otp_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/register_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/reset_password_view.dart';
-import 'package:lastmile/src/presentation/details/delivery_address_view.dart';
+import 'package:lastmile/src/presentation/details/view/delivery_address_view.dart';
 import 'package:lastmile/src/presentation/details/view/details_view.dart';
 import 'package:lastmile/src/presentation/details/view/package_details_view.dart';
 import 'package:lastmile/src/presentation/details/view/pickup_terminal_view.dart';
@@ -20,6 +20,8 @@ import 'package:lastmile/src/presentation/home/view/onboarding_two.dart';
 import 'package:lastmile/src/presentation/home/view/onboarding_view.dart';
 import 'package:lastmile/src/presentation/home/view/splash_view.dart';
 import 'package:lastmile/src/presentation/navigation/view/navigation_view.dart';
+import 'package:lastmile/src/presentation/order/view/order_three_view.dart';
+import 'package:lastmile/src/presentation/order/view/order_two_view.dart';
 import 'package:lastmile/src/presentation/order/view/order_view.dart';
 import 'package:lastmile/src/presentation/profile/view/profile_view.dart';
 import 'package:lastmile/src/presentation/search/view/search_view.dart';
@@ -126,6 +128,31 @@ class RouterGenerator {
             delivery_address: arguments,
           ),
           settings: const RouteSettings(name: order),
+        );
+      case order_two:
+        return MaterialPageRoute(
+          builder: (context) => OrderTwoView(
+            pickup_terminal: arguments as String,
+            delivery_address: arguments,
+            title: arguments,
+            weight: arguments,
+          ),
+          settings: const RouteSettings(name: order_two),
+        );
+      case order_three:
+        return MaterialPageRoute(
+          builder: (context) => OrderThreeView(
+            pickup_terminal: arguments as String,
+            delivery_address: arguments,
+            title: arguments,
+            weight: arguments,
+            // sender_full_name: arguments,
+            // sender_phone_number: arguments,
+            // receiver_full_name: arguments,
+            // receiver_phone_number: arguments,
+            // note:arguments,
+          ),
+          settings: const RouteSettings(name: order_three),
         );
       case profile:
         return MaterialPageRoute(

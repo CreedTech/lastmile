@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/presentation/order/view/order_two_view.dart';
 
 import '../../widgets/custom_text_field.dart';
 
@@ -382,6 +383,22 @@ class _OrderViewState extends State<OrderView> {
                                     //   home,
                                     //   (route) => false,
                                     // );
+                                    if (packageInfoKey.currentState!
+                                        .validate()) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => OrderTwoView(
+                                            pickup_terminal:
+                                                widget.pickup_address,
+                                            delivery_address:
+                                                widget.delivery_address,
+                                            title: _titleController.text,
+                                            weight: _weightController.text,
+                                          ),
+                                        ),
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
@@ -391,12 +408,15 @@ class _OrderViewState extends State<OrderView> {
                                     decoration: BoxDecoration(
                                       color: colorPrimary,
                                       borderRadius: BorderRadius.all(
-                                          Radius.circular(88.sp)),
+                                        Radius.circular(88.sp),
+                                      ),
                                     ),
                                     child: Text(
                                       'Continue',
                                       style: TextStyle(
-                                          fontSize: 14.sp, color: Colors.white),
+                                        fontSize: 14.sp,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),

@@ -26,7 +26,7 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
   bool isClicked = false;
 
   final TextEditingController otpController = TextEditingController();
-  final GlobalKey<FormState> otprestpwdFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> otVerifyFormKey = GlobalKey<FormState>();
   StreamController<ErrorAnimationType>? errorController;
 
   @override
@@ -141,7 +141,7 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Form(
-                        key: otprestpwdFormKey,
+                        key: otVerifyFormKey,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             vertical: 8.0,
@@ -234,7 +234,7 @@ class _OtpViewConsumerState extends ConsumerState<OtpView> {
                               ),
                             ),
                             onPressed: () {
-                              // if (otprestpwdFormKey.currentState!.validate()) {
+                              // if (otVerifyFormKey.currentState!.validate()) {
                               //   authState.verifyForgotPasswordOtp(
                               //     context,
                               //     widget.email,
