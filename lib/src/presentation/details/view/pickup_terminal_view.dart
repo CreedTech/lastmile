@@ -119,7 +119,7 @@ class _PickupTerminalViewState extends State<PickupTerminalView> {
   }
 }
 
-class PickupTerminalWidget extends StatelessWidget {
+class PickupTerminalWidget extends StatefulWidget {
   const PickupTerminalWidget({
     super.key,
     required this.name,
@@ -128,6 +128,12 @@ class PickupTerminalWidget extends StatelessWidget {
   final String name;
   final String address;
 
+  @override
+  State<PickupTerminalWidget> createState() => _PickupTerminalWidgetState();
+}
+
+class _PickupTerminalWidgetState extends State<PickupTerminalWidget> {
+    String selectedValue = '';
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -148,23 +154,17 @@ class PickupTerminalWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Container(
-              //   width: 16.w,
-              //   height: 16.h,
-              //   decoration: BoxDecoration(
-              //     color: Color(0xffF3F3F3),
-              //     borderRadius: BorderRadius.circular(
-              //       50.sp,
-              //     ),
-              //   ),
-              // ),
               Container(
                 width: 14.w,
                 height: 14.h,
                 child: Radio.adaptive(
-                  value: '',
-                  groupValue: 'n',
-                  onChanged: (val) {},
+                  value: widget.name,
+                  groupValue: selectedValue,
+                  onChanged: (val) {
+                    setState(() {
+                      selectedValue = val.toString();
+                    });
+                  },
                   overlayColor: MaterialStateColor.resolveWith(
                     (states) => colorLightGray,
                   ),
@@ -186,7 +186,7 @@ class PickupTerminalWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    widget.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -200,7 +200,7 @@ class PickupTerminalWidget extends StatelessWidget {
                     padding: EdgeInsets.only(top: 8.h),
                     width: 300.w,
                     child: Text(
-                      address,
+                      widget.address,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

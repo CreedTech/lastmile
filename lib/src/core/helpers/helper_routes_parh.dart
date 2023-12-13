@@ -23,6 +23,8 @@ const details = "/details";
 const package_details = "/package_details";
 const pickup_terminal = "/pickup_terminal";
 const delivery_address = "/delivery_address";
+const delivered = "/delivered";
+const ratings = "/ratings";
 
 // History Path
 const history = '/history';
@@ -31,6 +33,9 @@ const history = '/history';
 const order = '/order';
 const order_two = '/order_two';
 const order_three = '/order_three';
+const confirm_package_details = '/confirm_package_details';
+const connecting_dispatch = '/connecting_dispatch';
+const delivery_success = '/delivery_success';
 
 // Profile Path
 const profile = '/profile';
@@ -40,3 +45,6 @@ const search = '/search';
 
 // Custom
 const success = '/success';
+
+// Custom
+const notifications = '/notifications';

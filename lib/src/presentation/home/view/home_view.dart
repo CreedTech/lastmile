@@ -16,62 +16,140 @@ class _HomeViewState extends State<HomeView> {
   List deliveries = [
     {
       "icon": "assets/icons/truck.png",
-      "status": "In Transit",
-      "description": "Bill Payment 1",
+      "status": "Delivered",
+      "description": "Macbook Pro 2022",
       "date": "June 20"
     },
     {
       "icon": "assets/icons/truck.png",
-      "status": "debit",
-      "description": "Bill Payment 1",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
       "date": "June 20"
     },
     {
       "icon": "assets/icons/truck.png",
-      "status": "debit",
-      "description": "Bill Payment 1",
+      "status": "Pending",
+      "description": "Macbook Pro 2022",
       "date": "June 20"
     },
     {
       "icon": "assets/icons/truck.png",
-      "status": "debit",
-      "description": "Bill Payment 1",
+      "status": "Delivered",
+      "description": "Macbook Pro 2022",
       "date": "June 20"
     },
     {
       "icon": "assets/icons/truck.png",
-      "status": "debit",
-      "description": "Bill Payment 1",
+      "status": "Cancelled",
+      "description": "Macbook Pro 2022",
       "date": "June 20"
     },
     {
       "icon": "assets/icons/truck.png",
-      "status": "debit",
-      "description": "Bill Payment 1",
+      "status": "Cancelled",
+      "description": "Macbook Pro 2022",
       "date": "June 20"
     },
     {
       "icon": "assets/icons/truck.png",
-      "status": "debit",
-      "description": "Bill Payment 1",
+      "status": "Cancelled",
+      "description": "Macbook Pro 2022",
       "date": "June 20"
     },
     {
       "icon": "assets/icons/truck.png",
-      "status": "debit",
-      "description": "Bill Payment 1",
+      "status": "Cancelled",
+      "description": "Macbook Pro 2022",
       "date": "June 20"
     },
     {
       "icon": "assets/icons/truck.png",
-      "status": "debit",
-      "description": "Bill Payment 1",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
       "date": "June 20"
     },
     {
       "icon": "assets/icons/truck.png",
-      "status": "debit",
-      "description": "Bill Payment 1",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Processing",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "completed",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Pending",
+      "description": "Macbook Pro 2022",
+      "date": "June 20"
+    },
+    {
+      "icon": "assets/icons/truck.png",
+      "status": "Pending",
+      "description": "Macbook Pro 2022",
       "date": "June 20"
     },
   ];
@@ -94,7 +172,9 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: colorWhite,
         actions: [
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(notifications);
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Guide.isDark(context) ? colorsBlack : colorWhite,
               elevation: 0,
@@ -244,7 +324,7 @@ class _HomeViewState extends State<HomeView> {
                                         height: 400.h,
                                         child: Center(
                                           child: Text(
-                                            "No Transaction history.",
+                                            "You have no delivery order",
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.nunito(
                                               color: colorsBlack,
@@ -259,11 +339,9 @@ class _HomeViewState extends State<HomeView> {
                                 : Container(
                                     height: 470.h,
                                     child: ListView.builder(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 0,
-                                      ),
                                       itemCount: deliveries.length,
                                       itemBuilder: (context, index) {
+                                        final delivery = deliveries[index];
                                         return GestureDetector(
                                           onTap: () {
                                             Navigator.pushNamed(
@@ -303,27 +381,18 @@ class _HomeViewState extends State<HomeView> {
                                                   Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .spaceBetween,
+                                                            .spaceAround,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        'Macbook Pro 2022',
+                                                        delivery['description'],
                                                         style: TextStyle(
                                                           color: colorsBlack,
                                                           fontSize: 16.sp,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        'R763489247523',
-                                                        style: TextStyle(
-                                                          color: colorGray,
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w400,
                                                         ),
                                                       ),
                                                       Align(
@@ -338,7 +407,16 @@ class _HomeViewState extends State<HomeView> {
                                                                   .center,
                                                           children: [
                                                             Image.asset(
-                                                              'assets/icons/paid.png',
+                                                              delivery['status'] ==
+                                                                      'Pending'
+                                                                  ? 'assets/icons/Processing.png'
+                                                                  : delivery['status'] ==
+                                                                          'Delivered'
+                                                                      ? 'assets/icons/paid.png'
+                                                                      : delivery['status'] ==
+                                                                              'Cancelled'
+                                                                          ? 'assets/icons/Cancelled.png'
+                                                                          : 'assets/icons/Processing.png',
                                                               width: 20.w,
                                                               alignment:
                                                                   Alignment
@@ -348,7 +426,16 @@ class _HomeViewState extends State<HomeView> {
                                                               width: 5.w,
                                                             ),
                                                             Text(
-                                                              'Paid',
+                                                              delivery['status'] ==
+                                                                      'Pending'
+                                                                  ? 'Waiting for Order'
+                                                                  : delivery['status'] ==
+                                                                          'Delivered'
+                                                                      ? 'Payment on Delivery'
+                                                                      : delivery['status'] ==
+                                                                              'Cancelled'
+                                                                          ? 'Order Cancelled'
+                                                                          : 'Payment on Delivery',
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
@@ -367,53 +454,35 @@ class _HomeViewState extends State<HomeView> {
                                                   Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .spaceBetween,
+                                                            .center,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment.end,
                                                     children: [
                                                       Text(
-                                                        'In Transit',
+                                                        delivery['status'] ==
+                                                                'Pending'
+                                                            ? 'Waiting for Order'
+                                                            : delivery['status'] ==
+                                                                    'Delivered'
+                                                                ? 'Delivered'
+                                                                : delivery['status'] ==
+                                                                        'Cancelled'
+                                                                    ? 'Cancelled'
+                                                                    : 'In Transit',
                                                         style: TextStyle(
-                                                          color: colorGray,
+                                                          color: delivery['status'] ==
+                                                                  'Pending'
+                                                              ? colorGray
+                                                              : delivery['status'] ==
+                                                                      'Delivered'
+                                                                  ? Color(
+                                                                      0xff3BB54A)
+                                                                  : delivery['status'] ==
+                                                                          'Cancelled'
+                                                                      ? colorPrimary
+                                                                      : Color(
+                                                                          0xffFCC60C),
                                                           fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Image.asset(
-                                                            'assets/icons/box.png',
-                                                            width: 14.w,
-                                                            alignment: Alignment
-                                                                .center,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 5.w,
-                                                          ),
-                                                          Text(
-                                                            '3.24 kg',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 14.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      Text(
-                                                        'June 20, 2023',
-                                                        style: TextStyle(
-                                                          color: colorsBlack,
-                                                          fontSize: 14.sp,
                                                           fontWeight:
                                                               FontWeight.w400,
                                                         ),
@@ -425,6 +494,12 @@ class _HomeViewState extends State<HomeView> {
                                             ),
                                           ),
                                         );
+
+                                        // ListTile(
+                                        //   title: Text(delivery['description']),
+                                        //   subtitle: Text('${delivery['status']} - ${delivery['date']}'),
+                                        //   leading: Image.asset(delivery['icon']),
+                                        // )
                                       },
                                     ),
                                   ),

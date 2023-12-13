@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/presentation/order/view/order_two_view.dart';
 
@@ -33,6 +34,35 @@ class _OrderViewState extends State<OrderView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: colorWhite,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: EdgeInsets.all(12.sp),
+          child: Column(
+            children: [
+              Text(
+                'Send Package',
+                style: GoogleFonts.nunito(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 22.sp,
+                  color: colorsBlack,
+                ),
+              ),
+              Text(
+                'Step 1 of 3',
+                style: GoogleFonts.nunito(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  color: colorGray,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Stack(
@@ -41,20 +71,34 @@ class _OrderViewState extends State<OrderView> {
                 padding: EdgeInsets.only(top: 30.h, right: 16.sp, left: 16.sp),
                 child: Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.all(12.sp),
-                      child: Column(
-                        children: [
-                          Text('Send Package'),
-                          Text('Step 1 of 3'),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.all(12.sp),
+                    //   child: Column(
+                    //     children: [
+                    //       Text(
+                    //         'Send Package',
+                    //         style: GoogleFonts.nunito(
+                    //           fontWeight: FontWeight.w500,
+                    //           fontSize: 22.sp,
+                    //           color: colorsBlack,
+                    //         ),
+                    //       ),
+                    //       Text(
+                    //         'Step 1 of 3',
+                    //         style: GoogleFonts.nunito(
+                    //           fontWeight: FontWeight.w400,
+                    //           fontSize: 16.sp,
+                    //           color: colorGray,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     Column(
                       children: [
                         Container(
                           padding: EdgeInsets.only(
-                            top: 16.sp,
+                            top: 0.sp,
                           ),
                           child: DottedBorder(
                             color: colorGray,
@@ -350,7 +394,7 @@ class _OrderViewState extends State<OrderView> {
                                 controller: _titleController,
                                 legend: 'Enter package title',
 
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.text,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Input your package title';
@@ -366,7 +410,8 @@ class _OrderViewState extends State<OrderView> {
                                 hintText: '',
                                 controller: _weightController,
                                 legend: 'Enter package weight Kg',
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.numberWithOptions(
+                                    decimal: true),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Input your package weight in kg';
@@ -389,7 +434,7 @@ class _OrderViewState extends State<OrderView> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => OrderTwoView(
-                                            pickup_terminal:
+                                            pickup_address:
                                                 widget.pickup_address,
                                             delivery_address:
                                                 widget.delivery_address,
