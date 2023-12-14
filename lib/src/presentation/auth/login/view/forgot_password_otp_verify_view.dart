@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lastmile/src/presentation/auth/login/view/reset_password_view.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../core/core.dart';
 import '../../../../data/datasource/auth/controller/auth_controller.dart';
-import '../../../widgets/custom_success_screen.dart';
 
 class ForgotPasswordOtpVerification extends ConsumerStatefulWidget {
   const ForgotPasswordOtpVerification({super.key, required this.email});
@@ -244,18 +244,26 @@ class _ForgotPasswordOtpVerificationConsumerState
                               //   );
                               //   otpController.clear();
                               // }
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CustomSuccessScreen(
-                                      title: 'Successful',
-                                      info:
-                                          'Password has been changed successfully',
-                                      route: login,
-                                      buttonTitle: 'Sign In',
-                                    ),
-                                  ),
-                                  (route) => false);
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ResetPasswordView(
+                                                email: 'widget.email'),
+                                      ),
+                                    );
+                              // Navigator.pushAndRemoveUntil(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (context) => CustomSuccessScreen(
+                              //         title: 'Successful',
+                              //         info:
+                              //             'Password has been changed successfully',
+                              //         route: login,
+                              //         buttonTitle: 'Sign In',
+                              //       ),
+                              //     ),
+                              //     (route) => false);
                             },
                             child: const Text(
                               'Reset Password',

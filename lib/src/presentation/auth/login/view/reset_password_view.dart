@@ -58,6 +58,10 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomTextField(
+                            prefixIcon: Icon(
+                              Icons.lock_outline,
+                              color: colorsBlack,
+                            ),
                             legend: 'Password',
                             // labelText: 'Password',
                             controller: newPasswordController,
@@ -88,6 +92,10 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                             ),
                           ),
                           CustomTextField(
+                            prefixIcon: Icon(
+                              Icons.lock_outline,
+                              color: colorsBlack,
+                            ),
                             legend: 'Confirm Password',
                             controller: confirmPasswordController,
                             obscureText: obscureText,
@@ -128,8 +136,13 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       minimumSize: Size(400.w, 50.h),
-                                      backgroundColor: colorsBlack,
+                                      backgroundColor: colorPrimary,
                                       elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          88,
+                                        ),
+                                      ),
                                     ),
                                     onPressed: () {
                                       // if (resetpsswdformKey.currentState!

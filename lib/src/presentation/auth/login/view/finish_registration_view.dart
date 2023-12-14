@@ -14,8 +14,7 @@ class FinishRegistrationView extends StatefulWidget {
 }
 
 class _FinishRegistrationViewState extends State<FinishRegistrationView> {
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool obscureText = true;
@@ -23,8 +22,7 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
+    _fullNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -62,15 +60,19 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                   children: [
                     Image.asset(
                       'assets/images/logo.png',
-                      height: 150.h,
+                      height: 120.h,
                     ),
                     Form(
                       key: registerFormKey,
                       child: Column(
                         children: [
                           CustomTextField(
-                            legend: 'First Name',
-                            controller: _firstNameController,
+                            prefixIcon: Icon(
+                              Icons.person_outline,
+                              color: colorsBlack,
+                            ),
+                            legend: 'Full Name',
+                            controller: _fullNameController,
                             keyboardType: TextInputType.text,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -83,20 +85,10 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                             },
                           ),
                           CustomTextField(
-                            legend: 'Last Name',
-                            controller: _lastNameController,
-                            keyboardType: TextInputType.text,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Input a valid name';
-                              }
-                              if (value.length < 2) {
-                                return 'Min. 2 characters';
-                              }
-                              return null;
-                            },
-                          ),
-                          CustomTextField(
+                            prefixIcon: Icon(
+                              Icons.mail_outline,
+                              color: colorsBlack,
+                            ),
                             legend: 'Email address',
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
@@ -112,6 +104,10 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                           ),
                           // SizedBox(height: 10.h),
                           CustomTextField(
+                            prefixIcon: Icon(
+                              Icons.lock_outline,
+                              color: colorsBlack,
+                            ),
                             legend: 'Password',
                             // labelText: 'Password',
                             controller: _passwordController,
@@ -173,45 +169,43 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                             ),
                           ),
                           SizedBox(
-                            height: 80.h,
+                            height: 150.h,
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => CustomSuccessScreen(
-                                        title: 'Welcome',
-                                        info:
-                                            'More than just a simple package delivery application now has more benefits',
-                                        route: login,
-                                        buttonTitle: 'Login',
-                                      ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10.h, horizontal: 0.w),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(400.w, 50.h),
+                                  backgroundColor: colorPrimary,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      88,
                                     ),
-                                    (route) => false);
-                                // if (loginFormKey.currentState!.validate()) {
-                                //   authState.signIn(
-                                //       context,
-                                //       _emailController.text.trim(),
-                                //       _passwordController.text.trim());
-                                // }
-                              },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                padding: EdgeInsets.symmetric(vertical: 15.h),
-                                alignment: Alignment.center,
-                                decoration: const BoxDecoration(
-                                  color: Color.fromRGBO(33, 35, 39, 1),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
+                                  ),
                                 ),
-                                child: Text(
+                                onPressed: () {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            CustomSuccessScreen(
+                                          title: 'Successful',
+                                          info:
+                                              'More than just a simple package delivery application now has more benefits',
+                                          route: login,
+                                          buttonTitle: 'Login',
+                                        ),
+                                      ),
+                                      (route) => false);
+                                },
+                                child: const Text(
                                   'Agree & Continue',
-                                  style: TextStyle(
-                                      fontSize: 14.sp, color: Colors.white),
-                                ),
+                                  textAlign: TextAlign.center,
+                                ).normalSized(16).colors(colorWhite),
                               ),
                             ),
                           ),

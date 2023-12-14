@@ -4,24 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lastmile/src/core/core.dart';
-// import 'package:lastmile/src/data/datasource/auth/controller/auth_controller.dart';
-import 'package:lastmile/src/presentation/auth/login/view/finish_registration_view.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../../core/core.dart';
 import '../../../../data/datasource/auth/controller/auth_controller.dart';
+import '../../../widgets/custom_success_screen.dart';
 
-class PhoneNumberOtpView extends ConsumerStatefulWidget {
-  const PhoneNumberOtpView({super.key, required this.phone_number});
+class ChangePhoneOtpView extends ConsumerStatefulWidget {
+  const ChangePhoneOtpView({super.key, required this.phone_number});
   final String phone_number;
 
   @override
-  ConsumerState<PhoneNumberOtpView> createState() =>
-      _PhoneNumberOtpViewConsumerState();
+  ConsumerState<ChangePhoneOtpView> createState() =>
+      _ChangePhoneOtpViewConsumerState();
 }
 
-class _PhoneNumberOtpViewConsumerState
-    extends ConsumerState<PhoneNumberOtpView> {
+class _ChangePhoneOtpViewConsumerState
+    extends ConsumerState<ChangePhoneOtpView> {
   int _minutes = 3; // Initialize minutes to 3
   int _seconds = 0; // Initialize seconds to 0
   Timer? _timer;
@@ -251,14 +250,19 @@ class _PhoneNumberOtpViewConsumerState
                               //   );
                               //   otpController.clear();
                               // }
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => FinishRegistrationView(
-                                    phone_number: widget.phone_number,
-                                  ),
-                                ),
-                              );
+                              Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            CustomSuccessScreen(
+                                          title: 'Successful',
+                                          info:
+                                              'Phone number changed successfully ',
+                                          route: profile,
+                                          buttonTitle: 'Done',
+                                        ),
+                                      ),
+                                      (route) => false);
                             },
                             child: const Text(
                               'Verify',

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/presentation/auth/login/view/change_phone_number_view.dart';
+import 'package:lastmile/src/presentation/auth/login/view/change_phone_otp_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/finish_registration_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/forgot_password_otp_verify_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/forgot_password_view.dart';
@@ -28,7 +30,12 @@ import 'package:lastmile/src/presentation/order/view/delivery_success_view.dart'
 import 'package:lastmile/src/presentation/order/view/order_three_view.dart';
 import 'package:lastmile/src/presentation/order/view/order_two_view.dart';
 import 'package:lastmile/src/presentation/order/view/order_view.dart';
+import 'package:lastmile/src/presentation/profile/view/about_us_view.dart';
+import 'package:lastmile/src/presentation/profile/view/faq_view.dart';
+import 'package:lastmile/src/presentation/profile/view/help_view.dart';
+import 'package:lastmile/src/presentation/profile/view/my_information_view.dart';
 import 'package:lastmile/src/presentation/profile/view/profile_view.dart';
+import 'package:lastmile/src/presentation/profile/view/terms_and_conditions_view.dart';
 import 'package:lastmile/src/presentation/search/view/search_view.dart';
 import 'package:lastmile/src/presentation/widgets/custom_success_screen.dart';
 
@@ -163,6 +170,43 @@ class RouterGenerator {
         return MaterialPageRoute(
           builder: (context) => const ProfileView(),
           settings: const RouteSettings(name: profile),
+        );
+      case my_information:
+        return MaterialPageRoute(
+          builder: (context) => const MyInformationView(),
+          settings: const RouteSettings(name: my_information),
+        );
+      case terms_conditions:
+        return MaterialPageRoute(
+          builder: (context) => const TermsAndConditionsView(),
+          settings: const RouteSettings(name: terms_conditions),
+        );
+      case faqs:
+        return MaterialPageRoute(
+          builder: (context) => const FAQView(),
+          settings: const RouteSettings(name: faqs),
+        );
+      case about_us:
+        return MaterialPageRoute(
+          builder: (context) => const AboutUsView(),
+          settings: const RouteSettings(name: about_us),
+        );
+      case help:
+        return MaterialPageRoute(
+          builder: (context) => const HelpView(),
+          settings: const RouteSettings(name: help),
+        );
+      case change_phone_number:
+        return MaterialPageRoute(
+          builder: (context) => const ChangePhoneNumber(),
+          settings: const RouteSettings(name: change_phone_number),
+        );
+      case change_phone_otp:
+        return MaterialPageRoute(
+          builder: (context) => ChangePhoneOtpView(
+            phone_number: arguments as String,
+          ),
+          settings: const RouteSettings(name: change_phone_otp),
         );
       case search:
         return MaterialPageRoute(

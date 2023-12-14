@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/presentation/profile/view/help_view.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -42,21 +44,31 @@ class _ProfileViewState extends State<ProfileView> {
                           Icons.close,
                           size: 24.sp,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(112.0), // Border radius
-                            color: colorsBlack,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 29.w, vertical: 10.h),
-                            child: Text(
-                              'Help',
-                              style: GoogleFonts.nunito(
-                                color: colorWhite,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w400,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HelpView(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(112.0), // Border radius
+                              color: colorsBlack,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 29.w, vertical: 10.h),
+                              child: Text(
+                                'Help',
+                                style: GoogleFonts.nunito(
+                                  color: colorWhite,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                             ),
                           ),
@@ -158,7 +170,7 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ),
                           onTap: () {
-                            // Navigator.pushNamed(context, RouteList.profile);
+                            Navigator.pushNamed(context, my_information);
                           },
                           trailing: Icon(
                             Icons.arrow_forward_ios,
@@ -185,7 +197,7 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ),
                           onTap: () {
-                            // Navigator.pushNamed(context, RouteList.profile);
+                            Navigator.pushNamed(context, about_us);
                           },
                           trailing: Icon(
                             Icons.arrow_forward_ios,
@@ -212,7 +224,7 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ),
                           onTap: () {
-                            // Navigator.pushNamed(context, RouteList.profile);
+                            Navigator.pushNamed(context, terms_conditions);
                           },
                           trailing: Icon(
                             Icons.arrow_forward_ios,
@@ -239,9 +251,9 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ),
                           onTap: () {
-                            // Navigator.pushNamed(context, RouteList.profile);
+                            Navigator.pushNamed(context, faqs);
                           },
-                         trailing: Icon(
+                          trailing: Icon(
                             Icons.arrow_forward_ios,
                             color: colorGray,
                             size: 20.sp,
@@ -270,6 +282,7 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ),
                           onTap: () {
+                            SystemNavigator.pop();
                             // Navigator.pushNamed(context, RouteList.profile);
                           },
                           trailing: Icon(

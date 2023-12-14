@@ -14,6 +14,8 @@ const forgotPass = "/forgotPass";
 const forgotPass_otp_verify = "/forgotPass_otp_verify";
 const otp_verify = "/otp_verify";
 const reset_password = "/reset_password";
+const change_phone_number = "/change_phone_number";
+const change_phone_otp = "/change_phone_otp";
 
 /// Home Path
 const home = "/home";
@@ -39,6 +41,11 @@ const delivery_success = '/delivery_success';
 
 // Profile Path
 const profile = '/profile';
+const my_information = '/my_information';
+const terms_conditions = '/terms_conditions';
+const faqs = '/faqs';
+const about_us = '/about_us';
+const help = '/help';
 
 // Search Path
 const search = '/search';

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lastmile/src/core/core.dart';
-import 'package:lastmile/src/presentation/auth/login/view/otp_view.dart';
+import 'package:lastmile/src/presentation/auth/login/view/phone_number_otp_view.dart';
 import 'package:lastmile/src/presentation/widgets/custom_text_field.dart';
 // import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -13,7 +15,7 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final signUpFormKey = GlobalKey<FormState>();
   // bool enableSignIn = false;
@@ -25,7 +27,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _phoneNumberController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -105,34 +107,51 @@ class _RegisterViewState extends State<RegisterView> {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
               child: Column(
                 children: [
                   Form(
                     key: signUpFormKey,
                     child: Column(
                       children: [
-                        CustomTextField(
-                          prefixIcon: Icon(
-                            Icons.mail_outline,
-                            color: colorsBlack,
-                          ),
-                          // labelText: 'Email Address',
-                          hintText: '',
-                          controller: _emailController,
-                          legend: 'Email',
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Input a valid email address';
-                            }
-                            if (!value.contains('@')) {
-                              return 'Include @ symbol in your email';
-                            }
-                            return null;
-                          },
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: IntlPhoneField(
+                                initialCountryCode: 'NG',
+                                controller: _phoneNumberController,
+                                decoration: InputDecoration(
+                                  labelText: 'Phone Number',
+                                  labelStyle:
+                                      GoogleFonts.nunito(color: colorGray),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.sp),
+                                    borderSide: const BorderSide(
+                                        color: Color(0xffA4A5A6)),
+                                  ),
+                                  errorStyle: GoogleFonts.nunito(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600),
+                                  hintStyle:
+                                      GoogleFonts.nunito(color: textGray),
+                                  filled: false,
+                                  contentPadding: EdgeInsets.all(14.sp),
+                                ),
+                                onChanged: (phone) {
+                                  print(phone.completeNumber);
+                                },
+                                onCountryChanged: (country) {
+                                  print('Country changed to: ' + country.name);
+                                },
+                              ),
+                            ),
+                            Text(
+                                'We will send a verification code to your number to confirm its you'),
+                          ],
                         ),
-                        // SizedBox(height: 10.h),
+                        SizedBox(height: 10.h),
                         CustomTextField(
                           prefixIcon: Icon(
                             Icons.lock_outline,
@@ -167,16 +186,15 @@ class _RegisterViewState extends State<RegisterView> {
                             ),
                           ),
                         ),
-
                         Padding(
-                          padding: EdgeInsets.only(top: 105.h),
+                          padding: EdgeInsets.only(top: 48.h),
                           child: GestureDetector(
                             onTap: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => OtpView(
-                                    email: 'example@example.com',
+                                  builder: (context) => PhoneNumberOtpView(
+                                    phone_number: _phoneNumberController.text,
                                   ),
                                 ),
                               );
@@ -203,6 +221,45 @@ class _RegisterViewState extends State<RegisterView> {
                               ),
                             ),
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Already have an account? ',
+                              style: TextStyle(
+                                color: Colors.grey.shade700,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            // const SizedBox(
+                            //   width: 10,
+                            // ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(register);
+                              },
+                              child: Text(
+                                'Sign In',
+                                style: TextStyle(
+                                    color: colorPrimary,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
