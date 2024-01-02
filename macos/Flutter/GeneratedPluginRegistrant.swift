@@ -6,6 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import animated_rating_stars
+import connectivity_macos
 import flutter_localization
 import flutter_secure_storage_macos
 import path_provider_foundation
@@ -14,6 +15,7 @@ import sqflite
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   AnimatedRatingStarsPlugin.register(with: registry.registrar(forPlugin: "AnimatedRatingStarsPlugin"))
+  ConnectivityPlugin.register(with: registry.registrar(forPlugin: "ConnectivityPlugin"))
   FlutterLocalizationPlugin.register(with: registry.registrar(forPlugin: "FlutterLocalizationPlugin"))
   FlutterSecureStoragePlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStoragePlugin"))
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))

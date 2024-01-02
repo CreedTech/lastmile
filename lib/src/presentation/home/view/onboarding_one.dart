@@ -35,7 +35,7 @@ class _OnboardingViewOneState extends State<OnboardingViewOne> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/logo_single.png',
                       height: 70.h,
                     ),
                     SizedBox(

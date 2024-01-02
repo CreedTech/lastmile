@@ -56,7 +56,7 @@ class _HelpViewState extends State<HelpView> {
               children: [
                 Center(
                   child: Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/logo_single.png',
                     height: 100.h,
                   ),
                 ),

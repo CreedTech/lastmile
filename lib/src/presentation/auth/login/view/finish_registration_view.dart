@@ -59,7 +59,7 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/logo_single.png',
                       height: 120.h,
                     ),
                     Form(
@@ -196,8 +196,8 @@ class _FinishRegistrationViewState extends State<FinishRegistrationView> {
                                           title: 'Successful',
                                           info:
                                               'More than just a simple package delivery application now has more benefits',
-                                          route: login,
-                                          buttonTitle: 'Login',
+                                          route: home,
+                                          buttonTitle: 'Home',
                                         ),
                                       ),
                                       (route) => false);

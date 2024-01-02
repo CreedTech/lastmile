@@ -5,6 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lastmile/src/core/core.dart';
 // import 'package:lastmile/src/data/datasource/auth/controller/auth_controller.dart';
 import 'package:lastmile/src/presentation/widgets/custom_text_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../data/datasource/auth/controller/auth_controller.dart';
 
 class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
@@ -21,6 +24,21 @@ class _LoginViewConsumerState extends ConsumerState<LoginView> {
   bool obscureText = true;
   bool isChecked = false;
 
+    Future<void> setHasSeenOnboardingPreference(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('hasSeenOnboarding', value);
+    print("====================");
+    print("Checking for new users.....");
+    print(prefs.get('hasSeenOnboarding'));
+    print("====================");
+  }
+
+@override
+  void initState() {
+    setHasSeenOnboardingPreference(true);
+    super.initState();
+  }
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -30,7 +48,7 @@ class _LoginViewConsumerState extends ConsumerState<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    // final authState = ref.watch(authControllerProvider.notifier);
+    final authState = ref.watch(authControllerProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -40,7 +58,7 @@ class _LoginViewConsumerState extends ConsumerState<LoginView> {
         title: Padding(
           padding: EdgeInsets.only(top: 30.h),
           child: Image.asset(
-            'assets/images/logo.png',
+            'assets/images/logo_single.png',
             height: 72.h,
           ),
         ),
@@ -130,9 +148,9 @@ class _LoginViewConsumerState extends ConsumerState<LoginView> {
                             if (value == null || value.isEmpty) {
                               return 'Input a valid password';
                             }
-                            if (value.length < 8) {
-                              return "Min. 8 characters";
-                            }
+                            // if (value.length < 8) {
+                            //   return "Min. 8 characters";
+                            // }
 
                             return null;
                           },
@@ -156,16 +174,16 @@ class _LoginViewConsumerState extends ConsumerState<LoginView> {
                           padding: EdgeInsets.only(top: 105.h),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                home,
-                                (route) => false,
-                              );
-                              // if (loginFormKey.currentState!.validate()) {
-                              //   authState.signIn(
-                              //       context,
-                              //       _emailController.text.trim(),
-                              //       _passwordController.text.trim());
-                              // }
+                              // Navigator.of(context).pushNamedAndRemoveUntil(
+                              //   home,
+                              //   (route) => false,
+                              // );
+                              if (loginFormKey.currentState!.validate()) {
+                                authState.signIn(
+                                    context,
+                                    _emailController.text.trim(),
+                                    _passwordController.text.trim());
+                              }
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width,

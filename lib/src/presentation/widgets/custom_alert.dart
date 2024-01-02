@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/core/core.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../data/api/global_services.dart';
 
 // showAlertDialog(BuildContext context) {
 //   showDialog(
@@ -538,18 +540,38 @@ void resendVerification(BuildContext context) {
                       letterSpacing: 0.3,
                       fontWeight: FontWeight.w800),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      height: 100,
+                SizedBox(height: 20.h),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(200.w, 50.h),
+                    backgroundColor: colorPrimary,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        88,
+                      ),
                     ),
                   ),
-                )
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'Continue',
+                    textAlign: TextAlign.center,
+                  ).normalSized(16).colors(colorWhite),
+                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.of(context).pop();
+                //   },
+                //   child: Align(
+                //     alignment: Alignment.center,
+                //     child: Image.asset(
+                //       'assets/images/logo.png',
+                //       height: 100,
+                //     ),
+                //   ),
+                // )
               ],
             )),
           ),
@@ -575,7 +597,7 @@ void resetPasswordDialog(BuildContext context) {
                 child: Column(
               children: [
                 Lottie.asset(
-                  'assets/images/onboardingOne.json',
+                  'assets/lottie/onboardingOne.json',
                   width: 200,
                   height: 200,
                 ),
@@ -591,7 +613,7 @@ void resetPasswordDialog(BuildContext context) {
                   height: 12,
                 ),
                 Text(
-                  "Your password has been successfully set, and your account is now secure.",
+                  "Your password has been successfully reset.",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.nunito(
                       color: textGray,
@@ -599,29 +621,50 @@ void resetPasswordDialog(BuildContext context) {
                       letterSpacing: 0.3,
                       fontWeight: FontWeight.w800),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      login,
-                      (route) => false,
-                    );
-                    // if (resetPwdFormKey.currentState!.validate()) {
-                    //   // authState.res
-                    // }
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) =>
-                    //             const WelcomeBackScreen()));
-                  },
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      height: 100,
+                SizedBox(height: 20.h),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(200.w, 50.h),
+                    backgroundColor: colorPrimary,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        88,
+                      ),
                     ),
                   ),
-                )
+                  onPressed: () async {
+                    await GlobalService.sharedPreferencesManager
+                        .logOut(context);
+                  },
+                  child: const Text(
+                    'Continue',
+                    textAlign: TextAlign.center,
+                  ).normalSized(16).colors(colorWhite),
+                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.of(context).pushNamedAndRemoveUntil(
+                //       login,
+                //       (route) => false,
+                //     );
+                //     // if (resetPwdFormKey.currentState!.validate()) {
+                //     //   // authState.res
+                //     // }
+                //     // Navigator.push(
+                //     //     context,
+                //     //     MaterialPageRoute(
+                //     //         builder: (context) =>
+                //     //             const WelcomeBackScreen()));
+                //   },
+                //   child: Align(
+                //     alignment: Alignment.center,
+                //     child: Image.asset(
+                //       'assets/images/logo.png',
+                //       height: 100,
+                //     ),
+                //   ),
+                // )
               ],
             )),
           ),

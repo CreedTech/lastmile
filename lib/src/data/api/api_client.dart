@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 import 'package:lastmile/src/core/core.dart';
+import 'package:dio/dio.dart';
 
 class ApiClient {
   String? appBaseUrl = AppConstants.BASE_URL;
@@ -20,12 +21,14 @@ class ApiClient {
   // Update headers with the token
   void updateHeaders(String newToken) {
     token = newToken;
-    _mainHeaders['Authorization'] = 'Bearer $token';
+    _mainHeaders['Authorization'] = 'Inherit from auth';
   }
 /**  Method to send data to backend, don't edit this code  **/
 
   Future<http.Response> postData(String url, body) async {
     print('got to api client');
+    print(url);
+    print(body);
 
     try {
       final response = await http
@@ -35,7 +38,7 @@ class ApiClient {
             headers: {
               'Content-type': 'application/json; charset=UTF-8',
               'Accept': 'application/json',
-              'Authorization': 'Bearer $token',
+              'Authorization': 'Inherit from auth',
             },
             body: body,
           )
@@ -43,11 +46,15 @@ class ApiClient {
 
       if (response.statusCode == 201 || response.statusCode == 200) {
         // Request was successful, return the response
+        print('success');
         print(jsonDecode(response.body).toString());
         return response;
       } else {
         // Request failed with a non-2XX status code
         http.Response('Error: ${response.reasonPhrase}', response.statusCode);
+        print('error');
+        print(
+            'Error: ${response.reasonPhrase}' + response.statusCode.toString());
         print('Failed with non 2XX status code  ' +
             jsonDecode(response.body).toString());
 
@@ -60,11 +67,56 @@ class ApiClient {
     } catch (e) {
       // Handle any other exceptions here
       var resp = http.Response('Error: $e', 504);
+      print(e);
       print('Other exception  ' + resp.reasonPhrase.toString());
 
       return resp;
     }
   }
+
+//   Future<http.Response> postFormData(String url, body) async {
+//   print('got to api client');
+
+//   try {
+//     Dio dio = Dio();
+//     dio.options.headers['Content-Type'] = 'application/json; charset=UTF-8';
+//     dio.options.headers['Accept'] = 'application/json';
+//     dio.options.headers['Authorization'] = 'Bearer $token';
+
+//     FormData formData = FormData.fromMap(body);
+
+//     final response = await dio
+//         .post(
+//           AppConstants.BASE_URL + url,
+//           data: formData,
+//           options: Options(
+//             responseType: ResponseType.json,
+//             receiveDataWhenStatusError: true,
+//           ),
+//         )
+//         .timeout(const Duration(seconds: 30));
+
+//     if (response.statusCode == 201 || response.statusCode == 200) {
+//       // Request was successful, return the response
+//       print(jsonDecode(response.data).toString());
+//       return response;
+//     } else {
+//       // Request failed with a non-2XX status code
+//       print('Failed with non 2XX status code  ' + response.data.toString());
+//       return http.Response(response.data.toString(), response.statusCode);
+//     }
+//   } on TimeoutException {
+//     return http.Response('Network Timeout', 500);
+//   } on DioError catch (e) {
+//     return http.Response('Dio Error: ${e.message}', 500);
+//   } catch (e) {
+//     // Handle any other exceptions here
+//     var resp = http.Response('Error: $e', 504);
+//     print('Other exception  ' + resp.reasonPhrase.toString());
+
+//     return resp;
+//   }
+// }
 
 /*  Method to update data to backend  **/
   Future putData(url, body) async {
@@ -91,7 +143,8 @@ class ApiClient {
   Future getData(url) async {
     print('got to api client');
     try {
-      final response = await http.get(Uri.parse(AppConstants.BASE_URL + url), headers: _mainHeaders);
+      final response = await http.get(Uri.parse(AppConstants.BASE_URL + url),
+          headers: _mainHeaders);
 
       if (response.statusCode == 200) {
         // Request was successful, return the response

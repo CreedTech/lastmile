@@ -86,7 +86,7 @@ class _NavigationViewsState extends State<NavigationViews> {
           child: _buildPage(_selectedIndex),
         ),
         bottomNavigationBar: SizedBox(
-          // height: 80.h,
+          height: 70.h,
           child: BottomNavigationBar(
             type: BottomNavigationBarType.shifting,
             selectedIconTheme: IconThemeData(color: colorPrimary),

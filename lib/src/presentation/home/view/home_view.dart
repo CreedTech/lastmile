@@ -163,7 +163,7 @@ class _HomeViewState extends State<HomeView> {
         title: Column(
           children: [
             Image.asset(
-              'assets/images/logo.png',
+              'assets/images/logo_single.png',
               width: 70.w,
             ),
           ],
@@ -199,6 +199,9 @@ class _HomeViewState extends State<HomeView> {
                         Text('Select Terminal')
                             .normalSized(14.sp)
                             .colors(colorGray),
+                        SizedBox(
+                          height: 8.h,
+                        ),
                         GestureDetector(
                           onTap: () {},
                           child: Row(
@@ -239,6 +242,9 @@ class _HomeViewState extends State<HomeView> {
                               Text('Track your package')
                                   .mediumSized(20.sp)
                                   .colors(colorWhite),
+                              SizedBox(
+                                height: 8.h,
+                              ),
                               Text(
                                 'Please enter your package tracking number gotten from your checkout receipt',
                                 textAlign: TextAlign.center,
@@ -309,6 +315,9 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                               ],
                             ),
+                             SizedBox(
+                          height: 16.h,
+                        ),
                             // Spacer(),
                             deliveries.isEmpty
                                 ? Column(

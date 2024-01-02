@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/data/models/user_model.dart';
@@ -12,9 +13,12 @@ import 'package:lastmile/utils/show_snackbar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+import '../../../../presentation/widgets/custom_loader.dart';
+
 final authControllerProvider =
     StateNotifierProvider<AuthController, AsyncValue<bool>>((ref) {
   final repository = ref.watch(authRepositoryProvider);
+
   return AuthController(repository);
 });
 // AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
@@ -215,25 +219,30 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
       isLoading = true;
       state = const AsyncLoading();
       print('Got here in auth contrl');
-      // EasyLoading.show(
-      //   indicator: CustomLoader(),
-      //   maskType: EasyLoadingMaskType.clear,
-      //   dismissOnTap: true,
-      // );
+      EasyLoading.show(
+        indicator: CustomLoader(),
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+      );
       var response = await authRepository.signIn(user);
-      // EasyLoading.dismiss();
+      EasyLoading.dismiss();
       state = const AsyncData(false);
       print('response.message');
       print(response.message);
       if (response.success == true) {
         isLoading = false;
         // authStatus = AuthStatus.LOGGED_IN;
-        await getUserData(context)
-            .then((value) => Navigator.of(context).pushNamedAndRemoveUntil(
-                  // RouteList.pin_code,
-                  home,
-                  (route) => false,
-                ));
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          // RouteList.pin_code,
+          home,
+          (route) => false,
+        );
+        // await getTerminalsData(context)
+        //     .then((value) => Navigator.of(context).pushNamedAndRemoveUntil(
+        //           // RouteList.pin_code,
+        //           home,
+        //           (route) => false,
+        //         ));
 
         return;
       } else
@@ -242,9 +251,9 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
 
       // check for different reasons to enhance users experience
       if (response.success == false &&
-          response.message.contains("Incorrect credentials")) {
+          response.message.contains("Invalid Credentials")) {
         // authStatus = AuthStatus.NOT_LOGGED_IN;
-        message = "Incorrect credentials";
+        message = "Invalid credentials";
         showTopSnackBar(
           Overlay.of(context),
           CustomSnackBar.error(
@@ -254,6 +263,35 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
         // custTomDialog(context, message,
         //     additionalText:
         //         'Oops! Incorrect credentials. Please double-check your username and password.');
+        return;
+      } else if (response.success == false &&
+          response.message.contains("Account has been disabled for 24 hours")) {
+        // authStatus = AuthStatus.NOT_LOGGED_IN;
+        message = "Oops!! Your Account has been disabled for 24 hours.";
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+        // custTomDialog(context, message,
+        //     additionalText:
+        //         'Oops! Incorrect credentials. Please double-check your username and password.');
+        return;
+      } else if (response.success == false &&
+          response.message.contains("Enter a valid email address")) {
+        print(response.message);
+        print(response.message);
+        // authStatus = AuthStatus.NOT_LOGGED_IN;
+        message = "Enter a valid email address";
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+
+        // Navigator.of(context).pushNamed(otp_verify, arguments: email);
         return;
       } else if (response.success == false &&
           response.message
@@ -270,6 +308,8 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
         // Navigator.of(context).pushNamed(otp_verify, arguments: email);
         return;
       } else {
+        print('response');
+        print(response.message.toString());
         // authStatus = AuthStatus.NOT_LOGGED_IN;
         // to capture other errors later
         message = "Something went wrong";
@@ -292,9 +332,10 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
     } catch (e) {
       // authStatus = AuthStatus.NOT_LOGGED_IN;
       // state = AsyncData(false);
-      // EasyLoading.dismiss();
+      print(e);
+      EasyLoading.dismiss();
       state = AsyncError(e, StackTrace.current);
-      message = "Ooops something went wrong";
+      message = "Ooops something went wrong here";
       showTopSnackBar(
         Overlay.of(context),
         CustomSnackBar.error(
@@ -477,24 +518,30 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
       showSnackBar(context: context, content: 'All fields are required');
       return;
     }
-    Map<String, dynamic> body = {'email': email, 'otp': otp};
+    Map<String, dynamic> body = {'email': email, 'token': otp};
     print("body");
     print(body);
     String message;
 
     try {
-      // EasyLoading.show(
-      //   indicator: CustomLoader(),
-      //   maskType: EasyLoadingMaskType.clear,
-      //   dismissOnTap: true,
-      // );
+      EasyLoading.show(
+        indicator: CustomLoader(),
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+      );
       final response = await authRepository.verifyForgotPasswordOtp(body);
-      // EasyLoading.dismiss();
+      print('response');
+      print(response);
+      EasyLoading.dismiss();
+      state = const AsyncData(false);
       if (response.success) {
+        isLoading = false;
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ResetPasswordView(email: email)));
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResetPasswordView(email: email, token: otp),
+          ),
+        );
         return;
       } else if (response.success == false &&
           response.message.contains("Invalid OTP")) {
@@ -518,8 +565,22 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
         );
 
         return;
+      } else if (response.success == false &&
+          response.message.contains("The OTP password entered is not valid")) {
+        message =
+            "The OTP password entered is not valid. Please check and try again.";
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+
+        return;
       }
     } catch (e) {
+      EasyLoading.dismiss();
+      state = AsyncError(e, StackTrace.current);
       message = "Ooops something went wrong";
       showTopSnackBar(
         Overlay.of(context),
@@ -529,8 +590,9 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
       );
 
       return;
+    } finally {
+      isLoading = false;
     }
-    return;
   }
 
   Future forgotPassword(BuildContext context, email) async {
@@ -547,19 +609,20 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
     try {
       isLoading = true;
       state = const AsyncLoading();
-      // EasyLoading.show(
-      //   indicator: CustomLoader(),
-      //   maskType: EasyLoadingMaskType.clear,
-      //   dismissOnTap: true,
-      // );
+      EasyLoading.show(
+        indicator: CustomLoader(),
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+      );
       var response = await authRepository.forgotPassword(mail);
+      EasyLoading.dismiss();
+      state = const AsyncData(false);
       if (response.success) {
+        isLoading = false;
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ForgotPasswordOtpVerification(
-                email: email
-                ),
+            builder: (context) => ForgotPasswordOtpVerification(email: email),
           ),
         );
         return;
@@ -570,6 +633,16 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
       if (response.success == false &&
           response.message.contains("User not found")) {
         message = "User not found";
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+        return;
+      } else if (response.success == false &&
+          response.message.contains("Invalid Email")) {
+        message = "Invalid Email";
         showTopSnackBar(
           Overlay.of(context),
           CustomSnackBar.error(
@@ -590,7 +663,7 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
         return;
       }
     } catch (e) {
-      // EasyLoading.dismiss();
+      EasyLoading.dismiss();
       state = AsyncError(e, StackTrace.current);
       message = "Ooops something went wrong";
       showTopSnackBar(
@@ -606,29 +679,28 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
     }
   }
 
-  Future resetPassword(
-      BuildContext context, email, newPassword, repeatPassword) async {
+  Future resetPassword(BuildContext context, email, token, newPassword) async {
     print("email");
     print(email);
     print("newPassword");
     print(newPassword);
-    print("repeatPassword");
-    print(repeatPassword);
+    print("token");
+    print(token);
     isLoading = true;
     if (email.isEmpty ||
         email == '' ||
+        token.isEmpty ||
+        token == '' ||
         newPassword.isEmpty ||
-        newPassword == '' ||
-        repeatPassword.isEmpty ||
-        repeatPassword == '') {
+        newPassword == '') {
       showSnackBar(context: context, content: 'All fields are required');
       return;
     }
 
     Map<String, dynamic> params = {
       'email': email,
-      "newPassword": newPassword,
-      'repeatPassword': repeatPassword
+      'token': token,
+      "password": newPassword,
     };
     print('params');
     print(params);
@@ -636,13 +708,16 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
     try {
       isLoading = true;
       state = const AsyncLoading();
-      // EasyLoading.show(
-      //   indicator: CustomLoader(),
-      //   maskType: EasyLoadingMaskType.clear,
-      //   dismissOnTap: true,
-      // );
+      EasyLoading.show(
+        indicator: CustomLoader(),
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+      );
       var response = await authRepository.resetPassword(params);
+      state = const AsyncData(false);
+      EasyLoading.dismiss();
       if (response.success) {
+        isLoading = false;
         resetPasswordDialog(context);
         return;
       } else
@@ -674,6 +749,20 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
         );
 
         return;
+      } else if (response.success == false &&
+          response.message.contains(
+              "The OTP password entered is not valid. Please check and try again.")) {
+        message =
+            "Oops! The OTP password entered is not valid. Please check and try again.!";
+        // cusTomDialog(context, message);
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+
+        return;
       } else {
         // to capture other errors later
         message = "Something went wrong";
@@ -690,7 +779,7 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
         return;
       }
     } catch (e) {
-      // EasyLoading.dismiss();
+      EasyLoading.dismiss();
       state = AsyncError(e, StackTrace.current);
       message = "Ooops something went wrong";
       // custTomDialog(context, message,
@@ -819,6 +908,77 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
       }
     } catch (e) {
       // EasyLoading.dismiss();
+      state = AsyncError(e, StackTrace.current);
+      message = "Ooops something went wrong";
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(
+          message: message,
+        ),
+      );
+
+      return;
+    } finally {
+      isLoading = false;
+      // EasyLoading.dismiss();
+      return;
+    }
+  }
+
+  Future getTerminalsData(BuildContext context) async {
+    isLoading = true;
+    String message;
+    try {
+      isLoading = true;
+      state = const AsyncLoading();
+      // EasyLoading.show(
+      //   indicator: CustomLoader(),
+      //   maskType: EasyLoadingMaskType.clear,
+      //   dismissOnTap: true,
+      // );
+      EasyLoading.show(
+        indicator: CustomLoader(),
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+      );
+      var response = await authRepository.getUserData();
+      state = const AsyncData(false);
+      EasyLoading.dismiss();
+      if (response.success) {
+        // EasyLoading.dismiss();
+        isLoading = false;
+        // notifyListeners();
+        state = AsyncValue.data(true);
+        return;
+      } else
+        print(response.message.toString());
+
+      // check for different reasons to enhance users experience
+      if (response.success == false &&
+          response.message.contains("invalid signature")) {
+        message = "Terminals info could not be retrieved , Try again later.";
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+        return;
+      } else {
+        // to capture other errors later
+        message = "Something went wrong";
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+
+        return;
+      }
+    } catch (e) {
+       print(e);
+      EasyLoading.dismiss();
       state = AsyncError(e, StackTrace.current);
       message = "Ooops something went wrong";
       showTopSnackBar(

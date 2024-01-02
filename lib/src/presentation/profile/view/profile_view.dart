@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/presentation/profile/view/help_view.dart';
 
+import '../../../data/api/global_services.dart';
+
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
 
@@ -281,8 +283,155 @@ class _ProfileViewState extends State<ProfileView> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          onTap: () {
-                            SystemNavigator.pop();
+                          onTap: () async {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (BuildContext context) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      AlertDialog.adaptive(
+                                        contentPadding:
+                                            const EdgeInsets.fromLTRB(
+                                                30, 10, 30, 20),
+                                        elevation: 0,
+                                        alignment: Alignment.bottomCenter,
+                                        insetPadding: const EdgeInsets.all(0),
+                                        scrollable: true,
+                                        title: null,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(30),
+                                            topRight: Radius.circular(30),
+                                          ),
+                                        ),
+                                        content: SizedBox(
+                                          child: SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: Column(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 10.h),
+                                                  child: Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 15.h),
+                                                        child: Align(
+                                                          alignment: Alignment
+                                                              .topCenter,
+                                                          child: Text(
+                                                            'Confirm Log Out',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: GoogleFonts
+                                                                .nunito(
+                                                              color:
+                                                                  colorsBlack,
+                                                              fontSize: 18.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 10.h),
+                                                        child: Column(
+                                                          children: [
+                                                            ElevatedButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                minimumSize:
+                                                                    Size(400.w,
+                                                                        50.h),
+                                                                backgroundColor:
+                                                                    colorPrimary,
+                                                                elevation: 0,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                    88,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              onPressed:
+                                                                  () async {
+                                                                await GlobalService
+                                                                    .sharedPreferencesManager
+                                                                    .logOut(
+                                                                        context);
+                                                              },
+                                                              child: const Text(
+                                                                'Confirm',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              )
+                                                                  .normalSized(
+                                                                      16)
+                                                                  .colors(
+                                                                      colorWhite),
+                                                            ),
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          30.w),
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                                child: Text(
+                                                                  'Cancel',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .nunito(
+                                                                    color:
+                                                                        colorPrimary,
+                                                                    fontSize:
+                                                                        18.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                });
+                            // SystemNavigator.pop();
+                            // await GlobalService.sharedPreferencesManager
+                            //     .logOut(context);
                             // Navigator.pushNamed(context, RouteList.profile);
                           },
                           trailing: Icon(

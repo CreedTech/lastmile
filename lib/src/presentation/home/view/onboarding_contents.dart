@@ -21,7 +21,7 @@ List<OnboardingContents> contents = [
     title: "24 hours delivery",
     image: "assets/images/onboardingTwo.png",
     desc:
-        "We delivery your parcels to every corner, no location is beyond oyr reach",
+        "We deliver your parcels to every corner, no location is beyond our reach",
   ),
   OnboardingContents(
     title: "On demand and runtime location",

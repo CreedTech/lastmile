@@ -187,7 +187,7 @@ class _ForgotPasswordOtpVerificationConsumerState
                             enableActiveFill: false,
                             errorAnimationController: errorController,
                             controller: otpController,
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.text,
                             boxShadows: const [
                               BoxShadow(
                                 offset: Offset(0, 1),
@@ -236,22 +236,22 @@ class _ForgotPasswordOtpVerificationConsumerState
                               ),
                             ),
                             onPressed: () {
-                              // if (otprestpwdFormKey.currentState!.validate()) {
-                              //   authState.verifyForgotPasswordOtp(
-                              //     context,
-                              //     widget.email,
-                              //     otpController.text.trim(),
-                              //   );
-                              //   otpController.clear();
-                              // }
-                              Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ResetPasswordView(
-                                                email: 'widget.email'),
-                                      ),
-                                    );
+                              if (otprestpwdFormKey.currentState!.validate()) {
+                                authState.verifyForgotPasswordOtp(
+                                  context,
+                                  widget.email,
+                                  otpController.text.trim(),
+                                );
+                                otpController.clear();
+                              }
+                              // Navigator.push(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //           builder: (context) =>
+                              //               ResetPasswordView(
+                              //                   email: 'widget.email'),
+                              //         ),
+                              //       );
                               // Navigator.pushAndRemoveUntil(
                               //     context,
                               //     MaterialPageRoute(

@@ -7,6 +7,8 @@ import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/data/api/api_client.dart';
 import 'package:lastmile/src/data/models/response_model.dart';
 
+import '../api/global_services.dart';
+
 final authRepositoryProvider = Provider((ref) {
   final apiClient = ref.read(apiClientProvider);
   return AuthRepository(apiClient);
@@ -16,7 +18,6 @@ class AuthRepository {
   final ApiClient _apiClient;
 
   AuthRepository(this._apiClient);
-
 
   Future<ResponseModel> signUp(body) async {
     print('Got here in auth repo');
@@ -41,19 +42,32 @@ class AuthRepository {
         await _apiClient.postData(AppConstants.LOGIN, jsonEncode(body));
 
     if (response.statusCode == 200) {
-      String token = jsonDecode(response.body)['token'];
-      // await GlobalService.sharedPreferencesManager.setAuthToken(value: token);
+      String token = jsonDecode(response.body)['data']['token'];
+      await GlobalService.sharedPreferencesManager.setAuthToken(value: token);
       print('token');
       print(token);
       responseModel = ResponseModel('logged in', true);
       return responseModel;
     }
+    print(response.body);
     print("Here in repo" + jsonDecode(response.body).toString());
-    var error = jsonDecode(response.body)['errors'].toString();
-    if (jsonDecode(response.body)['error'] ==
+    var error = jsonDecode(response.body)['msg'].toString();
+    print('error first');
+    print(error);
+    // var error2 = jsonDecode(response.body)['fields'];
+    // print('error');
+    // print(error2);
+    if (jsonDecode(response.body)['msg'] ==
         'User not verified, please verify your account') {
       error = 'User not verified, please verify your account';
+    } else if (jsonDecode(response.body)['msg'] == 'Invalid data sent') {
+      error = jsonDecode(response.body)['fields'].toString();
+      print('error here');
+      print(error);
     }
+    // else if (jsonDecode(response.body)['fields']){
+    //   error = 'User not verified, please verify your account';
+    // }
 
 //  Here in repo{error: User not verified, please verify your account}
     //  print("Here in repo" + response.reasonPhrase.toString());
@@ -64,10 +78,10 @@ class AuthRepository {
     print('Got here in otp repo');
     ResponseModel responseModel;
     // Call signIn method in SharedPreferencesManager to get the token
-    // String authToken =
-    //     await GlobalService.sharedPreferencesManager.getAuthToken();
-    // print('authToken');
-    // print(authToken);
+    String authToken =
+        await GlobalService.sharedPreferencesManager.getAuthToken();
+    print('authToken');
+    print(authToken);
 
     // Update the headers in ApiClient with the obtained token
     // _apiClient.updateHeaders(authToken);
@@ -88,10 +102,10 @@ class AuthRepository {
   Future<ResponseModel> resendOTP(email) async {
     ResponseModel responseModel;
     // Call signIn method in SharedPreferencesManager to get the token
-    // String authToken =
-    //     await GlobalService.sharedPreferencesManager.getAuthToken();
-    // print('authToken');
-    // print(authToken);
+    String authToken =
+        await GlobalService.sharedPreferencesManager.getAuthToken();
+    print('authToken');
+    print(authToken);
 
     // Update the headers in ApiClient with the obtained token
     // _apiClient.updateHeaders(authToken);
@@ -111,24 +125,36 @@ class AuthRepository {
     print('Got here in auth repo');
     ResponseModel responseModel;
     // Call signIn method in SharedPreferencesManager to get the token
-    // String authToken =
-    //     await GlobalService.sharedPreferencesManager.getAuthToken();
-    // print('authToken');
-    // print(authToken);
+    String authToken =
+        await GlobalService.sharedPreferencesManager.getAuthToken();
+    print('authToken');
+    print(authToken);
 
     // Update the headers in ApiClient with the obtained token
     // _apiClient.updateHeaders(authToken);
     Response response = await _apiClient.postData(
         AppConstants.FORGOTPASSWORD, jsonEncode(email));
     print('response');
-    print(response);
+    // print(response);
     print(response.body);
     if (response.statusCode == 200) {
       responseModel = ResponseModel("Code sent to your email", true);
       return responseModel;
     }
-    print("Here in repo" + jsonDecode(response.body).toString());
-    var error = jsonDecode(response.body)['errors'].toString();
+    print(response.body);
+    print("Here in repo" + jsonDecode(response.body)['msg'].toString());
+    var error = jsonDecode(response.body)['msg'].toString();
+    var error2 = jsonDecode(response.body)['fields'];
+    print('error');
+    print(error2);
+    if (jsonDecode(response.body)['msg'] ==
+        'User not verified, please verify your account') {
+      error = 'User not verified, please verify your account';
+    } else if (jsonDecode(response.body)['msg'] == 'Invalid data sent') {
+      error = error2.toString();
+      print('error here');
+      print(error);
+    }
 
     //  print("Here in repo" + response.reasonPhrase.toString());
     return responseModel = ResponseModel(error, false);
@@ -139,10 +165,10 @@ class AuthRepository {
     print(body);
     ResponseModel responseModel;
     // Call signIn method in SharedPreferencesManager to get the token
-    // String authToken =
-    //     await GlobalService.sharedPreferencesManager.getAuthToken();
-    // print('authToken');
-    // print(authToken);
+    String authToken =
+        await GlobalService.sharedPreferencesManager.getAuthToken();
+    print('authToken');
+    print(authToken);
 
     // Update the headers in ApiClient with the obtained token
     // _apiClient.updateHeaders(authToken);
@@ -155,8 +181,20 @@ class AuthRepository {
       responseModel = ResponseModel("Password Reset Successful", true);
       return responseModel;
     }
-    print("Here in repo" + jsonDecode(response.body).toString());
-    var error = jsonDecode(response.body)['errors'].toString();
+    print(response.body);
+    print("Here in repo" + jsonDecode(response.body)['msg'].toString());
+    var error = jsonDecode(response.body)['msg'].toString();
+    var error2 = jsonDecode(response.body)['fields'];
+    print('error');
+    print(error2);
+    if (jsonDecode(response.body)['msg'] ==
+        'User not verified, please verify your account') {
+      error = 'User not verified, please verify your account';
+    } else if (jsonDecode(response.body)['msg'] == 'Invalid data sent') {
+      error = error2.toString();
+      print('error here');
+      print(error);
+    }
 
     //  print("Here in repo" + response.reasonPhrase.toString());
     return responseModel = ResponseModel(error, false);
@@ -166,10 +204,10 @@ class AuthRepository {
     print('Got here in auth repo');
     ResponseModel responseModel;
     // Call signIn method in SharedPreferencesManager to get the token
-    // String authToken =
-    //     await GlobalService.sharedPreferencesManager.getAuthToken();
-    // print('authToken');
-    // print(authToken);
+    String authToken =
+        await GlobalService.sharedPreferencesManager.getAuthToken();
+    print('authToken');
+    print(authToken);
 
     // Update the headers in ApiClient with the obtained token
     // _apiClient.updateHeaders(authToken);
@@ -192,10 +230,10 @@ class AuthRepository {
     print('Got here in otp repo');
     ResponseModel responseModel;
     // Call signIn method in SharedPreferencesManager to get the token
-    // String authToken =
-    //     await GlobalService.sharedPreferencesManager.getAuthToken();
-    // print('authToken');
-    // print(authToken);
+    String authToken =
+        await GlobalService.sharedPreferencesManager.getAuthToken();
+    print('authToken');
+    print(authToken);
 
     // Update the headers in ApiClient with the obtained token
     // _apiClient.updateHeaders(authToken);
@@ -217,10 +255,10 @@ class AuthRepository {
     print('Got here in user repo');
     ResponseModel responseModel;
 
-    // String authToken =
-    //     await GlobalService.sharedPreferencesManager.getAuthToken();
-    // print('authToken');
-    // print(authToken);
+    String authToken =
+        await GlobalService.sharedPreferencesManager.getAuthToken();
+    print('authToken');
+    print(authToken);
 
     // Update the headers in ApiClient with the obtained token
     // _apiClient.updateHeaders(authToken);
@@ -236,6 +274,46 @@ class AuthRepository {
     print(
         "Here in verify get user repo" + jsonDecode(response.body).toString());
     var error = jsonDecode(response.body)['errors'].toString();
+
+    //  print("Here in repo" + response.reasonPhrase.toString());
+    return responseModel = ResponseModel(error, false);
+  }
+
+  Future<ResponseModel> getTerminals() async {
+    print('Got here in user repo');
+    ResponseModel responseModel;
+
+    String authToken =
+        await GlobalService.sharedPreferencesManager.getAuthToken();
+    print('authToken');
+    print(authToken);
+
+    // Update the headers in ApiClient with the obtained token
+    // _apiClient.updateHeaders(authToken);
+    Response response = await _apiClient.getData(AppConstants.GET_TERMINALS);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
+      List<dynamic> terminals = responseBody['terminals'];
+      await GlobalService.sharedPreferencesManager.saveTerminals(terminals);
+      responseModel =
+          ResponseModel('Terminals info retrieved successfully', true);
+      return responseModel;
+    }
+    print(response.body);
+    print("Here in repo" + jsonDecode(response.body)['msg'].toString());
+    var error = jsonDecode(response.body)['msg'].toString();
+    var error2 = jsonDecode(response.body)['fields'];
+    print('error');
+    print(error2);
+    if (jsonDecode(response.body)['msg'] ==
+        'User not verified, please verify your account') {
+      error = 'User not verified, please verify your account';
+    } else if (jsonDecode(response.body)['msg'] == 'Invalid data sent') {
+      error = error2.toString();
+      print('error here');
+      print(error);
+    }
 
     //  print("Here in repo" + response.reasonPhrase.toString());
     return responseModel = ResponseModel(error, false);

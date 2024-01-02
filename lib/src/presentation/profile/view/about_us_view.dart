@@ -35,57 +35,81 @@ class _AboutUsViewState extends State<AboutUsView> {
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/images/logo.png',
-                height: 100.h,
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 29.h),
-                child: Text(
-                  'About Us',
-                  style: GoogleFonts.nunito(
-                    fontSize: 32.sp,
-                    fontWeight: FontWeight.w700,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/logo_single.png',
+                  height: 200.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 29.h),
+                  child: Text(
+                    'About Us',
+                    style: GoogleFonts.nunito(
+                      fontSize: 32.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-              ),
-              Text(
-                'At TAA Logistics, we believe that everyone should have access to fast, reliable, and affordable package delivery.',
-                style: GoogleFonts.nunito(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  color: colorGray,
+                Text(
+                  'TAA Connect Logistics is a technology and innovative logistics company. We are dedicated to providing seamless, efficient and secured services using the platform. TAA Connect Logistics envisions a future where logistics is not just a service but a dynamic, and collaborative ecosystem. ',
+                  style: GoogleFonts.nunito(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: colorGray,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.h),
-                child: Image.asset(
-                  'assets/images/about_us.png',
-                  // height: 80.h,
+                // Padding(
+                //   padding: EdgeInsets.symmetric(vertical: 16.h),
+                //   child: Image.asset(
+                //     'assets/images/about_us.png',
+                //     // height: 80.h,
+                //   ),
+                // ),
+                SizedBox(
+                  height: 20.h,
                 ),
-              ),
-              Text(
-                "We understand that your packages are important to you, so we've taken the time to develop a system that is both secure and efficient. Our couriers are all background-checked and insured, and we use the latest tracking technology to ensure that your package is always in good hands.",
-                style: GoogleFonts.nunito(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  color: colorGray,
+                Text(
+                  'Our Goal',
+                  style: GoogleFonts.nunito(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w700,
+                    color: colorsBlack,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                "We also offer a variety of delivery options to meet your needs, whether you need your package delivered same-day, overnight, or at a specific time. And because we're committed to providing our customers with the best possible experience, we offer competitive rates and a money-back satisfaction guarantee.",
-                style: GoogleFonts.nunito(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  color: colorGray,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  child: Text(
+                    "Our goal is to fulfill all logistics and delivery services of individuals, corporate entities, E-commerce, and business owners in Nigeria and beyond. ",
+                    style: GoogleFonts.nunito(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                      color: colorGray,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 20.h,
+                ),
+                Text(
+                  'Our Mission',
+                  style: GoogleFonts.nunito(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w700,
+                    color: colorsBlack,
+                  ),
+                ),
+                Text(
+                  "Our mission is to improve on the existing system by leveraging on cutting-edge technology, skilled and trained riders to ensure that customers package is delivered safely, securely and timely. ",
+                  style: GoogleFonts.nunito(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: colorGray,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

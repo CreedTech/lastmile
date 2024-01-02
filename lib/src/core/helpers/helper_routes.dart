@@ -118,9 +118,8 @@ class RouterGenerator {
         );
       case reset_password:
         return MaterialPageRoute(
-          builder: (context) => ResetPasswordView(
-            email: arguments as String,
-          ),
+          builder: (context) =>
+              ResetPasswordView(email: arguments as String, token: arguments),
           settings: const RouteSettings(name: reset_password),
         );
       case home:

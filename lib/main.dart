@@ -5,12 +5,16 @@ import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/data/api/api_client.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import 'src/data/api/global_services.dart';
 
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient();
 });
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await GlobalService.init(); 
+  // WidgetsFlutterBinding.ensureInitialized();
 
   runApp(ProviderScope(child: MyApp()));
 }
@@ -20,6 +24,23 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
+}
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..indicatorSize = 0.0
+    ..radius = 0.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.transparent
+    ..userInteractions = true
+    ..dismissOnTap = false;
+
+  // ..customAnimation = CustomAnimation();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -130,6 +151,7 @@ class _MyAppState extends State<MyApp> {
         initialRoute: root,
         onGenerateRoute: RouterGenerator().generate,
         onUnknownRoute: RouterGenerator.onUnknownRoute,
+        builder: EasyLoading.init(),
       ),
     );
   }

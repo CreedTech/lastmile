@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lastmile/src/presentation/widgets/custom_success_screen.dart';
 
 import '../../../../core/core.dart';
+import '../../../../data/datasource/auth/controller/auth_controller.dart';
+import '../../../widgets/custom_alert.dart';
 import '../../../widgets/custom_text_field.dart';
 
-class ResetPasswordView extends StatefulWidget {
-  const ResetPasswordView({super.key, required this.email});
+class ResetPasswordView extends ConsumerStatefulWidget {
+  const ResetPasswordView(
+      {super.key, required this.email, required this.token});
   final String email;
+  final String token;
 
   @override
-  State<ResetPasswordView> createState() => _ResetPasswordViewState();
+  ConsumerState<ResetPasswordView> createState() =>
+      _ResetPasswordViewConsumerState();
 }
 
-class _ResetPasswordViewState extends State<ResetPasswordView> {
+class _ResetPasswordViewConsumerState extends ConsumerState<ResetPasswordView> {
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
@@ -21,6 +27,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   bool obscureText = true;
   @override
   Widget build(BuildContext context) {
+    final authState = ref.read(authControllerProvider.notifier);
     return Scaffold(
       backgroundColor: colorWhite,
       appBar: AppBar(
@@ -145,31 +152,18 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      // if (resetpsswdformKey.currentState!
-                                      //     .validate()) {
-                                      //   // Resend Email Verification Code
-                                      //   // authState.resetPassword(
-                                      //   //   context,
-                                      //   //   widget.email,
-                                      //   //   newPasswordController.text.trim(),
-                                      //   //   repeatPasswordController.text.trim(),
-                                      //   // );
-                                      //   // resetPasswordDialog(context);
-                                      // }
-                                      Navigator.pushAndRemoveUntil(
+                                      print(widget.token);
+                                      if (resetpsswdformKey.currentState!
+                                          .validate()) {
+                                        // Resend Email Verification Code
+                                        authState.resetPassword(
                                           context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                CustomSuccessScreen(
-                                              title: 'Successful',
-                                              info:
-                                                  'Password has been changed successfully',
-                                              route: login,
-                                              buttonTitle: 'Login',
-                                            ),
-                                          ),
-                                          (route) => false);
-                                      // Navigator.of(context).pushNamed(otp_verify);
+                                          widget.email,
+                                          widget.token,
+                                          newPasswordController.text.trim(),
+                                        );
+                                        // resetPasswordDialog(context);
+                                      }
                                     },
                                     child: const Text(
                                       'Continue',

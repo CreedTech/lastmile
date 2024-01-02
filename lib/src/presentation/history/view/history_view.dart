@@ -242,7 +242,7 @@ class _HistoryViewState extends State<HistoryView> {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 16.w,
+                  horizontal: 26.w,
                   vertical: 32.h,
                 ),
                 child: Column(
@@ -251,6 +251,9 @@ class _HistoryViewState extends State<HistoryView> {
                       'Order history',
                       style: GoogleFonts.nunito(
                           fontSize: 22.sp, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      height: 16.h,
                     ),
                     Text(
                       'Please enter your package tracking number gotten from your checkout receipt',
@@ -369,7 +372,7 @@ class DeliveryStatusView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 16.w,
+        horizontal: 26.w,
         vertical: 32.h,
       ),
       child: deliveries.isEmpty

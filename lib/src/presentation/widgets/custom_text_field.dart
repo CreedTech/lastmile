@@ -55,6 +55,8 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
         TextFormField(
+          // enableInteractiveSelection: enableInteractiveSelection,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           autofocus: true,
           keyboardType: keyboardType,
           obscureText: obscureText,

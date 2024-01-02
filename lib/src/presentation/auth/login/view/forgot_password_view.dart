@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/presentation/auth/login/view/forgot_password_otp_verify_view.dart';
 import 'package:lastmile/src/presentation/widgets/custom_text_field.dart';
 
-class ForgotPasswordView extends StatefulWidget {
+import '../../../../data/datasource/auth/controller/auth_controller.dart';
+
+class ForgotPasswordView extends ConsumerStatefulWidget {
   const ForgotPasswordView({super.key});
 
   @override
-  State<ForgotPasswordView> createState() => _ForgotPasswordViewState();
+  ConsumerState<ForgotPasswordView> createState() =>
+      _ForgotPasswordViewConsumerState();
 }
 
-class _ForgotPasswordViewState extends State<ForgotPasswordView> {
+class _ForgotPasswordViewConsumerState
+    extends ConsumerState<ForgotPasswordView> {
   final TextEditingController _emailController = TextEditingController();
   final psswdformKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authControllerProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -44,7 +50,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/logo_single.png',
                     // height: 300.h,
                   ),
                   Form(
@@ -93,14 +99,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ForgotPasswordOtpVerification(
-                                                email: 'widget.email'),
-                                      ),
-                                    );
+                                    if (psswdformKey.currentState!.validate()) {
+                                      authState.forgotPassword(
+                                        context,
+                                        _emailController.text.trim(),
+                                      );
+                                      // _emailController.clear();
+                                    }
                                     // Navigator.of(context).pushNamed(otp_verify);
                                   },
                                   child: const Text(

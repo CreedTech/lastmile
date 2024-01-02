@@ -39,7 +39,7 @@ class _RatingsViewState extends State<RatingsView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/logo_single.png',
                     height: 100.h,
                   ),
                   SizedBox(

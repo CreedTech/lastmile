@@ -20,7 +20,7 @@ class _GetStartedViewState extends State<GetStartedView> {
             child: Column(
               children: [
                 Image.asset(
-                  'assets/images/logo.png',
+                  'assets/images/logo_single.png',
                   height: 70.h,
                 ),
                 Image.asset(
@@ -70,7 +70,7 @@ class _GetStartedViewState extends State<GetStartedView> {
                       ).normalSized(16).colors(colorWhite),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 16.h,
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(

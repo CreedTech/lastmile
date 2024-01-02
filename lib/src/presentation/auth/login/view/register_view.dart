@@ -43,7 +43,7 @@ class _RegisterViewState extends State<RegisterView> {
         title: Padding(
           padding: EdgeInsets.only(top: 30.h),
           child: Image.asset(
-            'assets/images/logo.png',
+            'assets/images/logo_single.png',
             height: 72.h,
           ),
         ),
@@ -249,7 +249,7 @@ class _RegisterViewState extends State<RegisterView> {
                             // ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).pushNamed(register);
+                                Navigator.of(context).pushNamed(login);
                               },
                               child: Text(
                                 'Sign In',
