@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lastmile/src/presentation/widgets/custom_success_screen.dart';
 
 import '../../../../core/core.dart';
 import '../../../../data/datasource/auth/controller/auth_controller.dart';
-import '../../../widgets/custom_alert.dart';
 import '../../../widgets/custom_text_field.dart';
 
 class ResetPasswordView extends ConsumerStatefulWidget {

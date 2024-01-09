@@ -44,6 +44,11 @@ class SharedPreferencesManager {
     return _prefs.setBool(HAS_SEEN_ONBOARDING, value);
   }
 
+  Future<void> deleteAuthToken() async {
+    // final prefs = await SharedPreferences.getInstance();
+    await _prefs.remove(TOKEN);
+  }
+
   Future<bool> setAuthToken({required String value}) async {
     // final _prefs = await SharedPreferences.getInstance();
     return _prefs.setString(TOKEN, value);

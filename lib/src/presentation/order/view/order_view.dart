@@ -219,6 +219,7 @@ class _OrderViewState extends State<OrderView> {
                             ),
                           ),
                         ),
+                       
                         Container(
                           width: 8,
                           height: 8,

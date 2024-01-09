@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/data/datasource/auth/controller/terminal_controller.dart';
 import 'package:lastmile/src/presentation/order/view/order_view.dart';
 
 class PickupTerminalView extends StatefulWidget {
@@ -11,6 +14,7 @@ class PickupTerminalView extends StatefulWidget {
 }
 
 class _PickupTerminalViewState extends State<PickupTerminalView> {
+  final TerminalController terminalController = Get.put(TerminalController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,74 +46,115 @@ class _PickupTerminalViewState extends State<PickupTerminalView> {
           child: Center(
             child: Column(
               children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
+                Obx(() {
+                  if (terminalController.terminal.isEmpty) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        PickupTerminalWidget(
-                          name: 'Terminal 1',
-                          address:
-                              'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
-                        ),
-                        PickupTerminalWidget(
-                          name: 'Terminal 1',
-                          address:
-                              'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
-                        ),
-                        PickupTerminalWidget(
-                          name: 'Terminal 1',
-                          address:
-                              'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
-                        ),
-                        PickupTerminalWidget(
-                          name: 'Terminal 1',
-                          address:
-                              'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
-                        ),
-                        PickupTerminalWidget(
-                          name: 'Terminal 1',
-                          address:
-                              'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
-                        ),
+                        // Image.asset(
+                        //   'assets/images/logo.png',
+                        //   height: 200.h,
+                        // ),
+                        Container(
+                          height: 400.h,
+                          child: Center(
+                            child: Text(
+                              "You have no delivery order",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.nunito(
+                                color: colorsBlack,
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        )
                       ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OrderView(
-                          pickup_address:
-                              'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
-                          delivery_address: '',
-                        ),
-                      ),
                     );
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 16.0,
-                      bottom: 80.h,
-                      right: 20.w,
-                      left: 20.w,
-                    ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(vertical: 15.h),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: colorPrimary,
-                        borderRadius: BorderRadius.all(Radius.circular(88.sp)),
-                      ),
-                      child: Text(
-                        'Select Terminal',
-                        style: TextStyle(fontSize: 14.sp, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                )
+                  } else {
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: ListView.builder(
+                                itemCount: terminalController.terminal.length,
+                                itemBuilder: (context, index) {
+                                  final terminal =
+                                      terminalController.terminal[index];
+                                  return Column(
+                                    children: [
+                                      PickupTerminalWidget(
+                                        name: terminal.name,
+                                        address:
+                                            '${terminal.address} ${terminal.state}',
+                                      ),
+                                      // PickupTerminalWidget(
+                                      //   name: 'Terminal 1',
+                                      //   address:
+                                      //       'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
+                                      // ),
+                                      // PickupTerminalWidget(
+                                      //   name: 'Terminal 1',
+                                      //   address:
+                                      //       'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
+                                      // ),
+                                      // PickupTerminalWidget(
+                                      //   name: 'Terminal 1',
+                                      //   address:
+                                      //       'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
+                                      // ),
+                                      // PickupTerminalWidget(
+                                      //   name: 'Terminal 1',
+                                      //   address:
+                                      //       'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
+                                      // ),
+                                    ],
+                                  );
+                                }),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => OrderView(
+                                  pickup_address:
+                                      'No 17 Alhaji Usman complex opp Unity bank, Akpangbo, garaki Abuja',
+                                  delivery_address: '',
+                                ),
+                              ),
+                            );
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              top: 16.0,
+                              bottom: 80.h,
+                              right: 20.w,
+                              left: 20.w,
+                            ),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.symmetric(vertical: 15.h),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: colorPrimary,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(88.sp)),
+                              ),
+                              child: Text(
+                                'Select Terminal',
+                                style: TextStyle(
+                                    fontSize: 14.sp, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    );
+                  }
+                }),
               ],
             ),
           ),
@@ -133,7 +178,7 @@ class PickupTerminalWidget extends StatefulWidget {
 }
 
 class _PickupTerminalWidgetState extends State<PickupTerminalWidget> {
-    String selectedValue = '';
+  String selectedValue = '';
   @override
   Widget build(BuildContext context) {
     return Padding(

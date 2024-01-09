@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 import 'package:lastmile/src/core/core.dart';
-import 'package:dio/dio.dart';
 
 class ApiClient {
   String? appBaseUrl = AppConstants.BASE_URL;

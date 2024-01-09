@@ -6,7 +6,6 @@ import 'package:lastmile/src/core/core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/api/global_services.dart';
-import 'offline/no_internet.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -16,8 +15,8 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  late StreamSubscription<InternetConnectionStatus> _connectivitySubscription;
-  bool isInternetConnected = true;
+  // late StreamSubscription<InternetConnectionStatus> _connectivitySubscription;
+  // bool isInternetConnected = true;
   late bool hasSeenOnboarding = false;
 
   @override
@@ -36,7 +35,7 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void dispose() {
-    _connectivitySubscription.cancel();
+    // _connectivitySubscription.cancel();
     super.dispose();
   }
 
@@ -115,11 +114,11 @@ class _SplashViewState extends State<SplashView> {
     }
   }
 
-  void showNoInternetScreen() {
-    setState(() {
-      isInternetConnected = false;
-    });
-  }
+  // void showNoInternetScreen() {
+  //   setState(() {
+  //     isInternetConnected = false;
+  //   });
+  // }
 
   // void onTryAgain() {
   //   checkConnectivity();

@@ -87,6 +87,7 @@ dependencies:
   flutter_custom_tab_bar: ^1.2.1
   flutter_easyloading:
   iconsax: ^0.0.8
+  get: ^4.6.6
 
 dev_dependencies:
   flutter_test:

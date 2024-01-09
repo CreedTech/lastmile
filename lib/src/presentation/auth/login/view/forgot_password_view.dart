@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lastmile/src/core/core.dart';
-import 'package:lastmile/src/presentation/auth/login/view/forgot_password_otp_verify_view.dart';
 import 'package:lastmile/src/presentation/widgets/custom_text_field.dart';
 
 import '../../../../data/datasource/auth/controller/auth_controller.dart';

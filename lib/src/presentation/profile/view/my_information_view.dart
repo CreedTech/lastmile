@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/core.dart';
 import '../../auth/login/view/forgot_password_view.dart';
-import '../../auth/login/view/reset_password_view.dart';
 
 class MyInformationView extends StatefulWidget {
   const MyInformationView({super.key});

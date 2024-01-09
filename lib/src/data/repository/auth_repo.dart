@@ -6,7 +6,9 @@ import 'package:lastmile/main.dart';
 import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/data/api/api_client.dart';
 import 'package:lastmile/src/data/models/response_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../utils/app_constants.dart';
 import '../api/global_services.dart';
 
 final authRepositoryProvider = Provider((ref) {
@@ -42,14 +44,20 @@ class AuthRepository {
         await _apiClient.postData(AppConstants.LOGIN, jsonEncode(body));
 
     if (response.statusCode == 200) {
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      await GlobalService.sharedPreferencesManager.deleteAuthToken();
+      String authToken =
+          await GlobalService.sharedPreferencesManager.getAuthToken();
+      print('authToken');
+      print(authToken);
       String token = jsonDecode(response.body)['data']['token'];
       await GlobalService.sharedPreferencesManager.setAuthToken(value: token);
       print('token');
       print(token);
       responseModel = ResponseModel('logged in', true);
+      print(jsonDecode(response.body)['data']['role'].toString());
       return responseModel;
     }
-    print(response.body);
     print("Here in repo" + jsonDecode(response.body).toString());
     var error = jsonDecode(response.body)['msg'].toString();
     print('error first');
@@ -87,6 +95,7 @@ class AuthRepository {
     // _apiClient.updateHeaders(authToken);
     Response response =
         await _apiClient.postData(AppConstants.VERIFY_CODE, jsonEncode(body));
+    print(response.body);
 
     if (response.statusCode == 200) {
       responseModel = ResponseModel('User Verified', true);
@@ -265,7 +274,7 @@ class AuthRepository {
     Response response = await _apiClient.getData(AppConstants.GET_USER);
     print(response.statusCode);
     if (response.statusCode == 200) {
-      Map<String, dynamic> responseBody = jsonDecode(response.body);
+      // Map<String, dynamic> responseBody = jsonDecode(response.body);
       // List<dynamic> userDetails = responseBody['userDetails'];
       // await GlobalService.sharedPreferencesManager.saveUserDetails(userDetails);
       responseModel = ResponseModel('User info retrieved successfully', true);

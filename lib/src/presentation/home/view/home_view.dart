@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/presentation/search/view/search_view.dart';
 
 import 'package:lastmile/src/core/core.dart';
+
+import '../../../data/datasource/auth/controller/order_controller.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -13,146 +16,147 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List deliveries = [
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Delivered",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Pending",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Delivered",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Cancelled",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Cancelled",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Cancelled",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Cancelled",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Processing",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "completed",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Pending",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-    {
-      "icon": "assets/icons/truck.png",
-      "status": "Pending",
-      "description": "Macbook Pro 2022",
-      "date": "June 20"
-    },
-  ];
+  final OrderController orderController = Get.put(OrderController());
+  // List deliveries = [
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Delivered",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Pending",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Delivered",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Cancelled",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Cancelled",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Cancelled",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Cancelled",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Processing",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "completed",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Pending",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  //   {
+  //     "icon": "assets/icons/truck.png",
+  //     "status": "Pending",
+  //     "description": "Macbook Pro 2022",
+  //     "date": "June 20"
+  //   },
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -315,203 +319,200 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                               ],
                             ),
-                             SizedBox(
-                          height: 16.h,
-                        ),
+                            SizedBox(
+                              height: 16.h,
+                            ),
                             // Spacer(),
-                            deliveries.isEmpty
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      // Image.asset(
-                                      //   'assets/images/logo.png',
-                                      //   height: 200.h,
-                                      // ),
-                                      Container(
-                                        height: 400.h,
-                                        child: Center(
-                                          child: Text(
-                                            "You have no delivery order",
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.nunito(
-                                              color: colorsBlack,
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.w700,
-                                            ),
+                            Obx(() {
+                              if (orderController.order.isEmpty) {
+                                return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    // Image.asset(
+                                    //   'assets/images/logo.png',
+                                    //   height: 200.h,
+                                    // ),
+                                    Container(
+                                      height: 400.h,
+                                      child: Center(
+                                        child: Text(
+                                          "You have no delivery order",
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.nunito(
+                                            color: colorsBlack,
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.w700,
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  )
-                                : Container(
-                                    height: 470.h,
-                                    child: ListView.builder(
-                                      itemCount: deliveries.length,
-                                      itemBuilder: (context, index) {
-                                        final delivery = deliveries[index];
-                                        return GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                                context, details);
-                                          },
-                                          child: Container(
-                                            height: 100,
-                                            margin:
-                                                const EdgeInsets.only(top: 8),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: Color(0xFFFCFCFC),
-                                              // border: Border.all(
-                                              //   color: const Color(0xFFE1E1E1),
-                                              // ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Color(0xFFFCFCFC)
-                                                      .withOpacity(0.5),
-                                                  spreadRadius: 0,
-                                                  blurRadius: 1,
+                                      ),
+                                    )
+                                  ],
+                                );
+                              } else {
+                                return Container(
+                                  height: 470.h,
+                                  child: ListView.builder(
+                                    itemCount: orderController.order.length,
+                                    itemBuilder: (context, index) {
+                                      final delivery = orderController.order[index];
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(context, details);
+                                        },
+                                        child: Container(
+                                          height: 100,
+                                          margin: const EdgeInsets.only(top: 8),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Color(0xFFFCFCFC),
+                                            // border: Border.all(
+                                            //   color: const Color(0xFFE1E1E1),
+                                            // ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0xFFFCFCFC)
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 0,
+                                                blurRadius: 1,
+                                              ),
+                                            ],
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                              vertical: 10,
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      delivery.title,
+                                                      style: TextStyle(
+                                                        color: colorsBlack,
+                                                        fontSize: 16.sp,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          // Image.asset(
+                                                          //   delivery['status'] ==
+                                                          //           'Pending'
+                                                          //       ? 'assets/icons/Processing.png'
+                                                          //       : delivery['status'] ==
+                                                          //               'Delivered'
+                                                          //           ? 'assets/icons/paid.png'
+                                                          //           : delivery['status'] ==
+                                                          //                   'Cancelled'
+                                                          //               ? 'assets/icons/Cancelled.png'
+                                                          //               : 'assets/icons/Processing.png',
+                                                          //   width: 20.w,
+                                                          //   alignment: Alignment
+                                                          //       .center,
+                                                          // ),
+                                                          SizedBox(
+                                                            width: 5.w,
+                                                          ),
+                                                          // Text(
+                                                          //   delivery['status'] ==
+                                                          //           'Pending'
+                                                          //       ? 'Waiting for Order'
+                                                          //       : delivery['status'] ==
+                                                          //               'Delivered'
+                                                          //           ? 'Payment on Delivery'
+                                                          //           : delivery['status'] ==
+                                                          //                   'Cancelled'
+                                                          //               ? 'Order Cancelled'
+                                                          //               : 'Payment on Delivery',
+                                                          //   textAlign: TextAlign
+                                                          //       .center,
+                                                          //   style: TextStyle(
+                                                          //     fontSize: 14.sp,
+                                                          //     fontWeight:
+                                                          //         FontWeight
+                                                          //             .w400,
+                                                          //   ),
+                                                          // )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    // Text(
+                                                    //   delivery['status'] ==
+                                                    //           'Pending'
+                                                    //       ? 'Waiting for Order'
+                                                    //       : delivery['status'] ==
+                                                    //               'Delivered'
+                                                    //           ? 'Delivered'
+                                                    //           : delivery['status'] ==
+                                                    //                   'Cancelled'
+                                                    //               ? 'Cancelled'
+                                                    //               : 'In Transit',
+                                                    //   style: TextStyle(
+                                                    //     color: delivery[
+                                                    //                 'status'] ==
+                                                    //             'Pending'
+                                                    //         ? colorGray
+                                                    //         : delivery['status'] ==
+                                                    //                 'Delivered'
+                                                    //             ? Color(
+                                                    //                 0xff3BB54A)
+                                                    //             : delivery['status'] ==
+                                                    //                     'Cancelled'
+                                                    //                 ? colorPrimary
+                                                    //                 : Color(
+                                                    //                     0xffFCC60C),
+                                                    //     fontSize: 12.sp,
+                                                    //     fontWeight:
+                                                    //         FontWeight.w400,
+                                                    //   ),
+                                                    // ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 10,
-                                                vertical: 10,
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        delivery['description'],
-                                                        style: TextStyle(
-                                                          color: colorsBlack,
-                                                          fontSize: 16.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Image.asset(
-                                                              delivery['status'] ==
-                                                                      'Pending'
-                                                                  ? 'assets/icons/Processing.png'
-                                                                  : delivery['status'] ==
-                                                                          'Delivered'
-                                                                      ? 'assets/icons/paid.png'
-                                                                      : delivery['status'] ==
-                                                                              'Cancelled'
-                                                                          ? 'assets/icons/Cancelled.png'
-                                                                          : 'assets/icons/Processing.png',
-                                                              width: 20.w,
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 5.w,
-                                                            ),
-                                                            Text(
-                                                              delivery['status'] ==
-                                                                      'Pending'
-                                                                  ? 'Waiting for Order'
-                                                                  : delivery['status'] ==
-                                                                          'Delivered'
-                                                                      ? 'Payment on Delivery'
-                                                                      : delivery['status'] ==
-                                                                              'Cancelled'
-                                                                          ? 'Order Cancelled'
-                                                                          : 'Payment on Delivery',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
-                                                                fontSize: 14.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Text(
-                                                        delivery['status'] ==
-                                                                'Pending'
-                                                            ? 'Waiting for Order'
-                                                            : delivery['status'] ==
-                                                                    'Delivered'
-                                                                ? 'Delivered'
-                                                                : delivery['status'] ==
-                                                                        'Cancelled'
-                                                                    ? 'Cancelled'
-                                                                    : 'In Transit',
-                                                        style: TextStyle(
-                                                          color: delivery['status'] ==
-                                                                  'Pending'
-                                                              ? colorGray
-                                                              : delivery['status'] ==
-                                                                      'Delivered'
-                                                                  ? Color(
-                                                                      0xff3BB54A)
-                                                                  : delivery['status'] ==
-                                                                          'Cancelled'
-                                                                      ? colorPrimary
-                                                                      : Color(
-                                                                          0xffFCC60C),
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
                                           ),
-                                        );
+                                        ),
+                                      );
 
-                                        // ListTile(
-                                        //   title: Text(delivery['description']),
-                                        //   subtitle: Text('${delivery['status']} - ${delivery['date']}'),
-                                        //   leading: Image.asset(delivery['icon']),
-                                        // )
-                                      },
-                                    ),
+                                      // ListTile(
+                                      //   title: Text(delivery['description']),
+                                      //   subtitle: Text('${delivery['status']} - ${delivery['date']}'),
+                                      //   leading: Image.asset(delivery['icon']),
+                                      // )
+                                    },
                                   ),
+                                );
+                              }
+                            })
                           ]),
                         ),
                       ],
