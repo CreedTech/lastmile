@@ -1,6 +1,6 @@
 class AppConstants {
   static const BASE_URL = 'https://taaconnectportal.com';
-    // ======================= AUTH ENDSPOINTS ======================= //
+  // ======================= AUTH ENDPOINTS ======================= //
   static const SIGN_UP = '/api/user/create';
   static const LOGIN = '/auth/login/';
   static const GET_USER = '/api/user/get-user';
@@ -16,13 +16,11 @@ class AppConstants {
   static const TOKEN = '';
   static const PROFILE_PICTURE = '';
 
-  // ======================= ORDERS ENDSPOINTS ======================= //
+  // ======================= ORDERS ENDPOINTS ======================= //
   static const RECENT_ORDER = '/order/recent-order/';
+  static const FILTER_ORDERS = '/order/filter/';
+  static const FETCH_SINGLE_ORDER = '/order/recent-order/';
 
-
-
-
-
-  // ======================= TERMINALS ENDSPOINTS ======================= //
-  static const GET_TERMINALS = '/terminals/admin/manage/';
+  // ======================= TERMINALS ENDPOINTS ======================= //
+  static const GET_TERMINALS = '/last-mile-admin/terminal/info/';
 }

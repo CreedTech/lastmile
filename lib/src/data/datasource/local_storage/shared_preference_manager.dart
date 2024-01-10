@@ -79,7 +79,7 @@ class SharedPreferencesManager {
     return _prefs.setString(TERMINALS, jsonEncode(terminals));
   }
 
-  Future<List<dynamic>> getTerminals() async {
+  List<dynamic> getTerminals() {
     // final prefs = await SharedPreferences.getInstance();
     String terminalsString = _prefs.getString(TERMINALS) ?? '[]';
     print(terminalsString);

@@ -288,43 +288,44 @@ class AuthRepository {
     return responseModel = ResponseModel(error, false);
   }
 
-  Future<ResponseModel> getTerminals() async {
-    print('Got here in user repo');
-    ResponseModel responseModel;
+  // Future<ResponseModel> getTerminals() async {
+  //   print('Got here in user repo');
+  //   ResponseModel responseModel;
 
-    String authToken =
-        await GlobalService.sharedPreferencesManager.getAuthToken();
-    print('authToken');
-    print(authToken);
+  //   String authToken =
+  //       await GlobalService.sharedPreferencesManager.getAuthToken();
+  //   print('authToken');
+  //   print(authToken);
 
-    // Update the headers in ApiClient with the obtained token
-    // _apiClient.updateHeaders(authToken);
-    Response response = await _apiClient.getData(AppConstants.GET_TERMINALS);
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      Map<String, dynamic> responseBody = jsonDecode(response.body);
-      List<dynamic> terminals = responseBody['terminals'];
-      await GlobalService.sharedPreferencesManager.saveTerminals(terminals);
-      responseModel =
-          ResponseModel('Terminals info retrieved successfully', true);
-      return responseModel;
-    }
-    print(response.body);
-    print("Here in repo" + jsonDecode(response.body)['msg'].toString());
-    var error = jsonDecode(response.body)['msg'].toString();
-    var error2 = jsonDecode(response.body)['fields'];
-    print('error');
-    print(error2);
-    if (jsonDecode(response.body)['msg'] ==
-        'User not verified, please verify your account') {
-      error = 'User not verified, please verify your account';
-    } else if (jsonDecode(response.body)['msg'] == 'Invalid data sent') {
-      error = error2.toString();
-      print('error here');
-      print(error);
-    }
+  //   // Update the headers in ApiClient with the obtained token
+  //   // _apiClient.updateHeaders(authToken);
+  //   Response response = await _apiClient.getData(AppConstants.GET_TERMINALS);
+  //   print(response.statusCode);
+  //   if (response.statusCode == 200) {
+  //     Map<String, dynamic> responseBody = jsonDecode(response.body);
+  //     List<dynamic> terminals = responseBody['terminals'];
+  //     await GlobalService.sharedPreferencesManager.saveTerminals(terminals);
+  //     responseModel =
+  //         ResponseModel('Terminals info retrieved successfully', true);
+  //     return responseModel;
+  //   }
+  //   print(response.body);
+  //   print("Here in repo" + jsonDecode(response.body)['msg'].toString());
+  //   var error = jsonDecode(response.body)['msg'].toString();
+  //   var error2 = jsonDecode(response.body)['fields'];
+  //   print('error');
+  //   print(error2);
+  //   if (jsonDecode(response.body)['msg'] ==
+  //       'User not verified, please verify your account') {
+  //     error = 'User not verified, please verify your account';
+  //   } else if (jsonDecode(response.body)['msg'] == 'Invalid data sent') {
+  //     error = error2.toString();
+  //     print('error here');
+  //     print(error);
+  //   }
 
-    //  print("Here in repo" + response.reasonPhrase.toString());
-    return responseModel = ResponseModel(error, false);
-  }
+  //   //  print("Here in repo" + response.reasonPhrase.toString());
+  //   return responseModel = ResponseModel(error, false);
+  // }
+
 }

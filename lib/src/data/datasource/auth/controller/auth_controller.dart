@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/data/datasource/auth/controller/terminal_controller.dart';
 import 'package:lastmile/src/data/models/user_model.dart';
 import 'package:lastmile/src/data/repository/auth_repo.dart';
+import 'package:lastmile/src/data/repository/terminal_repo.dart';
 import 'package:lastmile/src/presentation/auth/login/view/forgot_password_otp_verify_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/login_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/reset_password_view.dart';
@@ -925,7 +927,7 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
     }
   }
 
-  Future getTerminalsData(BuildContext context) async {
+   Future getTerminalsData(BuildContext context) async {
     isLoading = true;
     String message;
     try {
@@ -941,7 +943,7 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
         maskType: EasyLoadingMaskType.black,
         dismissOnTap: false,
       );
-      var response = await authRepository.getUserData();
+      var response = await AppRepository.getTerminals();
       state = const AsyncData(false);
       EasyLoading.dismiss();
       if (response.success) {
@@ -951,7 +953,8 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
         state = AsyncValue.data(true);
         return;
       } else
-        print(response.message.toString());
+        print('response.message.toString()');
+      print(response.message.toString());
 
       // check for different reasons to enhance users experience
       if (response.success == false &&
@@ -977,7 +980,8 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
         return;
       }
     } catch (e) {
-       print(e);
+      print('e here');
+      print(e);
       EasyLoading.dismiss();
       state = AsyncError(e, StackTrace.current);
       message = "Ooops something went wrong";
@@ -995,4 +999,5 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
       return;
     }
   }
+
 }

@@ -25,7 +25,7 @@ class LastMileDB {
         await GlobalService.sharedPreferencesManager.getAuthToken();
     print('authToken');
     print(authToken);
-    while (true) {
+    // while (true) {
       try {
         final response = await http.get(
           Uri.parse(
@@ -68,8 +68,8 @@ class LastMileDB {
       }
 
       // Add a delay before making the next request
-      await Future.delayed(Duration(minutes: 1));
-    }
+      // await Future.delayed(Duration(minutes: 1));
+    // }
   }
 
   void dispose() {

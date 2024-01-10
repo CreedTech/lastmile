@@ -4,23 +4,29 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:lastmile/src/core/core.dart';
 
+import 'global_services.dart';
+
 class ApiClient {
   String? appBaseUrl = AppConstants.BASE_URL;
+  // final authToken = GlobalService.sharedPreferencesManager.getAuthToken();
   late Map<String, String> _mainHeaders;
   String token = "";
 
   ApiClient() {
     // Initialize headers without the token
+    // print(authToken);
     _mainHeaders = {
       'Content-type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
+      // 'Authorization': 'Bearer $authToken'
     };
   }
 
   // Update headers with the token
   void updateHeaders(String newToken) {
     token = newToken;
-    _mainHeaders['Authorization'] = 'Inherit from auth';
+    // _mainHeaders['Authorization'] =
+    //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MjY3Nzg0LCJpYXQiOjE3MDQ4MTgxODQsImp0aSI6IjExNWUyMWE5MmQ1NjQ3Y2U5N2M2MWFlZWRjN2Y3ZWQwIiwidXNlcl9pZCI6MTAsInBheWxvYWQiOiJJM2dVY3pVdzFHNUwwK3ZrLzVCSXM1ZU1SRlk2VUpjQ2xqdjJtVU9BbUYrYVdhV1FISWcxMFA4Sk1GRG9wMkt0akpPVXplZEhCbVZSODdWd2gvWUdzNjJFMFN1NlZpb29QRUhJVGdRbGNNU0l2SmorNk1FUUFlUkdZa2dnZWRHSTFEY1ROemZjV3V6WFNkNnJqWVBTeXFOR0k4dVprbGlqVkVUajVkTHZlUnN3bXcrU2VSYWxzbmkyNTk2NFZ0Ty8ifQ.5ZwHoENFFUmBcXx5edczRUxrAjjIKiEiT6yW95sUEbg';
   }
 /**  Method to send data to backend, don't edit this code  **/
 
@@ -33,12 +39,12 @@ class ApiClient {
       final response = await http
           .post(
             Uri.parse(AppConstants.BASE_URL + url),
-            // headers: _mainHeaders,
-            headers: {
-              'Content-type': 'application/json; charset=UTF-8',
-              'Accept': 'application/json',
-              'Authorization': 'Inherit from auth',
-            },
+            headers: _mainHeaders,
+            // headers: {
+            //   // 'Content-type': 'application/json; charset=UTF-8',
+            //   // 'Accept': 'application/json',
+            //   'Authorization': 'Bearer $token',
+            // },
             body: body,
           )
           .timeout(const Duration(seconds: 30));
@@ -140,13 +146,25 @@ class ApiClient {
 
 /*  Method to accept data from backend  **/
   Future getData(url) async {
+    String authToken =
+        await GlobalService.sharedPreferencesManager.getAuthToken();
+    print(authToken);
     print('got to api client');
     try {
-      final response = await http.get(Uri.parse(AppConstants.BASE_URL + url),
-          headers: _mainHeaders);
+      final response = await http.get(
+        Uri.parse(AppConstants.BASE_URL + url),
+        // headers: _mainHeaders
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $authToken',
+        },
+      );
+      print(_mainHeaders);
 
       if (response.statusCode == 200) {
         // Request was successful, return the response
+        print('response');
         print(jsonDecode(response.body).toString());
         return response;
       } else {
