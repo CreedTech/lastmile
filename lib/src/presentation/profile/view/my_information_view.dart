@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/core.dart';
+import '../../../data/api/global_services.dart';
 import '../../auth/login/view/forgot_password_view.dart';
 
 class MyInformationView extends StatefulWidget {
@@ -13,6 +14,34 @@ class MyInformationView extends StatefulWidget {
 }
 
 class _MyInformationViewState extends State<MyInformationView> {
+  String first_name = '';
+  String last_name = '';
+  String gmail = '';
+  String phone_number = '';
+  @override
+  void initState() {
+    super.initState();
+    initializeData();
+  }
+
+  Future<void> initializeData() async {
+    String firstNameValue =
+        await GlobalService.sharedPreferencesManager.getFirstName();
+    String lastNameValue =
+        await GlobalService.sharedPreferencesManager.getLastName();
+    String gmailValue = await GlobalService.sharedPreferencesManager.getEmail();
+    String phoneNumberValue =
+        await GlobalService.sharedPreferencesManager.getPhone();
+    setState(() {
+      first_name = firstNameValue;
+      last_name = lastNameValue;
+      gmail = gmailValue;
+      phone_number = phoneNumberValue;
+      print('first_name');
+      print(first_name);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +77,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                   color: colorsBlack,
                 ),
                 title: Text(
-                  'Solomon',
+                  '$first_name $last_name',
                   style: GoogleFonts.nunito(
                     color: colorsBlack,
                     fontSize: 18,
@@ -67,7 +96,7 @@ class _MyInformationViewState extends State<MyInformationView> {
                   color: colorsBlack,
                 ),
                 title: Text(
-                  'natureboyyy21@gmail.com',
+                  '$gmail',
                   style: GoogleFonts.nunito(
                     color: colorsBlack,
                     fontSize: 18,

@@ -2,24 +2,21 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:lastmile/main.dart';
+// import 'package:lastmile/main.dart';
 import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/data/api/api_client.dart';
 import 'package:lastmile/src/data/models/response_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../utils/app_constants.dart';
 import '../api/global_services.dart';
 
 final appRepositoryProvider = Provider((ref) {
-  final apiClient = ref.read(apiClientProvider);
-  return AppRepository(apiClient);
+  // final apiClient = ref.read(apiClientProvider);
+  return AppRepository();
 });
 
 class AppRepository {
-  final ApiClient _apiClient;
 
-  AppRepository(this._apiClient);
+  AppRepository();
 
   static Future<ResponseModel> getTerminals() async {
     print('Got here in user repo');
@@ -38,10 +35,10 @@ class AppRepository {
     print('response.body');
     print(response.body);
     if (response.statusCode == 200) {
-       Map<String, dynamic> responseBody = jsonDecode(response.body);
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
       print('responseBody');
       print(responseBody);
-      List<dynamic> terminals = responseBody['data'];
+      dynamic terminals = responseBody['data'];
       await GlobalService.sharedPreferencesManager.saveTerminals(terminals);
       responseModel =
           ResponseModel('Terminals info retrieved successfully', true);

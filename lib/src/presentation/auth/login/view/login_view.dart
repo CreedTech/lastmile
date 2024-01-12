@@ -66,43 +66,44 @@ class _LoginViewConsumerState extends ConsumerState<LoginView> {
       body: SafeArea(
         child: Stack(
           children: [
-            Positioned(
-              // bottom: 0.h,
-              child: Center(
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 20.h),
-                  padding: EdgeInsets.all(15.h),
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                       Text(
-                        'Don\'t have an account? ',style: TextStyle(
-                          color: Colors.grey.shade700,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      // const SizedBox(
-                      //   width: 10,
-                      // ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(register);
-                        },
-                        child: Text(
-                          'Create account',
-                          style: TextStyle(
-                              color: colorPrimary,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   // bottom: 0.h,
+            //   child: Center(
+            //     child: Container(
+            //       margin: EdgeInsets.symmetric(vertical: 20.h),
+            //       padding: EdgeInsets.all(15.h),
+            //       alignment: Alignment.bottomCenter,
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         children: [
+            //            Text(
+            //             'Don\'t have an account? ',style: TextStyle(
+            //               color: Colors.grey.shade700,
+            //               fontSize: 12.sp,
+            //               fontWeight: FontWeight.w400,
+            //             ),
+            //           ),
+            //           // const SizedBox(
+            //           //   width: 10,
+            //           // ),
+            //           GestureDetector(
+            //             onTap: () {
+            //               Navigator.of(context).pushNamed(register);
+            //             },
+            //             child: Text(
+            //               'Create account',
+            //               style: TextStyle(
+            //                   color: colorPrimary,
+            //                 fontSize: 12.sp,
+            //                 fontWeight: FontWeight.w400),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Column(

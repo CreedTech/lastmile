@@ -8,7 +8,8 @@ import '../../../core/core.dart';
 import 'delivery_success_view.dart';
 
 class ConnectingDispatchView extends StatefulWidget {
-  const ConnectingDispatchView({super.key});
+  const ConnectingDispatchView({super.key, required this.title});
+  final String title;
 
   @override
   State<ConnectingDispatchView> createState() => _ConnectingDispatchViewState();
@@ -55,7 +56,10 @@ class _ConnectingDispatchViewState extends State<ConnectingDispatchView>
     // Replace 'YourNextScreen()' with the widget or screen you want to navigate to
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => DeliverySuccessView()),
+      MaterialPageRoute(
+          builder: (context) => DeliverySuccessView(
+                title: widget.title,
+              ),),
     );
   }
 

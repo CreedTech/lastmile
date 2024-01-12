@@ -232,8 +232,13 @@ class _NavigationViewsState extends State<NavigationViews> {
         return const HomeView();
       case 1:
         return OrderView(
+          lng: '',
+          lat: '',
           pickup_address: '',
           delivery_address: '',
+          house_number: '',
+          street: '',
+          area: '',
         );
       case 2:
         return const HistoryView();

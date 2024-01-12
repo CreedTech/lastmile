@@ -1,8 +1,11 @@
+// import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/core.dart';
+import '../../../data/api/global_services.dart';
 
 class OrderThreeView extends StatefulWidget {
   const OrderThreeView(
@@ -15,7 +18,14 @@ class OrderThreeView extends StatefulWidget {
       required this.sender_phone_number,
       required this.receiver_full_name,
       required this.note,
-      required this.receiver_phone_number});
+      required this.receiver_phone_number,
+      required this.lng,
+      required this.lat,
+      required this.terminal_lng,
+      required this.terminal_lat,
+      required this.house_number,
+      required this.street,
+      required this.area});
   final String pickup_address;
   final String delivery_address;
   final String title;
@@ -25,12 +35,53 @@ class OrderThreeView extends StatefulWidget {
   final String receiver_full_name;
   final String receiver_phone_number;
   final String note;
+  final String lng;
+  final String lat;
+  final String terminal_lng;
+  final String terminal_lat;
+  final String house_number;
+  final String street;
+  final String area;
 
   @override
   State<OrderThreeView> createState() => _OrderThreeViewState();
 }
 
 class _OrderThreeViewState extends State<OrderThreeView> {
+  String distance = '';
+  String duration = '';
+  String fee = '';
+  @override
+  void initState() {
+    super.initState();
+    print(widget.lng);
+    // double distance = calculateDistance(
+    //   double.parse(widget.lat),
+    //   double.parse(widget.lng),
+    // );
+    // print('Distance: $distance km');
+    initializeData();
+  }
+
+  Future<void> initializeData() async {
+    final distanceValue =
+        await GlobalService.sharedPreferencesManager.getDistance();
+    final durationValue =
+        await GlobalService.sharedPreferencesManager.getDistance();
+    final feeValue = await GlobalService.sharedPreferencesManager.getDistance();
+    // String address;
+    // String address = terminalValue['address'];
+    setState(() {
+      distance = distanceValue;
+      duration = durationValue;
+      fee = feeValue;
+      print('_terminal');
+      print(distance);
+      print(duration);
+      print(fee);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +156,7 @@ class _OrderThreeViewState extends State<OrderThreeView> {
                         child: Image.asset('assets/images/parcel.png'),
                       ),
                       title: Text(
-                        'Macbook Pro 2022',
+                        widget.title,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
@@ -119,7 +170,7 @@ class _OrderThreeViewState extends State<OrderThreeView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: 110.w,
+                            width: 150.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -127,12 +178,14 @@ class _OrderThreeViewState extends State<OrderThreeView> {
                                   'From',
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12.sp,
-                                      color: colorGray),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12.sp,
+                                    color: colorGray,
+                                  ),
                                 ),
                                 Text(
                                   widget.pickup_address,
+                                  maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -146,7 +199,7 @@ class _OrderThreeViewState extends State<OrderThreeView> {
                             width: 30.w,
                           ),
                           SizedBox(
-                            width: 100.w,
+                            width: 150.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -160,6 +213,7 @@ class _OrderThreeViewState extends State<OrderThreeView> {
                                 ),
                                 Text(
                                   widget.delivery_address,
+                                  maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -253,7 +307,7 @@ class _OrderThreeViewState extends State<OrderThreeView> {
                                           color: colorGray),
                                     ),
                                     Text(
-                                      '2.2 km',
+                                      distance,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -398,3 +452,30 @@ class _OrderThreeViewState extends State<OrderThreeView> {
     );
   }
 }
+
+// double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+//   const double earthRadius = 6371; // Earth's radius in kilometers
+
+//   // Convert degrees to radians
+//   double toRadians(double degree) {
+//     return degree * pi / 180.0;
+//   }
+
+//   // Calculate differences in latitude and longitude
+//   double dLat = toRadians(lat2 - lat1);
+//   double dLon = toRadians(lon2 - lon1);
+
+//   // Haversine formula
+//   double a = sin(dLat / 2) * sin(dLat / 2) +
+//       cos(toRadians(lat1)) *
+//           cos(toRadians(lat2)) *
+//           sin(dLon / 2) *
+//           sin(dLon / 2);
+
+//   double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+//   // Distance in kilometers
+//   double distance = earthRadius * c;
+
+//   return distance;
+// }

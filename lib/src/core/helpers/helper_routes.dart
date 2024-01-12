@@ -137,6 +137,11 @@ class RouterGenerator {
           builder: (context) => OrderView(
             pickup_address: arguments as String,
             delivery_address: arguments,
+            lng: arguments,
+            lat: arguments,
+            house_number: arguments,
+            street: arguments,
+            area: arguments,
           ),
           settings: const RouteSettings(name: order),
         );
@@ -147,6 +152,11 @@ class RouterGenerator {
             delivery_address: arguments,
             title: arguments,
             weight: arguments,
+            lng: arguments,
+            lat: arguments,
+            house_number: arguments,
+            street: arguments,
+            area: arguments,
           ),
           settings: const RouteSettings(name: order_two),
         );
@@ -162,6 +172,13 @@ class RouterGenerator {
             receiver_full_name: arguments,
             receiver_phone_number: arguments,
             note: arguments,
+            terminal_lng: arguments,
+            terminal_lat: arguments,
+            lat: arguments,
+            lng: arguments,
+            house_number: arguments,
+            street: arguments,
+            area: arguments,
           ),
           settings: const RouteSettings(name: order_three),
         );
@@ -214,32 +231,44 @@ class RouterGenerator {
         );
       case details:
         return MaterialPageRoute(
-          builder: (context) => const DetailsView(),
+          builder: (context) => DetailsView(
+            id: arguments as int,
+          ),
           settings: const RouteSettings(name: details),
         );
       case package_details:
         return MaterialPageRoute(
-          builder: (context) => const PackageDetailsView(),
+          builder: (context) => PackageDetailsView(
+            id: arguments as int,
+          ),
           settings: const RouteSettings(name: package_details),
         );
       case pickup_terminal:
         return MaterialPageRoute(
-          builder: (context) => const PickupTerminalView(),
+          builder: (context) => PickupTerminalView(
+            deliveryAddress: arguments as String,
+          ),
           settings: const RouteSettings(name: pickup_terminal),
         );
       case delivery_address:
         return MaterialPageRoute(
-          builder: (context) => const DeliveryAddressView(),
+          builder: (context) => DeliveryAddressView(
+            pickupAddress: arguments as String,
+          ),
           settings: const RouteSettings(name: delivery_address),
         );
       case connecting_dispatch:
         return MaterialPageRoute(
-          builder: (context) => const ConnectingDispatchView(),
+          builder: (context) => ConnectingDispatchView(
+            title: arguments as String,
+          ),
           settings: const RouteSettings(name: connecting_dispatch),
         );
       case delivery_success:
         return MaterialPageRoute(
-          builder: (context) => const DeliverySuccessView(),
+          builder: (context) => DeliverySuccessView(
+            title: arguments as String,
+          ),
           settings: const RouteSettings(name: delivery_success),
         );
       case delivered:

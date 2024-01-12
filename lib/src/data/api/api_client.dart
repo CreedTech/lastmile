@@ -8,7 +8,7 @@ import 'global_services.dart';
 
 class ApiClient {
   String? appBaseUrl = AppConstants.BASE_URL;
-  // final authToken = GlobalService.sharedPreferencesManager.getAuthToken();
+  final authToken = GlobalService.sharedPreferencesManager.getAuthToken();
   late Map<String, String> _mainHeaders;
   String token = "";
 
@@ -25,8 +25,7 @@ class ApiClient {
   // Update headers with the token
   void updateHeaders(String newToken) {
     token = newToken;
-    // _mainHeaders['Authorization'] =
-    //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM2MjY3Nzg0LCJpYXQiOjE3MDQ4MTgxODQsImp0aSI6IjExNWUyMWE5MmQ1NjQ3Y2U5N2M2MWFlZWRjN2Y3ZWQwIiwidXNlcl9pZCI6MTAsInBheWxvYWQiOiJJM2dVY3pVdzFHNUwwK3ZrLzVCSXM1ZU1SRlk2VUpjQ2xqdjJtVU9BbUYrYVdhV1FISWcxMFA4Sk1GRG9wMkt0akpPVXplZEhCbVZSODdWd2gvWUdzNjJFMFN1NlZpb29QRUhJVGdRbGNNU0l2SmorNk1FUUFlUkdZa2dnZWRHSTFEY1ROemZjV3V6WFNkNnJqWVBTeXFOR0k4dVprbGlqVkVUajVkTHZlUnN3bXcrU2VSYWxzbmkyNTk2NFZ0Ty8ifQ.5ZwHoENFFUmBcXx5edczRUxrAjjIKiEiT6yW95sUEbg';
+    _mainHeaders['Authorization'] = 'Bearer $token';
   }
 /**  Method to send data to backend, don't edit this code  **/
 

@@ -72,25 +72,26 @@ class _GetStartedViewState extends State<GetStartedView> {
                     SizedBox(
                       height: 16.h,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(400.w, 50.h),
-                        backgroundColor: colorsBlack,
-                        side: const BorderSide(color: colorsBlack),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              88), // Adjust the radius as needed
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(register);
-                      },
-                      child: const Text(
-                        'Create An Account',
-                        textAlign: TextAlign.center,
-                      ).normalSized(16.sp).colors(colorWhite),
-                    ),
+                    // ElevatedButton(
+                    //   style: ElevatedButton.styleFrom(
+                    //     minimumSize: Size(400.w, 50.h),
+                    //     backgroundColor: colorsBlack,
+                    //     side: const BorderSide(color: colorsBlack),
+                    //     elevation: 0,
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(
+                    //           88), // Adjust the radius as needed
+                    //     ),
+                    //   ),
+                    //   onPressed: () {
+                    //     Navigator.of(context).pushNamed(register);
+                    //   },
+                    //   child: const Text(
+                    //     'Create An Account',
+                    //     textAlign: TextAlign.center,
+                    //   ).normalSized(16.sp).colors(colorWhite),
+                    // ),
+                 
                   ],
                 ),
               ],

@@ -45,7 +45,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   flutter_svg: ^2.0.9
   get_it: ^7.6.4
-  google_fonts: ^6.1.0
+  google_fonts:
   connectivity: ^3.0.6
   internet_connection_checker: ^1.0.0+1
   intl: ^0.18.1
@@ -88,6 +88,8 @@ dependencies:
   flutter_easyloading:
   iconsax: ^0.0.8
   get: ^4.6.6
+  # flutter_google_places:
+  geocoding: ^2.1.1
 
 dev_dependencies:
   flutter_test:

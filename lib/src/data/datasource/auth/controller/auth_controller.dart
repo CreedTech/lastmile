@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lastmile/src/core/core.dart';
-import 'package:lastmile/src/data/datasource/auth/controller/terminal_controller.dart';
 import 'package:lastmile/src/data/models/user_model.dart';
 import 'package:lastmile/src/data/repository/auth_repo.dart';
 import 'package:lastmile/src/data/repository/terminal_repo.dart';
@@ -10,6 +9,7 @@ import 'package:lastmile/src/presentation/auth/login/view/forgot_password_otp_ve
 import 'package:lastmile/src/presentation/auth/login/view/login_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/reset_password_view.dart';
 import 'package:lastmile/src/presentation/auth/login/view/successful_view.dart';
+import 'package:lastmile/src/presentation/order/view/connecting_dispatch_view.dart';
 import 'package:lastmile/src/presentation/widgets/custom_alert.dart';
 import 'package:lastmile/utils/show_snackbar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -354,6 +354,207 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
     } finally {
       isLoading = false;
       return;
+    }
+  }
+
+  Future calculatePoint(BuildContext context, lat, lng) async {
+    print("Fields");
+    print(lat);
+    print(lng);
+    isLoading = true;
+    if (lat.isEmpty || lat == '' || lng.isEmpty || lng == '') {
+      // showSnackBar(context: context, content: 'All fields are required');
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(
+          message: 'All fields are required',
+        ),
+      );
+      return;
+    }
+    Map<String, dynamic> body = {'lat': lat, 'lng': lng};
+    print("body");
+    print(body);
+    String message;
+
+    try {
+      isLoading = true;
+      state = const AsyncLoading();
+      EasyLoading.show(
+        indicator: CustomLoader(),
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+      );
+      final response = await authRepository.calculatePoints(body);
+      EasyLoading.dismiss();
+      if (response.success) {
+        print('response');
+        print(response);
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) => const LoginView()));
+        return;
+      } else if (response.success == false &&
+          response.message.contains("Invalid OTP")) {
+        message = "Invalid OTP";
+        // showSnackBar(context: context, content: message);
+        // custTomDialog(
+        //   context,
+        //   message,
+        // );
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+        return;
+      }
+    } catch (e) {
+      print('e');
+      print(e);
+      message = "Ooops something went wrong";
+      // custTomDialog(context, message);
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(
+          message: message,
+        ),
+      );
+      EasyLoading.dismiss();
+
+      return;
+    } finally {
+      isLoading = false;
+    }
+  }
+
+  Future assignOrder(
+    BuildContext context,
+    lat,
+    lng,
+    title,
+    weight,
+    house_number,
+    street,
+    area,
+    receiver_name,
+    receiver_phone,
+    sender_name,
+    sender_phone,
+    note,
+  ) async {
+    print("Fields");
+    print(lat);
+    print(lng);
+    isLoading = true;
+    if (lat.isEmpty ||
+        lat == '' ||
+        lng.isEmpty ||
+        lng == '' ||
+        title.isEmpty ||
+        title == '' ||
+        weight.isEmpty ||
+        weight == '' ||
+        house_number.isEmpty ||
+        house_number == '' ||
+        street.isEmpty ||
+        street == '' ||
+        area.isEmpty ||
+        area == '' ||
+        receiver_name.isEmpty ||
+        receiver_name == '' ||
+        receiver_phone.isEmpty ||
+        receiver_phone == '' ||
+        sender_name.isEmpty ||
+        sender_name == '' ||
+        sender_phone.isEmpty ||
+        sender_phone == '' ||
+        note.isEmpty ||
+        note == '') {
+      // showSnackBar(context: context, content: 'All fields are required');
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(
+          message: 'All fields are required',
+        ),
+      );
+      return;
+    }
+    Map<String, dynamic> body = {
+      'lat': lat,
+      'lng': lng,
+      'title': title,
+      'weight': weight,
+      'house_number': house_number,
+      'street': street,
+      'area': area,
+      'receiver_name': receiver_name,
+      'receiver_phone': receiver_phone,
+      "sender_name": sender_name,
+      'sender_phone': sender_phone,
+      'note': note,
+    };
+    print("body");
+    print(body);
+    String message;
+
+    try {
+      isLoading = true;
+      state = const AsyncLoading();
+      EasyLoading.show(
+        indicator: CustomLoader(),
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+      );
+      final response = await authRepository.assignOrder(body);
+      EasyLoading.dismiss();
+      if (response.success) {
+        print('response');
+        print(response);
+        // Navigator.of(context).pushNamed(
+        //   connecting_dispatch,
+        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ConnectingDispatchView(
+              title: title,
+            ),
+          ),
+        );
+        return;
+      } else if (response.success == false &&
+          response.message.contains("Invalid OTP")) {
+        message = "Invalid OTP";
+        // showSnackBar(context: context, content: message);
+        // custTomDialog(
+        //   context,
+        //   message,
+        // );
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+        return;
+      }
+    } catch (e) {
+      print('e');
+      print(e);
+      message = "Ooops something went wrong";
+      // custTomDialog(context, message);
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(
+          message: message,
+        ),
+      );
+      EasyLoading.dismiss();
+
+      return;
+    } finally {
+      isLoading = false;
     }
   }
 
@@ -799,6 +1000,118 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
     }
   }
 
+  Future changePhone(BuildContext context, phone) async {
+    // print("email");
+    // print(email);
+    print("phone");
+    print(phone);
+    isLoading = true;
+    if (phone.isEmpty || phone == '') {
+      showSnackBar(context: context, content: 'All fields are required');
+      return;
+    }
+
+    Map<String, dynamic> params = {
+      "phone": phone,
+    };
+    print('params');
+    print(params);
+    String message;
+    try {
+      isLoading = true;
+      state = const AsyncLoading();
+      EasyLoading.show(
+        indicator: CustomLoader(),
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+      );
+      var response = await authRepository.changePhone(params);
+      state = const AsyncData(false);
+      EasyLoading.dismiss();
+      if (response.success) {
+        isLoading = false;
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          // RouteList.pin_code,
+          home,
+          (route) => false,
+        );
+        return;
+      } else
+        print(response.message.toString());
+
+      // check for different reasons to enhance users experience
+      if (response.success == false &&
+          response.message.contains("User not found")) {
+        message = "User not found";
+        // custTomDialog(context, message,
+        //     additionalText:
+        //         'Oops! It seems the email you provided is invalid. Please double-check and try again');
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+        return;
+      } else if (response.success == false &&
+          response.message.contains("Invalid Phone Number")) {
+        message = "Invalid Phone Number";
+        // cusTomDialog(context, message);
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+
+        return;
+      } else if (response.success == false &&
+          response.message.contains("Same phone number.")) {
+        message =
+            "Phone Number cannot be the samme as previous one. Please check and try again.!";
+        // cusTomDialog(context, message);
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+
+        return;
+      } else {
+        // to capture other errors later
+        message = "Something went wrong";
+        // custTomDialog(context, message,
+        //     additionalText:
+        //         'Something went wrong. Please check your internet connection and try again.');
+        showTopSnackBar(
+          Overlay.of(context),
+          CustomSnackBar.error(
+            message: message,
+          ),
+        );
+
+        return;
+      }
+    } catch (e) {
+      EasyLoading.dismiss();
+      state = AsyncError(e, StackTrace.current);
+      message = "Ooops something went wrong";
+      // custTomDialog(context, message,
+      //     additionalText:
+      //         'Something went wrong. Please check your internet connection and try again.');
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(
+          message: message,
+        ),
+      );
+      return;
+    } finally {
+      isLoading = false;
+    }
+  }
+
   Future resendPasswordOtp(BuildContext context, email) async {
     print(email);
     isLoading = true;
@@ -927,7 +1240,7 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
     }
   }
 
-   Future getTerminalsData(BuildContext context) async {
+  Future getTerminalsData(BuildContext context) async {
     isLoading = true;
     String message;
     try {
@@ -999,5 +1312,4 @@ class AuthController extends StateNotifier<AsyncValue<bool>> {
       return;
     }
   }
-
 }

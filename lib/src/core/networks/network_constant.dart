@@ -10,6 +10,7 @@ class AppConstants {
   static const RESEND_PASSWORD_OTP = '/api/user/resend-password-otp';
 
   static const RESET_PASSWORD = '/auth/password-reset/confirm/';
+  static const CHANGE_PHONE = '/auth/profile/phone/';
 
   static const VERIFY_CODE = '/api/auth/verify';
 
@@ -17,10 +18,12 @@ class AppConstants {
   static const PROFILE_PICTURE = '';
 
   // ======================= ORDERS ENDPOINTS ======================= //
+  static const ASSIGN_ORDER = '/order/new/';
   static const RECENT_ORDER = '/order/recent-order/';
   static const FILTER_ORDERS = '/order/filter/';
   static const FETCH_SINGLE_ORDER = '/order/recent-order/';
 
   // ======================= TERMINALS ENDPOINTS ======================= //
   static const GET_TERMINALS = '/last-mile-admin/terminal/info/';
+  static const CALCULATE_POINTS = '/order/distance-lat-long/';
 }

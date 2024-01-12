@@ -3,17 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/core/core.dart';
+import 'package:lastmile/src/presentation/details/view/delivery_address_view.dart';
 import 'package:lastmile/src/presentation/order/view/order_two_view.dart';
 
+import '../../../data/api/global_services.dart';
 import '../../widgets/custom_text_field.dart';
 
 class OrderView extends StatefulWidget {
   const OrderView(
       {super.key,
       required this.pickup_address,
-      required this.delivery_address});
+      required this.delivery_address,
+      required this.lng,
+      required this.lat,
+      required this.house_number,
+      required this.street,
+      required this.area});
   final String pickup_address;
   final String delivery_address;
+  final String lng;
+  final String lat;
+  final String house_number;
+  final String street;
+  final String area;
 
   @override
   State<OrderView> createState() => _OrderViewState();
@@ -23,9 +35,32 @@ class _OrderViewState extends State<OrderView> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
   final packageInfoKey = GlobalKey<FormState>();
+  String _terminal_address = '';
+  String _terminal_state = '';
+
+  @override
+  void initState() {
+    super.initState();
+    initializeData();
+  }
+
+  Future<void> initializeData() async {
+    final terminalValue =
+        await GlobalService.sharedPreferencesManager.getFromSharedPreferences();
+    // String address;
+    // String address = terminalValue['address'];
+    setState(() {
+      _terminal_address = terminalValue['address'];
+      _terminal_state = terminalValue['state'];
+      print('_terminal');
+      print(_terminal_address);
+      print(_terminal_state);
+    });
+  }
 
   @override
   void dispose() {
+    // context.fo
     _titleController.dispose();
     _weightController.dispose();
     super.dispose();
@@ -110,116 +145,187 @@ class _OrderViewState extends State<OrderView> {
                               height: 130,
                               width: double.infinity,
                               padding: EdgeInsets.all(14.sp),
-                              child: widget.pickup_address.length == 0
-                                  ? Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          'Pickup Terminal',
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Pickup Terminal',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.sp,
+                                        ),
+                                      ),
+                                      // Row(
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.spaceBetween,
+                                      //   crossAxisAlignment:
+                                      //       CrossAxisAlignment.end,
+                                      //   children: [
+                                      //     // Text(
+                                      //     //   'Change',
+                                      //     //   style: TextStyle(
+                                      //     //       fontWeight: FontWeight.w400,
+                                      //     //       fontSize: 12.sp,
+                                      //     //       color: colorsBlack),
+                                      //     // ),
+                                      //     // SizedBox(
+                                      //     //   width: 6.w,
+                                      //     // ),
+                                      //     // Icon(
+                                      //     //   Icons.edit_outlined,
+                                      //     //   size: 14,
+                                      //     //   color: colorPrimary,
+                                      //     // ),
+                                      //   ],
+                                      // ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.bottomLeft,
+                                        padding: EdgeInsets.only(top: 8.h),
+                                        width: 300.w,
+                                        child: Text(
+                                          '$_terminal_address, $_terminal_state',
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16.sp,
+                                            color: colorGray,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w400,
                                           ),
+                                          softWrap: true,
                                         ),
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            minimumSize: Size(135.w, 40.h),
-                                            backgroundColor: colorPrimary,
-                                            elevation: 0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                88,
-                                              ),
-                                            ),
-                                          ),
-                                          onPressed: () {
-                                            Navigator.of(context)
-                                                .pushNamed(pickup_terminal);
-                                          },
-                                          child: Text(
-                                            'Select Terminal',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: colorWhite),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Pickup Terminal',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16.sp,
-                                              ),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  'Change',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 12.sp,
-                                                      color: colorsBlack),
-                                                ),
-                                                SizedBox(
-                                                  width: 6.w,
-                                                ),
-                                                Icon(
-                                                  Icons.edit_outlined,
-                                                  size: 14,
-                                                  color: colorPrimary,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.bottomLeft,
-                                              padding:
-                                                  EdgeInsets.only(top: 8.h),
-                                              width: 300.w,
-                                              child: Text(
-                                                widget.pickup_address,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  color: colorGray,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                                softWrap: true,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+                              //  widget.pickup_address.length == 0
+                              //     ? Column(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.spaceAround,
+                              //         children: [
+                              //           Text(
+                              //             'Pickup Terminal',
+                              //             style: TextStyle(
+                              //               fontWeight: FontWeight.w600,
+                              //               fontSize: 16.sp,
+                              //             ),
+                              //           ),
+                              //           ElevatedButton(
+                              //             style: ElevatedButton.styleFrom(
+                              //               minimumSize: Size(135.w, 40.h),
+                              //               backgroundColor: colorPrimary,
+                              //               elevation: 0,
+                              //               shape: RoundedRectangleBorder(
+                              //                 borderRadius:
+                              //                     BorderRadius.circular(
+                              //                   88,
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //             onPressed: () {
+                              //               Navigator.of(context).push(
+                              //                 MaterialPageRoute(
+                              //                   builder: (context) =>
+                              //                       PickupTerminalView(
+                              //                     deliveryAddress:
+                              //                         widget.delivery_address,
+                              //                     // email: email,
+                              //                   ),
+                              //                 ),
+                              //               );
+                              //             },
+                              //             child: Text(
+                              //               'Select Terminal',
+                              //               textAlign: TextAlign.center,
+                              //               style: TextStyle(
+                              //                   fontSize: 14.sp,
+                              //                   fontWeight: FontWeight.w400,
+                              //                   color: colorWhite),
+                              //             ),
+                              //           ),
+                              //         ],
+                              //       )
+                              //     : Column(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.spaceAround,
+                              //         children: [
+                              //           Row(
+                              //             mainAxisAlignment:
+                              //                 MainAxisAlignment.spaceBetween,
+                              //             children: [
+                              //               Text(
+                              //                 'Pickup Terminal',
+                              //                 style: TextStyle(
+                              //                   fontWeight: FontWeight.w600,
+                              //                   fontSize: 16.sp,
+                              //                 ),
+                              //               ),
+                              //               Row(
+                              //                 mainAxisAlignment:
+                              //                     MainAxisAlignment
+                              //                         .spaceBetween,
+                              //                 crossAxisAlignment:
+                              //                     CrossAxisAlignment.end,
+                              //                 children: [
+                              //                   Text(
+                              //                     'Change',
+                              //                     style: TextStyle(
+                              //                         fontWeight:
+                              //                             FontWeight.w400,
+                              //                         fontSize: 12.sp,
+                              //                         color: colorsBlack),
+                              //                   ),
+                              //                   SizedBox(
+                              //                     width: 6.w,
+                              //                   ),
+                              //                   Icon(
+                              //                     Icons.edit_outlined,
+                              //                     size: 14,
+                              //                     color: colorPrimary,
+                              //                   ),
+                              //                 ],
+                              //               ),
+                              //             ],
+                              //           ),
+                              //           Row(
+                              //             mainAxisAlignment:
+                              //                 MainAxisAlignment.start,
+                              //             children: [
+                              //               Container(
+                              //                 alignment: Alignment.bottomLeft,
+                              //                 padding:
+                              //                     EdgeInsets.only(top: 8.h),
+                              //                 width: 300.w,
+                              //                 child: Text(
+                              //                   widget.pickup_address,
+                              //                   maxLines: 2,
+                              //                   overflow: TextOverflow.ellipsis,
+                              //                   style: TextStyle(
+                              //                     color: colorGray,
+                              //                     fontSize: 14.sp,
+                              //                     fontWeight: FontWeight.w400,
+                              //                   ),
+                              //                   softWrap: true,
+                              //                 ),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //         ],
+                              //       ),
                             ),
                           ),
                         ),
-                       
                         Container(
                           width: 8,
                           height: 8,
@@ -284,8 +390,16 @@ class _OrderViewState extends State<OrderView> {
                                             ),
                                           ),
                                           onPressed: () {
-                                            Navigator.of(context)
-                                                .pushNamed(delivery_address);
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DeliveryAddressView(
+                                                  pickupAddress:
+                                                      '$_terminal_address, $_terminal_state',
+                                                  // email: email,
+                                                ),
+                                              ),
+                                            );
                                           },
                                           child: Text(
                                             'Add address',
@@ -313,30 +427,35 @@ class _OrderViewState extends State<OrderView> {
                                                 fontSize: 16.sp,
                                               ),
                                             ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  'Change',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 12.sp,
-                                                      color: colorsBlack),
-                                                ),
-                                                SizedBox(
-                                                  width: 6.w,
-                                                ),
-                                                Icon(
-                                                  Icons.edit_outlined,
-                                                  size: 14,
-                                                  color: colorPrimary,
-                                                ),
-                                              ],
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    'Change',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 12.sp,
+                                                        color: colorsBlack),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 6.w,
+                                                  ),
+                                                  Icon(
+                                                    Icons.edit_outlined,
+                                                    size: 14,
+                                                    color: colorPrimary,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -429,18 +548,26 @@ class _OrderViewState extends State<OrderView> {
                                     //   home,
                                     //   (route) => false,
                                     // );
+                                    print('widget.delivery_address');
+                                    print(widget.delivery_address == '');
                                     if (packageInfoKey.currentState!
-                                        .validate()) {
+                                            .validate() ||
+                                        widget.delivery_address.length != '') {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => OrderTwoView(
+                                            lng: widget.lng,
+                                            lat: widget.lat,
                                             pickup_address:
-                                                widget.pickup_address,
+                                                '$_terminal_address, $_terminal_state',
                                             delivery_address:
                                                 widget.delivery_address,
                                             title: _titleController.text,
                                             weight: _weightController.text,
+                                            house_number: widget.house_number,
+                                            street: widget.street,
+                                            area: widget.area,
                                           ),
                                         ),
                                       );

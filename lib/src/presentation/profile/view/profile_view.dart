@@ -15,6 +15,23 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  String first_name = '';
+  @override
+  void initState() {
+    super.initState();
+    initializeData();
+  }
+
+  Future<void> initializeData() async {
+    String firstNameValue =
+        await GlobalService.sharedPreferencesManager.getFirstName();
+    setState(() {
+      first_name = firstNameValue;
+      print('first_name');
+      print(first_name);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +95,7 @@ class _ProfileViewState extends State<ProfileView> {
                       ],
                     ),
                     Text(
-                      'Hello, Solomon!',
+                      'Hello, $first_name!',
                       style: GoogleFonts.nunito(
                           fontSize: 28.sp,
                           fontWeight: FontWeight.w500,

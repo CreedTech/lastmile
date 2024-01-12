@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/core.dart';
 
 class DeliverySuccessView extends StatefulWidget {
-  const DeliverySuccessView({super.key});
+  const DeliverySuccessView({super.key, required this.title});
+  final String title;
 
   @override
   State<DeliverySuccessView> createState() => _DeliverySuccessViewState();
@@ -200,7 +201,7 @@ class _DeliverySuccessViewState extends State<DeliverySuccessView> {
                             child: GestureDetector(
                               onTap: () {
                                 Navigator.of(context).pushNamed(
-                                  package_details,
+                                  home,
                                 );
                               },
                               child: Container(

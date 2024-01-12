@@ -1,34 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lastmile/src/core/core.dart';
 import 'package:lastmile/src/presentation/order/view/order_three_view.dart';
 
+import '../../../data/api/global_services.dart';
+import '../../../data/datasource/auth/controller/auth_controller.dart';
 import '../../widgets/custom_text_field.dart';
 
-class OrderTwoView extends StatefulWidget {
+class OrderTwoView extends ConsumerStatefulWidget {
   const OrderTwoView(
       {super.key,
       required this.pickup_address,
       required this.delivery_address,
       required this.title,
-      required this.weight});
+      required this.weight,
+      required this.house_number,
+      required this.street,
+      required this.area,
+      required this.lng,
+      required this.lat});
   final String pickup_address;
   final String delivery_address;
   final String title;
   final String weight;
+  final String lng;
+  final String lat;
+  final String house_number;
+  final String street;
+  final String area;
 
   @override
-  State<OrderTwoView> createState() => _OrderTwoViewState();
+  ConsumerState<OrderTwoView> createState() => _OrderTwoViewConsumerState();
 }
 
-class _OrderTwoViewState extends State<OrderTwoView> {
+class _OrderTwoViewConsumerState extends ConsumerState<OrderTwoView> {
   final TextEditingController _senderFullName = TextEditingController();
   final TextEditingController _senderPhoneNumber = TextEditingController();
   final TextEditingController _receiverFullName = TextEditingController();
   final TextEditingController _receiverPhoneNumber = TextEditingController();
   final TextEditingController _note = TextEditingController();
   final stepTwoKey = GlobalKey<FormState>();
+  String _terminal_lng = '';
+  String _terminal_lat = '';
+
+  Future<void> initializeData() async {
+    final terminalValue =
+        await GlobalService.sharedPreferencesManager.getFromSharedPreferences();
+    // String address;
+    // String address = terminalValue['address'];
+    setState(() {
+      _terminal_lng = terminalValue['lng'];
+      _terminal_lat = terminalValue['lat'];
+      print('_terminal');
+      print(_terminal_lng);
+      print(_terminal_lat);
+    });
+  }
 
   @override
   void dispose() {
@@ -42,6 +71,7 @@ class _OrderTwoViewState extends State<OrderTwoView> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authControllerProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -230,27 +260,52 @@ class _OrderTwoViewState extends State<OrderTwoView> {
                                 //   home,
                                 //   (route) => false,
                                 // );
+
+                                print(widget.pickup_address);
+                                print(widget.delivery_address);
+                                print(widget.lng);
+                                print(widget.lat);
+                                print(_terminal_lng);
+                                print(_terminal_lat);
+                                print(widget.delivery_address);
+                                print(widget.delivery_address);
+                                print(widget.delivery_address);
                                 if (stepTwoKey.currentState!.validate()) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => OrderThreeView(
-                                        pickup_address: widget.pickup_address,
-                                        delivery_address:
-                                            widget.delivery_address,
-                                        title: widget.title,
-                                        weight: widget.weight,
-                                        sender_full_name: _senderFullName.text,
-                                        sender_phone_number:
-                                            _senderPhoneNumber.text,
-                                        receiver_full_name:
-                                            _receiverFullName.text,
-                                        note: _note.text,
-                                        receiver_phone_number:
-                                            _receiverPhoneNumber.text,
-                                      ),
-                                    ),
-                                  );
+                                  authState
+                                      .calculatePoint(
+                                          context, widget.lat, widget.lng)
+                                      .then(
+                                        (value) => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                OrderThreeView(
+                                              lng: widget.lng,
+                                              lat: widget.lat,
+                                              terminal_lng: _terminal_lng,
+                                              terminal_lat: _terminal_lat,
+                                              pickup_address:
+                                                  widget.pickup_address,
+                                              delivery_address:
+                                                  widget.delivery_address,
+                                              title: widget.title,
+                                              weight: widget.weight,
+                                              sender_full_name:
+                                                  _senderFullName.text,
+                                              sender_phone_number:
+                                                  _senderPhoneNumber.text,
+                                              receiver_full_name:
+                                                  _receiverFullName.text,
+                                              note: _note.text,
+                                              receiver_phone_number:
+                                                  _receiverPhoneNumber.text,
+                                                  house_number: widget.house_number,
+                                                  street: widget.street,
+                                                  area:widget.area
+                                            ),
+                                          ),
+                                        ),
+                                      );
                                 }
                               },
                               child: Container(

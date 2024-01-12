@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:lastmile/src/presentation/auth/login/view/change_phone_otp_view.dart';
 
 import '../../../../core/core.dart';
+import '../../../../data/datasource/auth/controller/auth_controller.dart';
 
-class ChangePhoneNumber extends StatefulWidget {
+class ChangePhoneNumber extends ConsumerStatefulWidget {
   const ChangePhoneNumber({super.key});
 
   @override
-  State<ChangePhoneNumber> createState() => _ChangePhoneNumberState();
+  ConsumerState<ChangePhoneNumber> createState() =>
+      _ChangePhoneNumberConsumerState();
 }
 
-class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
+class _ChangePhoneNumberConsumerState extends ConsumerState<ChangePhoneNumber> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final changePhoneFormKey = GlobalKey<FormState>();
 
@@ -25,6 +27,7 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.read(authControllerProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -88,20 +91,22 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                   padding: EdgeInsets.only(top: 48.h),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ChangePhoneOtpView(
-                            phone_number: _phoneNumberController.text,
-                          ),
-                        ),
-                      );
-                      // if (loginFormKey.currentState!.validate()) {
-                      //   authState.signIn(
-                      //       context,
-                      //       _emailController.text.trim(),
-                      //       _passwordController.text.trim());
-                      // }
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => ChangePhoneOtpView(
+                      //       phone_number: _phoneNumberController.text,
+                      //     ),
+                      //   ),
+                      // );
+                      print(_phoneNumberController.text);
+                      if (changePhoneFormKey.currentState!.validate()) {
+                        // Resend Email Verification Code
+                        authState.changePhone(
+                          context,
+                          _phoneNumberController.text.trim(),
+                        );
+                      }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
