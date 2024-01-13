@@ -223,14 +223,21 @@ class _DeliverySuccessViewState extends State<DeliverySuccessView> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 29.h),
-                          child: Text(
-                            'Home',
-                            style: TextStyle(
-                              color: colorPrimary,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18.sp,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              home,
+                            );
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 29.h),
+                            child: Text(
+                              'Home',
+                              style: TextStyle(
+                                color: colorPrimary,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 18.sp,
+                              ),
                             ),
                           ),
                         ),

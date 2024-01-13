@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lastmile/src/presentation/order/view/connecting_dispatch_view.dart';
 
 import '../../../core/core.dart';
 import '../../../data/api/global_services.dart';
@@ -424,8 +425,12 @@ class _OrderThreeViewState extends State<OrderThreeView> {
                   padding: EdgeInsets.only(top: 0.h),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed(
-                        connecting_dispatch,
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ConnectingDispatchView(
+                            title: widget.title,
+                          ),
+                        ),
                       );
                     },
                     child: Container(
