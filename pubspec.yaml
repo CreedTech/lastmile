@@ -88,7 +88,8 @@ dependencies:
   flutter_easyloading:
   iconsax: ^0.0.8
   get: ^4.6.6
-  # flutter_google_places:
+  flutter_google_places:
+  google_maps_webservice:
   geocoding: ^2.1.1
 
 dev_dependencies:
