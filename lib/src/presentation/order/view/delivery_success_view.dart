@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/core.dart';
+import '../../../data/api/global_services.dart';
 
 class DeliverySuccessView extends StatefulWidget {
   const DeliverySuccessView({super.key, required this.title});
@@ -13,6 +14,27 @@ class DeliverySuccessView extends StatefulWidget {
 }
 
 class _DeliverySuccessViewState extends State<DeliverySuccessView> {
+  String tracking_code = '';
+  String duration = '';
+  String fee = '';
+  @override
+  void initState() {
+    super.initState();
+    initializeData();
+  }
+
+  Future<void> initializeData() async {
+    final trackingCodeValue =
+        await GlobalService.sharedPreferencesManager.getCode();
+
+    setState(() {
+      tracking_code = trackingCodeValue;
+
+      print('tracking_code');
+      print(tracking_code);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +80,7 @@ class _DeliverySuccessViewState extends State<DeliverySuccessView> {
                   Padding(
                     padding: EdgeInsets.only(top: 32.h),
                     child: Text(
-                      'Macbook Pro 2022',
+                      widget.title,
                       style: GoogleFonts.nunito(
                         fontWeight: FontWeight.w500,
                         fontSize: 22.sp,
@@ -72,7 +94,7 @@ class _DeliverySuccessViewState extends State<DeliverySuccessView> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Tracking ID: BLQ65807654',
+                          'Tracking ID: ${tracking_code}',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 18.sp,

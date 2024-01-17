@@ -151,10 +151,10 @@ class AuthRepository {
       String code = jsonDecode(response.body)['data']['code'];
       String charge = jsonDecode(response.body)['data']['charge'].toString();
       // String fee = jsonDecode(response.body)['data']['fee'].toString();
-      await GlobalService.sharedPreferencesManager.setDistance(value: code);
+      await GlobalService.sharedPreferencesManager.setCode(value: code);
       print('code');
       print(code);
-      await GlobalService.sharedPreferencesManager.setDuration(value: charge);
+      await GlobalService.sharedPreferencesManager.setCharge(value: charge);
       print('charge');
       print(charge);
       // await GlobalService.sharedPreferencesManager.setFee(value: fee);
